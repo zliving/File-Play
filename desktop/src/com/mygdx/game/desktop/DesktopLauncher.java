@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "File Play";
 		config.width = 480;
-		config.height = 320;
+		config.height = 800;
 		new LwjglApplication(new FilePlayMain(), config);
 	}
 }
