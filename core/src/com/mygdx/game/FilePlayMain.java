@@ -13,7 +13,11 @@ public class FilePlayMain extends ApplicationAdapter {
 	SpriteBatch batch;
 	private BitmapFont font;
 	private GlyphLayout fontLayout;
-	
+
+	/*
+		Create class is where you create objects that are needed to be used in the game
+	 */
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -24,6 +28,11 @@ public class FilePlayMain extends ApplicationAdapter {
 		font.getData().setScale(2);
 
 	}
+
+	/*
+		Render class draws objects created in the create class to the screen.
+		It is refreshed at the clock rate of the phones screen
+	 */
 
 	@Override
 	public void render () {
@@ -42,6 +51,12 @@ public class FilePlayMain extends ApplicationAdapter {
 		batch.end();
 
 	}
+
+	/*
+		!! IMPORTANT !!
+		Dispose class removes items from the game and memory as need.
+		When an object is created it must be destroyed.
+	 */
 	
 	@Override
 	public void dispose () {
