@@ -12,27 +12,33 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class FilePlayMain extends ApplicationAdapter {
 	SpriteBatch batch;
 	private BitmapFont font;
-	private GlyphLayout font2;
+	private GlyphLayout fontLayout;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		font2 = new GlyphLayout();
+		fontLayout = new GlyphLayout();
 		font.setColor(Color.TEAL);
+		font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		font.getData().setScale(2);
+
 	}
 
 	@Override
 	public void render () {
 		float width = Gdx.graphics.getWidth();
 		float height = Gdx.graphics.getHeight();
-		float middleScreenWidth = (width/2);
+		float middleScreenWidth = (width/2)-(fontLayout.width/2);
 		float middleScreenHeight = height/2;
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		font.draw(batch,"File Play!",middleScreenWidth,middleScreenHeight);
+		fontLayout.setText(font,"File Play");
+
+		font.draw(batch, fontLayout, middleScreenWidth,middleScreenHeight);
+
 		batch.end();
 
 	}
