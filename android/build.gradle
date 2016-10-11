@@ -125,4 +125,5 @@ idea {
 }
 dependencies {
     compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'com.google.code.gson:gson:2.4'
 }

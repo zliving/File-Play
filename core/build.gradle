@@ -12,4 +12,6 @@ eclipse.project {
 
 dependencies {
     compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'com.mobidevelop.robovm:robovm-rt:2.2.0'
+    compile 'com.google.code.gson:gson:2.4'
 }
