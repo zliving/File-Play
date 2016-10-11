@@ -2,7 +2,7 @@ package Scenes;
 
 import com.badlogic.gdx.Screen;
 
-public class Leaderboards implements Screen{
+public class Leaderboards implements Screen {
     @Override
     public void show() {
 

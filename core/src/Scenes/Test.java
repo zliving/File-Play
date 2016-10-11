@@ -9,18 +9,19 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Test implements Screen{
+public class Test implements Screen {
     SpriteBatch batch;
     private BitmapFont font;
     private GlyphLayout fontLayout;
 
-    public Test(){
+    public Test() {
         batch = new SpriteBatch();
         font = new BitmapFont();
         fontLayout = new GlyphLayout();
         font.setColor(Color.TEAL);
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         font.getData().setScale(2);
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
     }
 
     @Override
@@ -30,15 +31,20 @@ public class Test implements Screen{
 
     @Override
     public void render(float delta) {
+        // Get the width and height of the device screen.
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
-        float middleScreenWidth = (width/2)-(fontLayout.width/2);
-        float middleScreenHeight = height/2;
+        // Calculate where the center of the screen is based on the size of the fontLayout GlyphLayout.
+        float middleScreenWidth = (width / 2) - (fontLayout.width / 2);
+        float middleScreenHeight = height / 2;
 
+        // Set the background to black and clear the color buffer bit.
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        // Begin batch and add items for it to draw.
         batch.begin();
-        fontLayout.setText(font,"File Play");
+        fontLayout.setText(font, "File Play");
 
         font.draw(batch, fontLayout, middleScreenWidth,middleScreenHeight);
 

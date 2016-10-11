@@ -2,13 +2,17 @@ package Scenes;
 
 import com.badlogic.gdx.Screen;
 
+/*
+    GameStateManager switches the current scene depending on which state the game is in, i.e pause, main menu, and play mode.
+ */
+
 public class GameStateManager {
     private Screen currentScreen;
     public enum Screens{
         MAINMENU, SETTINGS, PLAY, LOBBY, LEADERBOARDS, TEST;
     }
 
-    public GameStateManager(){
+    public GameStateManager() {
         setState(Screens.MAINMENU);
     }
 
@@ -16,14 +20,15 @@ public class GameStateManager {
         setState(screen);
     }
 
-    public void setState(Screens state){
-        //Release the sources of the current state
-        if(currentScreen != null){
+    public void setState(Screens state) {
+
+        // Dispose of the current screen and switch to the new one.
+        if(currentScreen != null) {
             currentScreen.dispose();
         }
 
-        //Swtich to the appropriate screen
-        switch (state){
+        // Switch to the appropriate screen.
+        switch (state) {
             case MAINMENU:
                 currentScreen = new MainMenu();
                 break;
@@ -54,11 +59,11 @@ public class GameStateManager {
         }
     }
 
-    public void render(float delta){
+    public void render(float delta) {
         currentScreen.render(delta);
     }
 
-    public void dispose(){
+    public void dispose() {
         currentScreen.dispose();
     }
 

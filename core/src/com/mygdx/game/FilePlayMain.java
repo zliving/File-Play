@@ -20,7 +20,7 @@ public class FilePlayMain extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-        //Create new state manager and start off at test screen
+        // Create new state manager and start off at test screen
         gsm = new GameStateManager(GameStateManager.Screens.TEST);
 	}
 
@@ -31,8 +31,7 @@ public class FilePlayMain extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-        //Render gsm's current screen with the change in time from last
-        //call
+        // Render gsm's current screen with the change in time from last call
         gsm.render(Gdx.graphics.getDeltaTime());
 	}
 
@@ -44,7 +43,7 @@ public class FilePlayMain extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
-        //Dispose of gsm's current screen
+        // Dispose of gsm's current screen
         gsm.dispose();
 	}
 }
