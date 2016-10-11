@@ -12,13 +12,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/android/android.iml" afterPath="$PROJECT_DIR$/android/android.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/android/build.gradle" afterPath="$PROJECT_DIR$/android/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build.gradle" afterPath="$PROJECT_DIR$/core/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/core.iml" afterPath="$PROJECT_DIR$/core/core.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/GameObjects/TriviaGame.java" afterPath="$PROJECT_DIR$/core/src/GameObjects/TriviaGame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/desktop/desktop.iml" afterPath="$PROJECT_DIR$/desktop/desktop.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ios/ios.iml" afterPath="$PROJECT_DIR$/ios/ios.iml" />
     </list>
     <ignored path="File-Play.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,11 +48,12 @@
       <file leaf-file-name="TriviaGame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/GameObjects/TriviaGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="38" column="35" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
+            <state relative-caret-position="780">
+              <caret line="52" column="12" selection-start-line="52" selection-start-column="12" selection-end-line="52" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1011#1026#0" expanded="true" />
+                <element signature="e#975#990#0" expanded="true" />
+                <element signature="e#1431#1447#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2984,7 +2979,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.customizations" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="android.project.structure.last.selected" value="android" />
@@ -3387,7 +3382,8 @@
           <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1011#1026#0" expanded="true" />
+            <element signature="e#975#990#0" expanded="true" />
+            <element signature="e#1431#1447#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3430,7 +3426,8 @@
           <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1011#1026#0" expanded="true" />
+            <element signature="e#975#990#0" expanded="true" />
+            <element signature="e#1431#1447#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3441,7 +3438,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1011#1026#0" expanded="true" />
+            <element signature="e#975#990#0" expanded="true" />
+            <element signature="e#1431#1447#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3626,11 +3624,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/GameObjects/TriviaGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="38" column="35" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
+        <state relative-caret-position="780">
+          <caret line="52" column="12" selection-start-line="52" selection-start-column="12" selection-end-line="52" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1011#1026#0" expanded="true" />
+            <element signature="e#975#990#0" expanded="true" />
+            <element signature="e#1431#1447#0" expanded="true" />
           </folding>
         </state>
       </provider>
