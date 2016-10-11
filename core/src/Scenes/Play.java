@@ -2,11 +2,7 @@ package Scenes;
 
 import com.badlogic.gdx.Screen;
 
-/**
- * Created by zach on 10/6/16.
- */
-
-public class MainMenu implements Screen {
+public class Play implements Screen {
     @Override
     public void show() {
 
