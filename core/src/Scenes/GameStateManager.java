@@ -9,6 +9,7 @@ import com.badlogic.gdx.Screen;
 public class GameStateManager {
 
     private Screen currentScreen;
+
     public enum Screens{
         MAINMENU, SETTINGS, PLAY, LOBBY, LEADERBOARDS, TEST;
     }
