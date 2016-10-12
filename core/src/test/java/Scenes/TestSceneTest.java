@@ -1,4 +1,4 @@
-package main.java.Scenes;
+package Scenes;
 
 import org.junit.Test;
 
