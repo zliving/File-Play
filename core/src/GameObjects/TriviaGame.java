@@ -1,5 +1,8 @@
 package GameObjects;
 
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -22,13 +25,12 @@ import java.util.Map;
 
 public class TriviaGame {
 
-    Gson gson;
 
     public TriviaGame() {
 
     }
 
-    public Map getTrivia() {
+    public void getTrivia() {
 
         try {
             // Build the URL for OpenDB API query.
@@ -41,20 +43,24 @@ public class TriviaGame {
                 as += line;
             }
             //as = StringEscapeUtils.unescapeHtml4(as);
-            gson = new Gson();
+            reader.close();
 
-            Map<String,Object> triviaMap = new HashMap<String,Object>();
-            triviaMap = (Map<String,Object>) gson.fromJson(as, triviaMap.getClass());
-            ArrayList resultsArray = new ArrayList(((ArrayList) triviaMap.get("results")));
-            System.out.println(resultsArray);
+            JsonValue root = new JsonReader().parse(as);
+            JsonValue resultJson = root.get("results");
+            for (JsonValue resultsJson : resultJson.iterator()) // iterator() returns a list of children
+            {
+                System.out.println(resultsJson.getString("question"));
+            }
 
-            return triviaMap;
+            System.out.println();
+
+            //return triviaMap;
 
         } catch (Exception e) {
             Map <String, String> errorMap = new HashMap<String, String>();
             errorMap.put("Error", e.toString());
 
-            return errorMap;
+            //return errorMap;
         }
 
     }

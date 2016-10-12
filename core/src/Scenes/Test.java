@@ -22,7 +22,7 @@ public class Test implements Screen {
         font = new BitmapFont();
         fontLayout = new GlyphLayout();
         newGame = new TriviaGame();
-        System.out.println(newGame.getTrivia());
+        newGame.getTrivia();
         font.setColor(Color.TEAL);
         font.getData().setScale(2);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
