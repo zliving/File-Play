@@ -8,6 +8,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.2.0'
+        classpath "com.neenbedankt.gradle.plugins:android-apt:1.4+"
     }
 }
 
@@ -51,6 +52,7 @@ project(":android") {
 
     dependencies {
         compile project(":core")
+        apt "com.squareup.dagger:dagger-compiler:1.2.2"
         compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
@@ -79,6 +81,8 @@ project(":core") {
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compile "com.squareup.dagger:dagger:1.2.2"
+        compile "com.squareup.dagger:dagger-compiler:1.2.2"
 
         // Test dependencies.
         testCompile "junit:junit:4.11"
