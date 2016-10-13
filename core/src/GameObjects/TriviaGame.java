@@ -67,7 +67,7 @@ public class TriviaGame {
             return questions;
 
         } catch (Exception e) {
-            
+
             //Send an error back to user if questions can't be retrieved.
             Array<TriviaQuestions> errorArray = new Array<TriviaQuestions>();
             TriviaQuestions errorQuestion = new TriviaQuestions();
