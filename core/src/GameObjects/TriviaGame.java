@@ -1,20 +1,11 @@
 package GameObjects;
 
-import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +21,7 @@ public class TriviaGame {
 
     }
 
-    public void getTrivia() {
+    public Array<TriviaQuestions> getTrivia() {
 
         try {
             // Build the URL for OpenDB API query.
@@ -47,14 +38,22 @@ public class TriviaGame {
 
             JsonValue root = new JsonReader().parse(as);
             JsonValue resultJson = root.get("results");
-            for (JsonValue resultsJson : resultJson.iterator()) // iterator() returns a list of children
-            {
-                System.out.println(resultsJson.getString("question"));
+            Array<TriviaQuestions> questions = new Array<TriviaQuestions>();
+            for (JsonValue resultsJson : resultJson.iterator()) {
+                TriviaQuestions newQuestion = new TriviaQuestions();
+                newQuestion.question = resultsJson.getString("question");
+                newQuestion.correctAnswer = (resultsJson.getString("correct_answer"));
+                newQuestion.incorrectAnswers = (resultsJson.get("incorrect_answers").asStringArray());
+                questions.add(newQuestion);
+            }
+            for(int i = 0; i < questions.size; i++ ) {
+                System.out.println(questions.get(i).question);
+                System.out.println(questions.get(i).incorrectAnswers[i]);
+                System.out.println(questions.get(i).correctAnswer);
             }
 
-            System.out.println();
 
-            //return triviaMap;
+            return questions;
 
         } catch (Exception e) {
             Map <String, String> errorMap = new HashMap<String, String>();
@@ -62,7 +61,7 @@ public class TriviaGame {
 
             //return errorMap;
         }
-
+        return null;
     }
 
 }

@@ -6,7 +6,8 @@ package GameObjects;
 
 public class TriviaQuestions {
 
-    private String question;
-    private String[] answers;
+    public String question;
+    public String[] incorrectAnswers;
+    public String correctAnswer;
 
 }
