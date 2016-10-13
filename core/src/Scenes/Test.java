@@ -21,7 +21,8 @@ public class Test implements Screen {
         batch = new SpriteBatch();
         font = new BitmapFont();
         fontLayout = new GlyphLayout();
-        newGame = new TriviaGame();
+        String url = "http://www.opentdb.com/api.php?amount=2";
+        newGame = new TriviaGame(url);
         newGame.getTrivia();
         font.setColor(Color.TEAL);
         font.getData().setScale(2);

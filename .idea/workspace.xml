@@ -13,6 +13,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/GameObjects/TriviaGame.java" afterPath="$PROJECT_DIR$/core/src/GameObjects/TriviaGame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/Scenes/Test.java" afterPath="$PROJECT_DIR$/core/src/Scenes/Test.java" />
     </list>
     <ignored path="File-Play.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,11 +49,11 @@
       <file leaf-file-name="TriviaGame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/GameObjects/TriviaGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="51" column="77" selection-start-line="51" selection-start-column="77" selection-end-line="51" selection-end-column="77" />
+            <state relative-caret-position="720">
+              <caret line="48" column="105" selection-start-line="48" selection-start-column="105" selection-end-line="48" selection-end-column="105" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1071#1088#0" expanded="true" />
+                <element signature="e#1209#1226#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -103,8 +104,8 @@
       <file leaf-file-name="Test.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/Scenes/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+            <state relative-caret-position="210">
+              <caret line="23" column="62" selection-start-line="23" selection-start-column="62" selection-end-line="23" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -2885,9 +2886,9 @@
         <option value="$PROJECT_DIR$/core/src/Scenes/GameStateManager.java" />
         <option value="$PROJECT_DIR$/android/build.gradle" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/core/src/Scenes/Test.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/FilePlayMain.java" />
         <option value="$PROJECT_DIR$/core/src/GameObjects/TriviaQuestions.java" />
+        <option value="$PROJECT_DIR$/core/src/Scenes/Test.java" />
         <option value="$PROJECT_DIR$/core/src/GameObjects/TriviaGame.java" />
       </list>
     </option>
@@ -3440,7 +3441,7 @@
           <caret line="44" column="55" selection-start-line="44" selection-start-column="55" selection-end-line="44" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1071#1088#0" expanded="true" />
+            <element signature="e#1209#1226#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3485,7 +3486,7 @@
           <caret line="44" column="55" selection-start-line="44" selection-start-column="55" selection-end-line="44" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1071#1088#0" expanded="true" />
+            <element signature="e#1209#1226#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3528,7 +3529,7 @@
           <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1071#1088#0" expanded="true" />
+            <element signature="e#1209#1226#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3571,7 +3572,7 @@
           <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1071#1088#0" expanded="true" />
+            <element signature="e#1209#1226#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3582,7 +3583,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1071#1088#0" expanded="true" />
+            <element signature="e#1209#1226#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3735,14 +3736,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/Scenes/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/Scenes/MainMenu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -3785,13 +3778,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/Scenes/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="23" column="62" selection-start-line="23" selection-start-column="62" selection-end-line="23" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/GameObjects/TriviaGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="51" column="77" selection-start-line="51" selection-start-column="77" selection-end-line="51" selection-end-column="77" />
+        <state relative-caret-position="720">
+          <caret line="48" column="105" selection-start-line="48" selection-start-column="105" selection-end-line="48" selection-end-column="105" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1071#1088#0" expanded="true" />
+            <element signature="e#1209#1226#0" expanded="true" />
           </folding>
         </state>
       </provider>

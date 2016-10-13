@@ -3,6 +3,9 @@ package GameObjects;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -12,12 +15,14 @@ import java.util.Map;
 
 /**
  * Created by zach on 10/11/16.
+ * TriviaGame class opens the connection to the Open
  */
 
 public class TriviaGame {
+    private String triviaUrl;
 
-
-    public TriviaGame() {
+    public TriviaGame(String url) {
+        triviaUrl = url;
 
     }
 
@@ -25,7 +30,7 @@ public class TriviaGame {
 
         try {
             // Build the URL for OpenDB API query.
-            URL url = new URL("http://www.opentdb.com/api.php?amount=2");
+            URL url = new URL(triviaUrl);
             String as = "";
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
@@ -41,7 +46,7 @@ public class TriviaGame {
             Array<TriviaQuestions> questions = new Array<TriviaQuestions>();
             for (JsonValue resultsJson : resultJson.iterator()) {
                 TriviaQuestions newQuestion = new TriviaQuestions();
-                newQuestion.question = resultsJson.getString("question");
+                newQuestion.question = StringEscapeUtils.unescapeHtml4(resultsJson.getString("question"));
                 newQuestion.correctAnswer = (resultsJson.getString("correct_answer"));
                 newQuestion.incorrectAnswers = (resultsJson.get("incorrect_answers").asStringArray());
                 questions.add(newQuestion);
