@@ -9,15 +9,22 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import GameObjects.BuildTriviaQuestions;
+
+
 public class Test implements Screen {
     SpriteBatch batch;
     private BitmapFont font;
     private GlyphLayout fontLayout;
+    private BuildTriviaQuestions newGame;
 
     public Test() {
         batch = new SpriteBatch();
         font = new BitmapFont();
         fontLayout = new GlyphLayout();
+        String url = "http://www.opentdb.com/api.php?amount=2";
+        newGame = new BuildTriviaQuestions(url);
+        newGame.getTriviaQuestions();
         font.setColor(Color.TEAL);
         font.getData().setScale(2);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -45,7 +52,6 @@ public class Test implements Screen {
         // Begin batch and add items for it to draw.
         batch.begin();
         fontLayout.setText(font, "File Play");
-
         font.draw(batch, fontLayout, middleScreenWidth,middleScreenHeight);
 
         batch.end();
