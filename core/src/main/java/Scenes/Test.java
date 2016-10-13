@@ -23,8 +23,8 @@ public class Test implements Screen {
         font = new BitmapFont();
         fontLayout = new GlyphLayout();
         String url = "http://www.opentdb.com/api.php?amount=2";
-        newTriviaRound = new BuildTriviaQuestions(url);
-        newTriviaRound.getTriviaQuestions();
+        newTriviaRound = new BuildTriviaQuestions();
+        newTriviaRound.getTriviaQuestions(url);
         font.setColor(Color.TEAL);
         font.getData().setScale(2);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);

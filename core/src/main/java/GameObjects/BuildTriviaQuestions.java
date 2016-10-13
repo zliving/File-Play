@@ -23,13 +23,13 @@ import java.net.URL;
  */
 
 public class BuildTriviaQuestions {
-    private String triviaApiUrl;
 
-    public BuildTriviaQuestions(String apiUrl) {
-        triviaApiUrl = apiUrl;
+
+    public BuildTriviaQuestions() {
+
     }
 
-    public Array<TriviaQuestion> getTriviaQuestions() {
+    public Array<TriviaQuestion> getTriviaQuestions(String triviaApiUrl) {
 
         try {
             // Build the URL for OpenTDB API query using BufferedReader to get the url contents.
