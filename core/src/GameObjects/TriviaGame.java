@@ -48,7 +48,9 @@ public class TriviaGame {
             }
             for(int i = 0; i < questions.size; i++ ) {
                 System.out.println(questions.get(i).question);
-                System.out.println(questions.get(i).incorrectAnswers[i]);
+                for(int j = 0; j <questions.get(i).incorrectAnswers.length; j++) {
+                    System.out.println(questions.get(i).incorrectAnswers[j]);
+                }
                 System.out.println(questions.get(i).correctAnswer);
             }
 
