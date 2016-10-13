@@ -7,7 +7,7 @@ import com.badlogic.gdx.Screen;
  * DisplayTriviaQuestions will build the GUI elements and display them for each question that is passed in.
  */
 
-public class DisplayTriviaQuestions implements Screen {
+public class TriviaQuestionsDisplay implements Screen {
     @Override
     public void show() {
 

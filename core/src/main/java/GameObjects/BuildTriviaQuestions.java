@@ -49,6 +49,17 @@ public class BuildTriviaQuestions {
             JsonValue resultJson = root.get("results");
             Array<TriviaQuestion> questions = new Array<TriviaQuestion>();
 
+            if(root.get("response_code").asInt() != 0)
+            {
+                Array<TriviaQuestion> errorArray = new Array<TriviaQuestion>();
+                TriviaQuestion errorQuestion = new TriviaQuestion();
+                errorQuestion.errorMessage = "API Could not be reached";
+
+                errorArray.add(errorQuestion);
+
+                return errorArray;
+            }
+
             // Iterate through the resulting JSON and put each question into a TriviaQuestion object.
             for (JsonValue resultsJson : resultJson.iterator()) {
                 TriviaQuestion newQuestion = new TriviaQuestion();
