@@ -18,8 +18,8 @@ import java.net.URL;
 
 /**
  * Created by zach on 10/11/16.
- * BuildTriviaQuestions class takes in the desired API Url and opens the connection to the Open Trivia Database, gets JSON results, and returns an array
- * of TriviaQuestion objects.
+ * BuildTriviaQuestions class takes in the desired API Url and opens the connection to the
+ * Open Trivia Database (OpenTDB),gets JSON results, and returns an array
  */
 
 public class BuildTriviaQuestions {
@@ -32,20 +32,20 @@ public class BuildTriviaQuestions {
     public Array<TriviaQuestion> getTriviaQuestions() {
 
         try {
-            // Build the URL for OpenDB API query using BufferedReader to get the url contents.
+            // Build the URL for OpenTDB API query using BufferedReader to get the url contents.
             URL url = new URL(triviaApiUrl);
-            String as = "";
+            String html = "";
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
 
             for (String line; (line = reader.readLine()) != null; ) {
-                as += line;
+                html += line;
             }
             // Close the buffered reader connection.
             reader.close();
 
             // Take the JSON retrieved from OpenTDB API and parse it into a JSON object.
-            JsonValue root = new JsonReader().parse(as);
+            JsonValue root = new JsonReader().parse(html);
             JsonValue resultJson = root.get("results");
             Array<TriviaQuestion> questions = new Array<TriviaQuestion>();
 
@@ -57,7 +57,7 @@ public class BuildTriviaQuestions {
                 newQuestion.incorrectAnswers = (resultsJson.get("incorrect_answers").asStringArray());
                 questions.add(newQuestion);
             }
-            // Itterate through each incorrect answer and unescape the HTML that might be in them.
+            // Iterate through each incorrect answer and unescape the HTML that might be in them.
             for(int i = 0; i < questions.size; i++ ) {
                 for(int j = 0; j <questions.get(i).incorrectAnswers.length; j++) {
                     questions.get(i).incorrectAnswers[j] = StringEscapeUtils.unescapeHtml4(questions.get(i).incorrectAnswers[j]);
