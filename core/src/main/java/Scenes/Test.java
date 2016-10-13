@@ -16,15 +16,15 @@ public class Test implements Screen {
     SpriteBatch batch;
     private BitmapFont font;
     private GlyphLayout fontLayout;
-    private BuildTriviaQuestions newGame;
+    private BuildTriviaQuestions newTriviaRound;
 
     public Test() {
         batch = new SpriteBatch();
         font = new BitmapFont();
         fontLayout = new GlyphLayout();
         String url = "http://www.opentdb.com/api.php?amount=2";
-        newGame = new BuildTriviaQuestions(url);
-        newGame.getTriviaQuestions();
+        newTriviaRound = new BuildTriviaQuestions(url);
+        newTriviaRound.getTriviaQuestions();
         font.setColor(Color.TEAL);
         font.getData().setScale(2);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
