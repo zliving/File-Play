@@ -9,5 +9,6 @@ public class TriviaQuestions {
     public String question;
     public String[] incorrectAnswers;
     public String correctAnswer;
+    public String errorMessage;
 
 }

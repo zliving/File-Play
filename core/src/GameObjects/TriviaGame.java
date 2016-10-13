@@ -15,7 +15,8 @@ import java.util.Map;
 
 /**
  * Created by zach on 10/11/16.
- * TriviaGame class opens the connection to the Open
+ * TriviaGame class opens the connection to the OpenTDB, gets JSON results, and returns an array
+ * of TriviaQuestions objects.
  */
 
 public class TriviaGame {
@@ -29,7 +30,7 @@ public class TriviaGame {
     public Array<TriviaQuestions> getTrivia() {
 
         try {
-            // Build the URL for OpenDB API query.
+            // Build the URL for OpenDB API query using BufferedReader to get the url contents.
             URL url = new URL(triviaUrl);
             String as = "";
 
@@ -38,12 +39,15 @@ public class TriviaGame {
             for (String line; (line = reader.readLine()) != null; ) {
                 as += line;
             }
-            //as = StringEscapeUtils.unescapeHtml4(as);
+            //Close the buffered reader connection.
             reader.close();
 
+            //Take the JSON retrieved from OpenTDB API and parse it into a JSON object.
             JsonValue root = new JsonReader().parse(as);
             JsonValue resultJson = root.get("results");
             Array<TriviaQuestions> questions = new Array<TriviaQuestions>();
+
+            //Iterate through the resulting JSON and put each question into a TriviaQuestions object
             for (JsonValue resultsJson : resultJson.iterator()) {
                 TriviaQuestions newQuestion = new TriviaQuestions();
                 newQuestion.question = StringEscapeUtils.unescapeHtml4(resultsJson.getString("question"));
@@ -63,12 +67,16 @@ public class TriviaGame {
             return questions;
 
         } catch (Exception e) {
-            Map <String, String> errorMap = new HashMap<String, String>();
-            errorMap.put("Error", e.toString());
+            
+            //Send an error back to user if questions can't be retrieved.
+            Array<TriviaQuestions> errorArray = new Array<TriviaQuestions>();
+            TriviaQuestions errorQuestion = new TriviaQuestions();
+            errorQuestion.errorMessage = e.toString();
 
-            //return errorMap;
+            errorArray.add(errorQuestion);
+
+            return errorArray;
         }
-        return null;
     }
 
 }
