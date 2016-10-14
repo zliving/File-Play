@@ -1,9 +1,14 @@
 package filemanagement;
 
 /**
- * Interface for a wrapper of the android File class.
+ * Interface for a wrapper of the File class.
  */
 public interface FileWrapper {
+    /*
+     *  Returns a string describing the file path.
+     */
+    public String getFilePath();
+
     /*
      *  Returns a list of files contained in the directory described by 'this'.
      *  Returns an empty list if 'this' is an empty directory or a file.
@@ -19,7 +24,7 @@ public interface FileWrapper {
      *  // Initialize src and dst.
      *
      *  // Move src to dst.
-     *  src.Move(dst);
+     *  src.Move(dst.getFilePath());
      */
-    Boolean Move(FileWrapper destination);
+    public Boolean Move(FileWrapper destination);
 }
