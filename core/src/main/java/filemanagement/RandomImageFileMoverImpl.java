@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class RandomImageFileMoverImpl implements RandomImageFileMover {
   // Used to decide a random file to move.
-  Random randomNumberGenerator;
+  RandomWrapper randomNumberGenerator;
 
   // Used to create FileWrappers from pathnames.
   FileWrapperFactory fileFactory;
@@ -23,7 +23,7 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
   // The name of the hidden folder in the image gallery.
   final String hiddenFolderName = ".file-play";
 
-  public RandomImageFileMoverImpl(FileWrapperFactory fileFactory, Random randomNumberGenerator) {
+  public RandomImageFileMoverImpl(FileWrapperFactory fileFactory, RandomWrapper randomNumberGenerator) {
     this.fileFactory = fileFactory;
     this.randomNumberGenerator = randomNumberGenerator;
   }
@@ -38,8 +38,7 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
           hiddenFolderName);
       FileWrapper[] galleryFiles = imageGallery.getFileList();
 
-      int gallerySize = galleryFiles.length;
-      if (gallerySize == 0) {
+      if (galleryFiles.length == 0) {
         // The gallery is empty.
         // TODO(jmtaber129): Consider adding better handling of this case.
         return false;
@@ -50,15 +49,12 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
       FileWrapper sourceFile;
       do {
         int sourceFileIndex = randomNumberGenerator.nextInt(galleryFiles.length);
-
         sourceFile = galleryFiles[sourceFileIndex];
-      } while (sourceFile.getFilePath() != hiddenFolder.getFilePath());
-
+      } while (sourceFile.getFilePath().equals(hiddenFolder.getFilePath()));
       // Get the file pathname for the destination, and get a FileWrapper for that pathname.
       String destinationPath = hiddenFolder.getFilePath() + "/" + sourceFile.getFileName();
 
       FileWrapper destinationFile = fileFactory.createFile(destinationPath);
-
       // TODO(jmtaber129): If this returns false, an error occurred when trying to move the file.
       // Change this to have better error handling.
       return sourceFile.move(destinationFile);
