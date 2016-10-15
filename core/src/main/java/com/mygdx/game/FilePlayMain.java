@@ -9,7 +9,6 @@ import Scenes.ScreenManager;
 
 public class FilePlayMain extends ApplicationAdapter {
   private ScreenManager screenManager;
-  private Viewport viewport;
 
   @Override
   public void create() {
