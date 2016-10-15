@@ -29,13 +29,13 @@ public class ScreenManager {
     // Switch to the appropriate screen.
     switch (state) {
       case MAINMENU:
-        currentScreen = new MainMenu();
+        currentScreen = new MainMenu(this);
         break;
       case SETTINGS:
         currentScreen = new Settings();
         break;
       case PLAY:
-        currentScreen = new Play();
+        currentScreen = new Play(this);
         break;
       case LOBBY:
         currentScreen = new Lobby();
@@ -47,7 +47,7 @@ public class ScreenManager {
         currentScreen = new Test();
         break;
       default:
-        currentScreen = new MainMenu();
+        currentScreen = new MainMenu(this);
         break;
     }
   }
