@@ -3,7 +3,8 @@ package filemanagement;
 import java.util.Random;
 
 /**
- * Created by James on 10/14/2016.
+ * Implementation of RandomImageFileMover.
+ * TODO(jmtaber129): Add better error handling for this class's methods.
  */
 
 public class RandomImageFileMoverImpl implements RandomImageFileMover {
@@ -54,6 +55,37 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
 
   @Override
   public boolean restoreRandom() {
-    return true;
+    if (randomNumberGenerator.nextInt(maxRandomMoveNumber) == moveNumber) {
+      // The RNG returned the magic 'moveNumber', so move a file from the gallery to the hidden
+      // folder.
+      FileWrapper imageGallery = fileFactory.getGalleryFile();
+      FileWrapper hiddenFolder = fileFactory.createFile(imageGallery.getFilePath() + "/" +
+          hiddenFolderName);
+      FileWrapper[] hiddenFiles = hiddenFolder.getFileList();
+
+      int hiddenFolderSize = hiddenFiles.length;
+      if (hiddenFolderSize == 0) {
+        // The hidden folder is empty.
+        // TODO(jmtaber129): Consider adding better handling of this case.
+        return false;
+      }
+
+      // Get a random number to determining the index of the file to be moved.
+      int sourceFileIndex = randomNumberGenerator.nextInt(hiddenFiles.length);
+
+      FileWrapper sourceFile = hiddenFiles[sourceFileIndex];
+
+      // Get the file pathname for the destination, and get a FileWrapper for that pathname.
+      String destinationPath = imageGallery.getFilePath() + "/" + sourceFile.getFileName();
+
+      FileWrapper destinationFile = fileFactory.createFile(destinationPath);
+
+      // TODO(jmtaber129): If this returns false, an error occurred when trying to move the file.
+      // Change this to have better error handling.
+      return sourceFile.move(destinationFile);
+    } else {
+      // The RNG returned a number other than the magic 'moveNumber', so just return here.
+      return false;
+    }
   }
 }
