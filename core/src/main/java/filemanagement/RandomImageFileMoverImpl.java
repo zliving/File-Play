@@ -23,7 +23,8 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
   // The name of the hidden folder in the image gallery.
   final String hiddenFolderName = ".file-play";
 
-  public RandomImageFileMoverImpl(FileWrapperFactory fileFactory, RandomWrapper randomNumberGenerator) {
+  public RandomImageFileMoverImpl(FileWrapperFactory fileFactory,
+                                  RandomWrapper randomNumberGenerator) {
     this.fileFactory = fileFactory;
     this.randomNumberGenerator = randomNumberGenerator;
   }
@@ -35,10 +36,11 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
       // folder.
       FileWrapper imageGallery = fileFactory.getGalleryFile();
       FileWrapper hiddenFolder = fileFactory.createFile(imageGallery.getFilePath() + "/" +
-          hiddenFolderName);
+                                                            hiddenFolderName);
       FileWrapper[] galleryFiles = imageGallery.getFileList();
 
-      if (galleryFiles.length == 0) {
+      if (galleryFiles.length == 0 || (galleryFiles.length == 1
+          && galleryFiles[0].getFilePath() == hiddenFolder.getFilePath())) {
         // The gallery is empty.
         // TODO(jmtaber129): Consider adding better handling of this case.
         return false;
@@ -71,7 +73,7 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
       // folder.
       FileWrapper imageGallery = fileFactory.getGalleryFile();
       FileWrapper hiddenFolder = fileFactory.createFile(imageGallery.getFilePath() + "/" +
-          hiddenFolderName);
+                                                            hiddenFolderName);
       FileWrapper[] hiddenFiles = hiddenFolder.getFileList();
 
       int hiddenFolderSize = hiddenFiles.length;
