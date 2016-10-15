@@ -3,6 +3,7 @@ package Scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -28,8 +29,8 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     //TODO: Include relative offsets and spacing
     leaderboardsButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 200, 100);
     playButton = new Button(new Sprite(new Texture(Gdx.files.internal("testButton.jpg"))), 200,
-            200);
-    settingsButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 200, 300);
+            300);
+    settingsButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 200, 200);
     spriteBatch = new SpriteBatch();
     mainMenuText = new BitmapFont();
     mainMenuText.setColor(Color.TEAL);
@@ -45,6 +46,8 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
 
   @Override
   public void render(float delta) {
+    Gdx.gl.glClearColor(0, 0, 0, 1);
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     spriteBatch.begin();
     spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
     spriteBatch.draw(leaderboardsButton.getSprite(), leaderboardsButton.getX(), leaderboardsButton.getY());
@@ -85,7 +88,7 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
   public boolean tap(float x, float y, int count, int button) {
     float correctedY = Gdx.graphics.getHeight() - y;
     if (playButton.isClicked(x, correctedY)) {
-      screenManager.setState(ScreenManager.Screens.PLAY);
+      screenManager.setState(ScreenManager.Screens.LOBBY);
     } else if (leaderboardsButton.isClicked(x, correctedY)) {
       System.out.println("Change to leaderboards screen");
     } else if (settingsButton.isClicked(x, correctedY)) {

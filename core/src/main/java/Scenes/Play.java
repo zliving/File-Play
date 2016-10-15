@@ -3,10 +3,10 @@ package Scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
@@ -39,6 +39,8 @@ public class Play implements Screen, GestureDetector.GestureListener {
 
   @Override
   public void render(float delta) {
+    Gdx.gl.glClearColor(0, 0, 0, 1);
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     spriteBatch.begin();
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
     playScreenText.draw(spriteBatch, "Play Screen", 20, 750);
@@ -63,6 +65,8 @@ public class Play implements Screen, GestureDetector.GestureListener {
 
   @Override
   public void dispose() {
+    spriteBatch.dispose();
+    playScreenText.dispose();
   }
 
   @Override
@@ -72,6 +76,10 @@ public class Play implements Screen, GestureDetector.GestureListener {
 
   @Override
   public boolean tap(float x, float y, int count, int button) {
+    float correctedY = Gdx.graphics.getHeight() - y;
+    if (backButton.isClicked(x, correctedY)) {
+      screenManager.setState(ScreenManager.Screens.MAINMENU);
+    }
     return false;
   }
 
