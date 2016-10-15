@@ -3,9 +3,10 @@ package filemanagement;
 import java.util.Random;
 
 /**
- * Created by James on 10/14/2016.
+ * The real implementation of RandomWrapper.
+ * Note: This implementation should never be used in unit tests, as this implementation would
+ * introduce nondeterministic properties and result in extremely flaky tests.
  */
-
 public class RandomWrapperImpl implements RandomWrapper {
   Random random;
 

@@ -29,7 +29,7 @@ public interface FileWrapper {
    *  // Initialize src and dst.
    *
    *  // Move src to dst.
-   *  src.Move(dst.getFilePath());
+   *  src.move(dst.getFilePath());
    */
   public Boolean move(FileWrapper destination);
 }

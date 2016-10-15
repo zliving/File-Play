@@ -6,7 +6,6 @@ import java.util.Random;
  * Implementation of RandomImageFileMover.
  * TODO(jmtaber129): Add better error handling for this class's methods.
  */
-
 public class RandomImageFileMoverImpl implements RandomImageFileMover {
   // Used to decide a random file to move.
   RandomWrapper randomNumberGenerator;

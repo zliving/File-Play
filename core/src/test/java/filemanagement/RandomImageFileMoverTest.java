@@ -3,8 +3,6 @@ package filemanagement;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Matchers;
 import org.mockito.Mock;
@@ -29,9 +27,6 @@ public class RandomImageFileMoverTest {
   RandomWrapper randomNumberGenerator;
   @Mock
   FileWrapperFactory fileFactory;
-
-  @Captor
-  private ArgumentCaptor<FileWrapper> captor;
 
   @InjectMocks
   RandomImageFileMoverImpl randomImageFileMover;
@@ -114,12 +109,12 @@ public class RandomImageFileMoverTest {
   @Test
   public void hideRandom_emptyGallery() {
     MockFileWrapper mockGalleryFolder = Mockito.mock(MockFileWrapper.class);
-    mockGalleryFolder.name = "gallery";
-    mockGalleryFolder.path = "gallery";
+    when(mockGalleryFolder.getFileName()).thenReturn("gallery");
+    when(mockGalleryFolder.getFilePath()).thenReturn("gallery");
 
     MockFileWrapper mockHiddenFolder = Mockito.mock(MockFileWrapper.class);
-    mockHiddenFolder.name = ".file-play";
-    mockHiddenFolder.path = "gallery/.file-play";
+    when(mockHiddenFolder.getFileName()).thenReturn(".file-play");
+    when(mockHiddenFolder.getFilePath()).thenReturn("gallery/.file-play");
 
     MockFileWrapper[] mockFileWrappers = new MockFileWrapper[0];
 

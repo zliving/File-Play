@@ -18,8 +18,14 @@ public class AndroidFileWrapper implements FileWrapper {
   }
 
   @Override
-  public String getFileName() { return wrappedFile.getName(); }
+  public String getFileName() {
+    return wrappedFile.getName();
+  }
 
+  /*
+   * Gets the list of files from the wrapped file, then creates a list of wrapped files from this
+   * list.
+   */
   @Override
   public AndroidFileWrapper[] getFileList() {
     File[] fileList = this.wrappedFile.listFiles();
@@ -31,6 +37,10 @@ public class AndroidFileWrapper implements FileWrapper {
     return returnList;
   }
 
+  /*
+   * Uses the renameTo() method, which has to effect of moving a file when the paths point to files
+   * in different directories.
+   */
   @Override
   public Boolean move(FileWrapper destination) {
     return this.wrappedFile.renameTo(new File(destination.getFilePath()));

@@ -5,7 +5,6 @@ import java.io.File;
 /**
  * Implementation of the FileWrapperFactory interface for Android.
  */
-
 public class AndroidFileWrapperFactory implements FileWrapperFactory {
   @Override
   public AndroidFileWrapper getGalleryFile() {
