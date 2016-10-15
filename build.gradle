@@ -82,13 +82,15 @@ project(":ios") {
 project(":core") {
     apply plugin: "java"
 
+    repositories { jcenter() }
+
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile 'org.apache.commons:commons-lang3:3.4'
 
         // Test dependencies.
         testCompile "junit:junit:4.11"
-        testCompile "org.mockito:mockito-core:1.9.5"
+        testCompile "org.mockito:mockito-core:2.0.57-beta"
     }
 }
 

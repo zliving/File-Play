@@ -25,7 +25,7 @@ public class RandomImageFileMoverTest {
 
   RandomImageFileMoverImpl randomImageFileMover;
 
-  private abstract class MockFileWrapper implements FileWrapper{
+  private class MockFileWrapper implements FileWrapper{
     public String name;
     public String path;
 
@@ -34,6 +34,10 @@ public class RandomImageFileMoverTest {
 
     @Override
     public String getFilePath() { return path; }
+
+    public MockFileWrapper[] getFileList() { return new MockFileWrapper[0]; }
+
+    public Boolean move(FileWrapper dst) { return true; }
   }
 
   public RandomImageFileMoverTest() {
