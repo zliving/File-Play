@@ -1,22 +1,16 @@
 package filemanagement;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
-
-import java.util.Random;
 
 /**
  * Test for the RandomImageFileMover.
@@ -49,7 +43,7 @@ public class RandomImageFileMoverTest {
       return new MockFileWrapper[0];
     }
 
-    public Boolean move(FileWrapper dst) {
+    public boolean move(FileWrapper dst) {
       return true;
     }
   }

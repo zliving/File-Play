@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * The real implementation of RandomWrapper.
  * Note: This implementation should never be used in unit tests, as this implementation would
- * introduce nondeterministic properties and result in extremely flaky tests.
+ * introduce nondeterministic elements and result in extremely flaky tests.
  */
 public class RandomWrapperImpl implements RandomWrapper {
   Random random;
@@ -14,6 +14,7 @@ public class RandomWrapperImpl implements RandomWrapper {
     random = new Random();
   }
 
+  @Override
   public int nextInt(int i) {
     return random.nextInt(i);
   }

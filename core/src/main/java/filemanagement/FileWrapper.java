@@ -31,5 +31,5 @@ public interface FileWrapper {
    *  // Move src to dst.
    *  src.move(dst.getFilePath());
    */
-  public Boolean move(FileWrapper destination);
+  public boolean move(FileWrapper destination);
 }

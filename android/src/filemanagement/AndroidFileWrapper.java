@@ -42,7 +42,7 @@ public class AndroidFileWrapper implements FileWrapper {
    * in different directories.
    */
   @Override
-  public Boolean move(FileWrapper destination) {
+  public boolean move(FileWrapper destination) {
     return this.wrappedFile.renameTo(new File(destination.getFilePath()));
   }
 }
