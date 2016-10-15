@@ -255,7 +255,4 @@ public class RandomImageFileMoverTest {
 
     assertTrue(randomImageFileMover.restoreRandom());
   }
-
-  // TODO(jmtaber129): Add tests for restoreRandom().
-
 }
