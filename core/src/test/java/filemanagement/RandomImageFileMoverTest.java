@@ -195,6 +195,34 @@ public class RandomImageFileMoverTest {
     assertFalse(randomImageFileMover.hideRandom());
   }
 
+  @Test
+  public void restoreRandom_dontMove() {
+    // Return a number that won't trigger a move.
+    when(randomNumberGenerator.nextInt(5)).thenReturn(3);
+    assertEquals(randomImageFileMover.restoreRandom(), false);
+  }
+
+  @Test
+  public void restoreRandom_emptyHiddenFolder() {
+    MockFileWrapper mockGalleryFolder = Mockito.mock(MockFileWrapper.class);
+    when(mockGalleryFolder.getFileName()).thenReturn("gallery");
+    when(mockGalleryFolder.getFilePath()).thenReturn("gallery");
+
+    MockFileWrapper mockHiddenFolder = Mockito.mock(MockFileWrapper.class);
+    when(mockHiddenFolder.getFileName()).thenReturn(".file-play");
+    when(mockHiddenFolder.getFilePath()).thenReturn("gallery/.file-play");
+
+    MockFileWrapper[] mockFileWrappers = new MockFileWrapper[0];
+
+    // Return the number that will trigger a move.
+    when(randomNumberGenerator.nextInt(5)).thenReturn(0);
+    when(fileFactory.getGalleryFile()).thenReturn(mockGalleryFolder);
+    when(fileFactory.createFile(mockHiddenFolder.getFilePath())).thenReturn(mockHiddenFolder);
+    when(mockHiddenFolder.getFileList()).thenReturn(mockFileWrappers);
+
+    assertFalse(randomImageFileMover.restoreRandom());
+  }
+
   // TODO(jmtaber129): Add tests for restoreRandom().
 
 }
