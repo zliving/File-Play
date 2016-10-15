@@ -2,12 +2,14 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import Scenes.ScreenManager;
 
 
 public class FilePlayMain extends ApplicationAdapter {
   private ScreenManager screenManager;
+  private Viewport viewport;
 
   @Override
   public void create() {
