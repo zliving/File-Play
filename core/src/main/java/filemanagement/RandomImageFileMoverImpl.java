@@ -20,6 +20,8 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
   // The maximum number that should be generated when deciding whether a file will be moved.  The
   // probability of a file being moved is 1 / (maxRandomMoveNumber + 1).
   final int maxRandomMoveNumber = 5;
+  // The name of the hidden folder in the image gallery.
+  final String hiddenFolderName = ".file-play";
 
   public RandomImageFileMoverImpl(FileWrapperFactory fileFactory, Random randomNumberGenerator) {
     this.fileFactory = fileFactory;
@@ -32,20 +34,33 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
       // The RNG returned the magic 'moveNumber', so move a file from the gallery to the hidden
       // folder.
       FileWrapper imageGallery = fileFactory.getGalleryFile();
-      FileWrapper hiddenFolder = fileFactory.createFile(imageGallery.getFilePath() + "/.file-play");
+      FileWrapper hiddenFolder = fileFactory.createFile(imageGallery.getFilePath() + "/" +
+          hiddenFolderName);
       FileWrapper[] galleryFiles = imageGallery.getFileList();
 
-      // Get a random number to determining the index of the file to be moved.
-      int sourceFileIndex = randomNumberGenerator.nextInt(galleryFiles.length);
+      int gallerySize = galleryFiles.length;
+      if (gallerySize == 0) {
+        // The gallery is empty.
+        // TODO(jmtaber129): Consider adding better handling of this case.
+        return false;
+      }
 
-      FileWrapper sourceFile = galleryFiles[sourceFileIndex];
+      // Get a random number to determining the index of the file to be moved.  Make sure the index
+      // doesn't point to the hidden folder.
+      FileWrapper sourceFile;
+      do {
+        int sourceFileIndex = randomNumberGenerator.nextInt(galleryFiles.length);
+
+        sourceFile = galleryFiles[sourceFileIndex];
+      } while (sourceFile.getFilePath() != hiddenFolder.getFilePath());
 
       // Get the file pathname for the destination, and get a FileWrapper for that pathname.
-      String destinationPath = imageGallery.getFilePath() + "/.file-play/"
-          + sourceFile.getFileName();
+      String destinationPath = hiddenFolder.getFilePath() + "/" + sourceFile.getFileName();
 
       FileWrapper destinationFile = fileFactory.createFile(destinationPath);
 
+      // TODO(jmtaber129): If this returns false, an error occurred when trying to move the file.
+      // Change this to have better error handling.
       return sourceFile.move(destinationFile);
     } else {
       // The RNG returned a number other than the magic 'moveNumber', so just return here.
