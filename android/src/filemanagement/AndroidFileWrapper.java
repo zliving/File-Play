@@ -18,6 +18,9 @@ public class AndroidFileWrapper implements FileWrapper {
   }
 
   @Override
+  public String getFileName() { return wrappedFile.getName(); }
+
+  @Override
   public AndroidFileWrapper[] getFileList() {
     File[] fileList = this.wrappedFile.listFiles();
     AndroidFileWrapper[] returnList = new AndroidFileWrapper[fileList.length];
@@ -29,7 +32,7 @@ public class AndroidFileWrapper implements FileWrapper {
   }
 
   @Override
-  public Boolean Move(FileWrapper destination) {
+  public Boolean move(FileWrapper destination) {
     return this.wrappedFile.renameTo(new File(destination.getFilePath()));
   }
 }

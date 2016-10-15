@@ -7,13 +7,13 @@ package filemanagement;
 
 public interface RandomImageFileMover {
   /*
-   * Returns true if the move operation is successful, returns false otherwise.
+   * Returns true if a file is moved, returns false otherwise.
    * Moves a random file from the image gallery to the hidden folder.
    */
   boolean hideRandom();
 
   /*
-   * Returns true if the move operation is successful, returns false otherwise.
+   * Returns true if a file is moved, returns false otherwise.
    * Moves a random file from the hidden folder to the image gallery.
    */
   boolean restoreRandom();

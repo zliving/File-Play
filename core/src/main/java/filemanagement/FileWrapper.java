@@ -10,6 +10,11 @@ public interface FileWrapper {
   public String getFilePath();
 
   /*
+   *  Returns a string describing the name of the file (i.e. the last name in the file path).
+   */
+  public String getFileName();
+
+  /*
    *  Returns a list of files contained in the directory described by 'this'.
    *  Returns an empty list if 'this' is an empty directory or a file.
    */
@@ -26,5 +31,5 @@ public interface FileWrapper {
    *  // Move src to dst.
    *  src.Move(dst.getFilePath());
    */
-  public Boolean Move(FileWrapper destination);
+  public Boolean move(FileWrapper destination);
 }
