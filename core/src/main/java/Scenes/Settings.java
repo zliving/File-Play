@@ -16,6 +16,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import UIElements.Button;
 
+/**
+ * The settings screen is where users will be able to access their profiles and set preferences
+ * regarding their gameplay.
+ */
 public class Settings implements Screen, GestureDetector.GestureListener {
   private Button backButton;
   private SpriteBatch spriteBatch;

@@ -70,8 +70,10 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
   public void show() {
   }
 
-  // The render method updates the screen every iteration given the change in time between
-  // iterations.
+  /**
+   * The render method updates the screen every iteration given the change in time between
+   * iterations.
+   */
   @Override
   public void render(float delta) {
     camera.update();
@@ -90,7 +92,9 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     spriteBatch.end();
   }
 
-  // The resize method updates the viewport and camera in the case that the window is resized.
+  /**
+   * The resize method updates the viewport and camera in the case that the window is resized.
+   */
   @Override
   public void resize(int width, int height) {
     viewport.update(width, height);
@@ -121,9 +125,11 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
   }
 
 
-  // Tap is part of the GestureListener interface and gives the x and y pixel coordinates
-  // corresponding to a user's touch. Note that the coordinate system for tap refers to the upper
-  // left hand corner as the origin.
+  /**
+   * Tap is part of the GestureListener interface and gives the x and y pixel coordinates
+   * corresponding to a user's touch. Note that the coordinate system for tap refers to the upper
+   * left hand corner as the origin.
+   */
   @Override
   public boolean tap(float x, float y, int count, int button) {
     HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
@@ -132,7 +138,7 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     // Tap takes the upper left hand corner to be the origin (0, 0) therefore some correction
     // must be made in order to pass into the isClicked method.
     float correctedY = Gdx.graphics.getHeight() - y;
-    // Convert to world units
+    // Convert to world units.
     float worldY = correctedY * HeightWorldPixelRatio;
     if (playButton.isClicked(worldX, worldY)) {
       System.out.println("Go to lobby");
