@@ -19,8 +19,8 @@ public class FilePlayMain extends ApplicationAdapter {
   }
 
   /**
-   *  Render class draws objects created in the create class to the screen.
-   *	It is refreshed at the clock rate of the phones screen
+   * Render class draws objects created in the create class to the screen.
+   * It is refreshed at the clock rate of the phones screen
    */
   @Override
   public void render() {
@@ -29,7 +29,7 @@ public class FilePlayMain extends ApplicationAdapter {
   }
 
   /**
-   *  Dispose removes items from the game and memory as needed.
+   * Dispose removes items from the game and memory as needed.
    */
   @Override
   public void dispose() {
