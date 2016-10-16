@@ -12,7 +12,7 @@ public class FilePlayMain extends ApplicationAdapter {
   @Override
   public void create() {
     // Create new state manager and start off at test screen
-    screenManager = new ScreenManager(ScreenManager.Screens.TEST);
+    screenManager = new ScreenManager(ScreenManager.Screens.MAINMENU);
   }
 
 	/*
