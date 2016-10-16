@@ -15,7 +15,6 @@ public class Button {
     // x and y should be given in world units
     this.x = x;
     this.y = y;
-    sprite.setPosition(x, y);
     // This sets the width and height in world units
     this.width = sprite.getWidth() * WORLD_WIDTH / Gdx.graphics.getWidth();
     this.height = sprite.getHeight() * WORLD_HEIGHT / Gdx.graphics.getHeight();
@@ -23,16 +22,21 @@ public class Button {
 
   public Button(Texture t, float x, float y) {
     sprite = new Sprite(t);
-    sprite.setPosition(x, y);
     this.x = x;
     this.y = y;
-    this.width = sprite.getWidth();
-    this.height = sprite.getHeight();
+    this.width = sprite.getWidth() * WORLD_WIDTH / Gdx.graphics.getWidth();
+    this.height = sprite.getHeight() * WORLD_HEIGHT / Gdx.graphics.getHeight();
   }
 
   public boolean isClicked(float x, float y) {
+
     if (x >= this.x && x <= this.x + this.width) {
-      if (y <= this.y && y >= this.y - this.height) {
+//      System.out.println("x is in range");
+//      System.out.println("checking y: " + y);
+//      System.out.println("by is: " + this.y);
+//      System.out.println("by width is: " + this.width);
+//      System.out.println("by height is: " + this.height);
+      if (y >= this.y && y <= this.y + this.height) {
         return true;
       }
     }

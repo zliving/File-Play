@@ -16,9 +16,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import UIElements.Button;
 
+// TODO: Refactor world width and height, and ratios into Game class
 public class MainMenu implements Screen, GestureDetector.GestureListener {
   private Button playButton;
-  private Sprite settingsButton;
+  private Button leaderBoardsButton;
+  private Button settingsButton;
   private SpriteBatch spriteBatch;
   private OrthographicCamera camera;
   private GestureDetector gestureDetector;
@@ -27,14 +29,15 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
   private Viewport viewport;
   private final float WORLD_WIDTH = 480;
   private final float WORLD_HEIGHT = 800;
-  private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics
-          .getHeight();
+  private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
   public MainMenu(ScreenManager screenManager) {
     this.screenManager = screenManager;
     //TODO: Include relative offsets and spacing
     playButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 200, 400);
+    leaderBoardsButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 200, 300);
+    settingsButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 200, 200);
     spriteBatch = new SpriteBatch();
     mainMenuText = new BitmapFont();
     mainMenuText.setColor(Color.TEAL);
@@ -57,9 +60,11 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
-    spriteBatch.draw(playButton.getSprite(), playButton.getX(),
-            playButton.getY());
-//    mainMenuText.draw(spriteBatch, "Main Menu", 20, 750);
+    spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
+    spriteBatch.draw(leaderBoardsButton.getSprite(), leaderBoardsButton.getX(),
+            leaderBoardsButton.getY());
+    spriteBatch.draw(settingsButton.getSprite(), settingsButton.getX(), settingsButton.getY());
+    mainMenuText.draw(spriteBatch, "Main Menu", 20, 750);
     spriteBatch.end();
 
   }
@@ -67,7 +72,7 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
   @Override
   public void resize(int width, int height) {
     viewport.update(width, height);
-    camera.position.set(camera.viewportWidth/2 , camera.viewportHeight / 2, 0);
+    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
   }
 
   @Override
@@ -93,17 +98,24 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     return false;
   }
 
+  // Tap takes uses the upper left hand corner as the origin (0, 0)
   @Override
   public boolean tap(float x, float y, int count, int button) {
     HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
-    WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
+    WidthWorldPixelRatio = WORLD_WIDTH / (float) Gdx.graphics.getWidth();
     float worldX = x * WidthWorldPixelRatio;
-    float worldY = y * HeightWorldPixelRatio;
-    if(playButton.isClicked(worldX, worldY)){
+    float correctedY = Gdx.graphics.getHeight() - y;
+    float worldY = correctedY * HeightWorldPixelRatio;
+    if (playButton.isClicked(worldX, worldY)) {
+      System.out.println("Go to lobby");
+//      screenManager.setState(ScreenManager.Screens.LOBBY);
+    } else if(leaderBoardsButton.isClicked(worldX, worldY)){
       System.out.println("Go to leaderboards");
-      screenManager.setState(ScreenManager.Screens.LOBBY);
+      //screenManager.setState(ScreenManager.Screens.LEADERBOARDS);
+    } else if(settingsButton.isClicked(worldX, worldY)){
+      System.out.println("Go to settings");
+      //screenManager.setState(ScreenManager.Screens.SETTINGS);
     }
-
     return false;
   }
 
