@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import UIElements.Button;
 
-// TODO: Refactor world width and height, and ratios into Game class
+// TODO: Refactor world width, height, batch, and ratios into Game class
 public class MainMenu implements Screen, GestureDetector.GestureListener {
   private Button playButton;
   private Button leaderBoardsButton;
@@ -115,7 +115,7 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
       // screenManager.setState(ScreenManager.Screens.LEADERBOARDS);
     } else if (settingsButton.isClicked(worldX, worldY)) {
       System.out.println("Go to settings");
-      // screenManager.setState(ScreenManager.Screens.SETTINGS);
+      screenManager.setState(ScreenManager.Screens.SETTINGS);
     }
     return false;
   }

@@ -32,7 +32,7 @@ public class ScreenManager {
         currentScreen = new MainMenu(this);
         break;
       case SETTINGS:
-        currentScreen = new Settings();
+        currentScreen = new Settings(this);
         break;
       case PLAY:
         currentScreen = new Play(this);
