@@ -32,21 +32,23 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
+  // TODO: Include relative offsets and spacing
   public MainMenu(ScreenManager screenManager) {
     this.screenManager = screenManager;
-    //TODO: Include relative offsets and spacing
-    playButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 200, 400);
-    leaderBoardsButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 200, 300);
-    settingsButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 200, 200);
+    playButton = new Button(new Texture(Gdx.files.internal("play_button.png")), 120, 400);
+    leaderBoardsButton = new Button(new Texture(Gdx.files.internal("leaderboards_button.png")),
+            120, 300);
+    settingsButton = new Button(new Texture(Gdx.files.internal("options_button.png")), 120, 200);
     spriteBatch = new SpriteBatch();
     mainMenuText = new BitmapFont();
-    mainMenuText.setColor(Color.TEAL);
+    mainMenuText.setColor(Color.YELLOW);
     camera = new OrthographicCamera();
     viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
     viewport.apply();
     camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
     gestureDetector = new GestureDetector(this);
     Gdx.input.setInputProcessor(gestureDetector);
+    this.resize((int) WORLD_WIDTH, (int) WORLD_HEIGHT);
   }
 
   @Override
@@ -66,7 +68,6 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     spriteBatch.draw(settingsButton.getSprite(), settingsButton.getX(), settingsButton.getY());
     mainMenuText.draw(spriteBatch, "Main Menu", 20, 750);
     spriteBatch.end();
-
   }
 
   @Override
@@ -108,13 +109,13 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     float worldY = correctedY * HeightWorldPixelRatio;
     if (playButton.isClicked(worldX, worldY)) {
       System.out.println("Go to lobby");
-//      screenManager.setState(ScreenManager.Screens.LOBBY);
-    } else if(leaderBoardsButton.isClicked(worldX, worldY)){
+      screenManager.setState(ScreenManager.Screens.LOBBY);
+    } else if (leaderBoardsButton.isClicked(worldX, worldY)) {
       System.out.println("Go to leaderboards");
-      //screenManager.setState(ScreenManager.Screens.LEADERBOARDS);
-    } else if(settingsButton.isClicked(worldX, worldY)){
+      // screenManager.setState(ScreenManager.Screens.LEADERBOARDS);
+    } else if (settingsButton.isClicked(worldX, worldY)) {
       System.out.println("Go to settings");
-      //screenManager.setState(ScreenManager.Screens.SETTINGS);
+      // screenManager.setState(ScreenManager.Screens.SETTINGS);
     }
     return false;
   }

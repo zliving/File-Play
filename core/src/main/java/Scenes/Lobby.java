@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import UIElements.Button;
 
@@ -22,20 +24,29 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
   private Button playButton;
   private SpriteBatch spriteBatch;
   private ScreenManager screenManager;
+  private Viewport viewport;
+  private final float WORLD_WIDTH = 480;
+  private final float WORLD_HEIGHT = 800;
+  private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
+  private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
   public Lobby(ScreenManager screenManager) {
     this.screenManager = screenManager;
-    backButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 20, 650);
-    playButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 360, 650);
-    lobbyScreenText = new BitmapFont();
-    lobbyScreenText.setColor(Color.TEAL);
-    playText = new BitmapFont();
-    playText.setColor(Color.TEAL);
-    camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-    camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
     spriteBatch = new SpriteBatch();
+    backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
+    // TODO: Add the play button next iteration
+    // playButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 360, 650);
+    lobbyScreenText = new BitmapFont();
+    lobbyScreenText.setColor(Color.YELLOW);
+    playText = new BitmapFont();
+    playText.setColor(Color.YELLOW);
+    camera = new OrthographicCamera();
+    viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
+    viewport.apply();
+    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
     gestureDetector = new GestureDetector(this);
     Gdx.input.setInputProcessor(gestureDetector);
+    this.resize((int) WORLD_WIDTH, (int) WORLD_HEIGHT);
   }
 
   @Override
@@ -44,11 +55,14 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
 
   @Override
   public void render(float delta) {
+    camera.update();
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
-    spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
+    // The play button will need to be added in the next iteration
+    // spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
     lobbyScreenText.draw(spriteBatch, "Lobby Screen", 20, 750);
     playText.draw(spriteBatch, "Play", 400, 750);
     spriteBatch.end();
@@ -56,6 +70,8 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
 
   @Override
   public void resize(int width, int height) {
+    viewport.update(width, height);
+    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
   }
 
   @Override
@@ -84,11 +100,14 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
 
   @Override
   public boolean tap(float x, float y, int count, int button) {
+    HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
+    WidthWorldPixelRatio = WORLD_WIDTH / (float) Gdx.graphics.getWidth();
+    float worldX = x * WidthWorldPixelRatio;
     float correctedY = Gdx.graphics.getHeight() - y;
-    if (backButton.isClicked(x, correctedY)) {
+    float worldY = correctedY * HeightWorldPixelRatio;
+    if (backButton.isClicked(worldX, worldY)) {
+      System.out.println("Go to mainmenu");
       screenManager.setState(ScreenManager.Screens.MAINMENU);
-    } else if (playButton.isClicked(x, correctedY)) {
-      screenManager.setState(ScreenManager.Screens.PLAY);
     }
     return false;
   }
