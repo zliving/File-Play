@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import UIElements.Button;
 
@@ -20,17 +22,25 @@ public class Play implements Screen, GestureDetector.GestureListener {
   private Button backButton;
   private SpriteBatch spriteBatch;
   private ScreenManager screenManager;
+  private Viewport viewport;
+  private final float WORLD_WIDTH = 480;
+  private final float WORLD_HEIGHT = 800;
+  private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
+  private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
   public Play(ScreenManager screenManager) {
     this.screenManager = screenManager;
-    backButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 20, 650);
+    backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
     playScreenText = new BitmapFont();
-    playScreenText.setColor(Color.TEAL);
-    camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    playScreenText.setColor(Color.YELLOW);
+    camera = new OrthographicCamera();
+    viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
+    viewport.apply();
     camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
     spriteBatch = new SpriteBatch();
     gestureDetector = new GestureDetector(this);
     Gdx.input.setInputProcessor(gestureDetector);
+    this.resize((int) WORLD_WIDTH, (int) WORLD_HEIGHT);
   }
 
   @Override
@@ -39,16 +49,20 @@ public class Play implements Screen, GestureDetector.GestureListener {
 
   @Override
   public void render(float delta) {
+    camera.update();
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
-    playScreenText.draw(spriteBatch, "Play Screen", 20, 750);
+    playScreenText.draw(spriteBatch, "Play Screen (To be implemented)", 20, 750);
     spriteBatch.end();
   }
 
   @Override
   public void resize(int width, int height) {
+    viewport.update(width, height);
+    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
   }
 
   @Override
@@ -76,9 +90,13 @@ public class Play implements Screen, GestureDetector.GestureListener {
 
   @Override
   public boolean tap(float x, float y, int count, int button) {
+    HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
+    WidthWorldPixelRatio = WORLD_WIDTH / (float) Gdx.graphics.getWidth();
+    float worldX = x * WidthWorldPixelRatio;
     float correctedY = Gdx.graphics.getHeight() - y;
-    if (backButton.isClicked(x, correctedY)) {
-      screenManager.setState(ScreenManager.Screens.MAINMENU);
+    float worldY = correctedY * HeightWorldPixelRatio;
+    if (backButton.isClicked(worldX, worldY)) {
+      screenManager.setState(ScreenManager.Screens.LOBBY);
     }
     return false;
   }

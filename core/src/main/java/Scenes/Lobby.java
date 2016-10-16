@@ -34,8 +34,7 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
     this.screenManager = screenManager;
     spriteBatch = new SpriteBatch();
     backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
-    // TODO: Add the play button next iteration
-    // playButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 360, 650);
+    playButton = new Button(new Texture(Gdx.files.internal("next_button.png")), 320, 650);
     lobbyScreenText = new BitmapFont();
     lobbyScreenText.setColor(Color.YELLOW);
     playText = new BitmapFont();
@@ -62,8 +61,8 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
     spriteBatch.begin();
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
     // The play button will need to be added in the next iteration
-    // spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
-    lobbyScreenText.draw(spriteBatch, "Lobby Screen", 20, 750);
+    spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
+    lobbyScreenText.draw(spriteBatch, "Lobby Screen (To be implemented)", 20, 750);
     playText.draw(spriteBatch, "Play", 400, 750);
     spriteBatch.end();
   }
@@ -108,6 +107,9 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
     if (backButton.isClicked(worldX, worldY)) {
       System.out.println("Go to mainmenu");
       screenManager.setState(ScreenManager.Screens.MAINMENU);
+    } else if (playButton.isClicked(worldX, worldY)) {
+      System.out.println("Go to play screen");
+      screenManager.setState(ScreenManager.Screens.PLAY);
     }
     return false;
   }
