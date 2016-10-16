@@ -17,6 +17,10 @@ public class Button {
   /**
    * The button constructor can take in a Sprite and two floats which should correspond to
    * the world units of where the object should be drawn.
+   *
+   * @param sprite sprite of what to create a button of.
+   * @param x x-coordinate of lower lefthand corner of where t should be drawn.
+   * @param y y-coordinate of lower lefthand corner of where t should be drawn.
    */
   public Button(Sprite sprite, float x, float y) {
     this.sprite = sprite;
@@ -32,6 +36,10 @@ public class Button {
    * This is an overloaded constructor which takes in a texture and two floats which correspond
    * to the world units of where the object should be drawn. It simply makes a Sprite of the
    * texture that is passed in and then prooceeds to do the same as the first constructor.
+   *
+   * @param t texture of what to create a button of
+   * @param x x-coordinate of lower lefthand corner of where t should be drawn.
+   * @param y y-coordinate of lower lefthand corner of where t should be drawn.
    */
   public Button(Texture t, float x, float y) {
     sprite = new Sprite(t);
@@ -42,15 +50,17 @@ public class Button {
   }
 
   /**
-   * This method returns true if the button that called it has been pressed. The x and y
-   * parameters should correspond to the world units of where a click occurred and it assumes that
-   * the origin (0, 0) is in the lower left hand corner.
+   * This method returns true if the button that called it has been pressed. The 'x' and 'y'
+   * parameters should correspond to the world units of where a click occurred, assuming the
+   * origin (0, 0) is in the lower left hand corner.
+   *
+   * @param x x-coordinate of where a click occurs in world units
+   * @param y y-coordinate of where a click occurs in world units
+   * @return boolean if the button has been pressed or not
    */
   public boolean isClicked(float x, float y) {
-    if (x >= this.x && x <= this.x + this.width) {
-      if (y >= this.y && y <= this.y + this.height) {
-        return true;
-      }
+    if (x >= this.x && x <= this.x + this.width && y >= this.y && y <= this.y + this.height) {
+      return true;
     }
     return false;
   }

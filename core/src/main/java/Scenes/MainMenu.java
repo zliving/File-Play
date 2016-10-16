@@ -39,6 +39,11 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
+  /**
+   * MainMenu takes a ScreenManager so that it may use it to change states.
+   *
+   * @param screenManager a reference to a ScreenManager in order to change screens.
+   */
   public MainMenu(ScreenManager screenManager) {
     this.screenManager = screenManager;
     // Creates a button using the given texture at (120, 400) of the native resolution 480
@@ -73,6 +78,8 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
   /**
    * The render method updates the screen every iteration given the change in time between
    * iterations.
+   *
+   * @param delta time between iterations
    */
   @Override
   public void render(float delta) {
@@ -94,6 +101,9 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
 
   /**
    * The resize method updates the viewport and camera in the case that the window is resized.
+   *
+   * @param width width that window is resized to
+   * @param height height that window is resized to
    */
   @Override
   public void resize(int width, int height) {

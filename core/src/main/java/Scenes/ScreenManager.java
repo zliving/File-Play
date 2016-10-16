@@ -9,8 +9,7 @@ import com.badlogic.gdx.Screen;
 public class ScreenManager {
   private Screen currentScreen;
 
-  // This is an enumeration (an ordering) of states so that they may be used throughout the
-  // program to change the state of the manager.
+  // Enumeration of program states used to change the state of the screen manager.
   public enum Screens {
     MAINMENU, SETTINGS, PLAY, LOBBY, LEADERBOARDS, TEST;
   }
@@ -23,8 +22,10 @@ public class ScreenManager {
     setState(screen);
   }
 
-  // setState will change the private variable currentScreen to a new instance of the screen
-  // corresponding with the enumeration value that was passed in.
+  /**
+   * Changes 'this.currentScreen' to a new instance of the screen corresponding to 'state'.
+   * @param state
+   */
   public void setState(Screens state) {
     // Dispose of the current screen and switch to the new one.
     if (currentScreen != null) {
