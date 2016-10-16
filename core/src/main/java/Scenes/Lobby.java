@@ -37,7 +37,11 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
   public Lobby(ScreenManager screenManager) {
     this.screenManager = screenManager;
     spriteBatch = new SpriteBatch();
+    // Creates a button using the given texture at location (20, 650) of the native resolution 480
+    // by 800.
     backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
+    // Creates a button using the given texture at location (320, 650) of the native resolution 480
+    // by 800.
     playButton = new Button(new Texture(Gdx.files.internal("next_button.png")), 320, 650);
     lobbyScreenText = new BitmapFont();
     lobbyScreenText.setColor(Color.YELLOW);
@@ -67,8 +71,12 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
     // The play button will need to be added in the next iteration
     spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
+    // Draws the text "Lobby Screen (To be implemented)" at the location (20, 750) of the native
+    // resolution 480 by 800
     lobbyScreenText.draw(spriteBatch, "Lobby Screen (To be implemented)", 20, 750);
+    // Draws the text "Play" at the location (400, 750) of the native resolution 480 by 800.
     playText.draw(spriteBatch, "Play", 400, 750);
+    // Draws a sprite using the given texture at a location of (65, 300) of the native resolution.
     spriteBatch.draw(new Sprite(lobbyMockUp), 65, 300);
     spriteBatch.end();
   }

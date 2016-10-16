@@ -16,6 +16,12 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import UIElements.Button;
 
+/**
+ * The leaderboards screen will display a ranking of users and statistics based on their
+ * gameplay. This class implements the LibGDX screen interface in order to render the contents to
+ * a user's phone screen. User touch input is handled by implementing the GestureListener interface
+ * provided by LibGDX.
+ */
 public class Leaderboards implements Screen, GestureDetector.GestureListener {
   private Button backButton;
   private SpriteBatch spriteBatch;
@@ -25,8 +31,9 @@ public class Leaderboards implements Screen, GestureDetector.GestureListener {
   private ScreenManager screenManager;
   private Viewport viewport;
   private Texture leaderboardsMockUp;
-  private final float WORLD_WIDTH = 480;
-  private final float WORLD_HEIGHT = 800;
+  // TODO: Refactor these constants into Game class
+  private static final float WORLD_WIDTH = 480;
+  private static final float WORLD_HEIGHT = 800;
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
@@ -34,6 +41,8 @@ public class Leaderboards implements Screen, GestureDetector.GestureListener {
   // the same way with changes to the textures/sprites that must be drawn to the screen.
   public Leaderboards(ScreenManager screenManager) {
     this.screenManager = screenManager;
+    // Create a new button using the "back_button.png" located at (20, 650) of the native
+    // resolution  of 480 by 800
     backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
     spriteBatch = new SpriteBatch();
     leaderboardText = new BitmapFont();
@@ -60,7 +69,11 @@ public class Leaderboards implements Screen, GestureDetector.GestureListener {
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
+    // Draw the text "Leaderboards (To be implemented)"  located at (20, 750) of the native
+    // resolution 480 by 800
     leaderboardText.draw(spriteBatch, "Leaderboards (To be implemented)", 20, 750);
+    // Draw a sprite using the leaderboardsMockUp texture located at (65, 3000) of the native
+    // resolution 480 by 800
     spriteBatch.draw(new Sprite(leaderboardsMockUp), 65, 300);
     spriteBatch.end();
   }

@@ -34,6 +34,8 @@ public class Settings implements Screen, GestureDetector.GestureListener {
   // same way with changes to the textures/sprites that must be drawn to the screen.
   public Settings(ScreenManager screenManager) {
     this.screenManager = screenManager;
+    // Creates a button using the given texture at (20, 650) of the native resolution 480
+    // by 800.
     backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
     spriteBatch = new SpriteBatch();
     settingsText = new BitmapFont();
@@ -60,7 +62,11 @@ public class Settings implements Screen, GestureDetector.GestureListener {
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
+    // Draws the text "Settings (To be implemented)" at the location (20, 750) of the native 480
+    // by 800 resolution.
     settingsText.draw(spriteBatch, "Settings (To be implemented)", 20, 750);
+    // Draws a sprite using the given texture at the location (65, 300) of the native 480 by 800
+    // resolution.
     spriteBatch.draw(new Sprite(settingsMockUp), 65, 300);
     spriteBatch.end();
   }

@@ -37,9 +37,15 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
   // TODO: (Chris): Include relative offsets and spacing
   public MainMenu(ScreenManager screenManager) {
     this.screenManager = screenManager;
+    // Creates a button using the given texture at (120, 400) of the native resolution 480
+    // by 800.
     playButton = new Button(new Texture(Gdx.files.internal("play_button.png")), 120, 400);
+    // Creates a button using the given texture at (120, 300) of the native resolution
+    // 480 by 800.
     leaderBoardsButton = new Button(new Texture(Gdx.files.internal("leaderboards_button.png")),
             120, 300);
+    // Creates a button using the given texture at (120, 200) of the native resolution 480
+    // by 800.
     settingsButton = new Button(new Texture(Gdx.files.internal("options_button.png")), 120, 200);
     spriteBatch = new SpriteBatch();
     mainMenuText = new BitmapFont();
@@ -48,7 +54,7 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     // This creates a viewport of the screen using the camera.
     viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
     viewport.apply();
-    // This centers the camera at the center of the viewport
+    // This centers the camera at the center of the viewport.
     camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
     // Set up listener for events happening on the screen.
     gestureDetector = new GestureDetector(this);
@@ -67,18 +73,20 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     camera.update();
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    // This tells LibGDX's 3D engine how to render in 2D
+    // This tells LibGDX's 3D engine how to render in 2D.
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
     spriteBatch.draw(leaderBoardsButton.getSprite(), leaderBoardsButton.getX(),
             leaderBoardsButton.getY());
     spriteBatch.draw(settingsButton.getSprite(), settingsButton.getX(), settingsButton.getY());
+    // Draws the text "Main Menu" at the location (20, 750) of the native screen resolution 480 by
+    // 800.
     mainMenuText.draw(spriteBatch, "Main Menu", 20, 750);
     spriteBatch.end();
   }
 
-  //The resize method updates the viewport and camera in the case that the window is resized.
+  // The resize method updates the viewport and camera in the case that the window is resized.
   @Override
   public void resize(int width, int height) {
     viewport.update(width, height);
