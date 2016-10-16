@@ -4,11 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+/**
+ * The button class stores information for a given sprite in the native resolution of 480 by 800
+ * and provides a way of checking if a button is clicked or not.
+ */
 public class Button {
   private Sprite sprite;
   private float x, y, width, height;
-  private final float WORLD_WIDTH = 480;
-  private final float WORLD_HEIGHT = 800;
+  private static final float WORLD_WIDTH = 480;
+  private static final float WORLD_HEIGHT = 800;
   // TODO (Chris): Think of a better name for this class. This is pretty much a wrapper for
   // sprites/textures but allows for touch calculations in regards to world units.
 

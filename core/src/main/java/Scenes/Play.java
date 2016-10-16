@@ -16,6 +16,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import UIElements.Button;
 
+/**
+ * The play screen will be where two users answer trivia questions retrieved from the database
+ * and where the actual gameplay will occur.
+ */
 public class Play implements Screen, GestureDetector.GestureListener {
   private OrthographicCamera camera;
   private GestureDetector gestureDetector;
@@ -30,8 +34,10 @@ public class Play implements Screen, GestureDetector.GestureListener {
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
-  // Refer to MainMenu.java for comments regarding each section. Play should operate in the
-  // same way with changes to the textures/sprites that must be drawn to the screen.
+  /**
+   * Refer to MainMenu.java for comments regarding each section. Play should operate in the
+   * same way with changes to the textures/sprites that must be drawn to the screen.
+   */
   public Play(ScreenManager screenManager) {
     this.screenManager = screenManager;
     // Creates a button with the given texture at a location of (20, 650) of the native screen

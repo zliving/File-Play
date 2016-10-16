@@ -17,6 +17,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import UIElements.Button;
 
 /**
+ * TODO (Chris): Refactor constants into Game class.
+ * TODO (Chris): Include private helper methods to help with readability.
  * The leaderboards screen will display a ranking of users and statistics based on their
  * gameplay. This class implements the LibGDX screen interface in order to render the contents to
  * a user's phone screen. User touch input is handled by implementing the GestureListener interface
@@ -31,14 +33,15 @@ public class Leaderboards implements Screen, GestureDetector.GestureListener {
   private ScreenManager screenManager;
   private Viewport viewport;
   private Texture leaderboardsMockUp;
-  // TODO: Refactor these constants into Game class.
   private static final float WORLD_WIDTH = 480;
   private static final float WORLD_HEIGHT = 800;
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
-  // Refer to MainMenu.java for comments regarding each section. Leaderboards should operate in
-  // the same way with changes to the textures/sprites that must be drawn to the screen.
+  /**
+   * Refer to MainMenu.java for comments regarding each section. Leaderboards should operate in
+   * the same way with changes to the textures/sprites that must be drawn to the screen.
+   */
   public Leaderboards(ScreenManager screenManager) {
     this.screenManager = screenManager;
     // Create a new button using the "back_button.png" located at (20, 650) of the native

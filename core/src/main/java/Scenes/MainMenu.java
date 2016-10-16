@@ -16,7 +16,12 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import UIElements.Button;
 
-// TODO: Refactor world width, height, batch, and ratios into Game class.
+/**
+ * TODO(Chris): Refactor world width, height, batch, and ratios into Game class.
+ * TODO(Chris): Include relative offsets and spacing.
+ * MainMenu will display the main menu screen of the game with buttons that transition them into
+ * appropriate screens from the main menu.
+ */
 public class MainMenu implements Screen, GestureDetector.GestureListener {
   private Button playButton;
   private Button leaderBoardsButton;
@@ -34,7 +39,6 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
-  // TODO: (Chris): Include relative offsets and spacing.
   public MainMenu(ScreenManager screenManager) {
     this.screenManager = screenManager;
     // Creates a button using the given texture at (120, 400) of the native resolution 480
