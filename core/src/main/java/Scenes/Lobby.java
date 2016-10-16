@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
@@ -22,6 +23,7 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
   private BitmapFont playText;
   private Button backButton;
   private Button playButton;
+  private Texture lobbyMockUp;
   private SpriteBatch spriteBatch;
   private ScreenManager screenManager;
   private Viewport viewport;
@@ -39,6 +41,7 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
     lobbyScreenText.setColor(Color.YELLOW);
     playText = new BitmapFont();
     playText.setColor(Color.YELLOW);
+    lobbyMockUp = new Texture(Gdx.files.internal("lobby_mockup.png"));
     camera = new OrthographicCamera();
     viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
     viewport.apply();
@@ -64,6 +67,7 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
     spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
     lobbyScreenText.draw(spriteBatch, "Lobby Screen (To be implemented)", 20, 750);
     playText.draw(spriteBatch, "Play", 400, 750);
+    spriteBatch.draw(new Sprite(lobbyMockUp), 65, 300);
     spriteBatch.end();
   }
 

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
@@ -23,6 +24,7 @@ public class Leaderboards implements Screen, GestureDetector.GestureListener {
   private BitmapFont leaderboardText;
   private ScreenManager screenManager;
   private Viewport viewport;
+  private Texture leaderboardsMockUp;
   private final float WORLD_WIDTH = 480;
   private final float WORLD_HEIGHT = 800;
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
@@ -34,6 +36,7 @@ public class Leaderboards implements Screen, GestureDetector.GestureListener {
     spriteBatch = new SpriteBatch();
     leaderboardText = new BitmapFont();
     leaderboardText.setColor(Color.YELLOW);
+    leaderboardsMockUp = new Texture(Gdx.files.internal("leaderboards_mockup.png"));
     camera = new OrthographicCamera();
     viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
     viewport.apply();
@@ -56,6 +59,7 @@ public class Leaderboards implements Screen, GestureDetector.GestureListener {
     spriteBatch.begin();
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
     leaderboardText.draw(spriteBatch, "Leaderboards (To be implemented)", 20, 750);
+    spriteBatch.draw(new Sprite(leaderboardsMockUp), 65, 300);
     spriteBatch.end();
   }
 
@@ -81,6 +85,7 @@ public class Leaderboards implements Screen, GestureDetector.GestureListener {
   public void dispose() {
     spriteBatch.dispose();
     leaderboardText.dispose();
+    leaderboardsMockUp.dispose();
   }
 
   @Override

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
@@ -19,6 +20,7 @@ public class Play implements Screen, GestureDetector.GestureListener {
   private OrthographicCamera camera;
   private GestureDetector gestureDetector;
   private BitmapFont playScreenText;
+  private Texture playMockUp;
   private Button backButton;
   private SpriteBatch spriteBatch;
   private ScreenManager screenManager;
@@ -33,6 +35,7 @@ public class Play implements Screen, GestureDetector.GestureListener {
     backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
     playScreenText = new BitmapFont();
     playScreenText.setColor(Color.YELLOW);
+    playMockUp = new Texture(Gdx.files.internal("play_mockup.png"));
     camera = new OrthographicCamera();
     viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
     viewport.apply();
@@ -56,6 +59,7 @@ public class Play implements Screen, GestureDetector.GestureListener {
     spriteBatch.begin();
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
     playScreenText.draw(spriteBatch, "Play Screen (To be implemented)", 20, 750);
+    spriteBatch.draw(new Sprite(playMockUp), 65, 300);
     spriteBatch.end();
   }
 
@@ -81,6 +85,7 @@ public class Play implements Screen, GestureDetector.GestureListener {
   public void dispose() {
     spriteBatch.dispose();
     playScreenText.dispose();
+    playMockUp.dispose();
   }
 
   @Override
