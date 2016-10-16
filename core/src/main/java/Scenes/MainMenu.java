@@ -11,31 +11,37 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import UIElements.Button;
 
 public class MainMenu implements Screen, GestureDetector.GestureListener {
-  private Button leaderboardsButton;
   private Button playButton;
-  private Button settingsButton;
+  private Sprite settingsButton;
   private SpriteBatch spriteBatch;
   private OrthographicCamera camera;
   private GestureDetector gestureDetector;
   private BitmapFont mainMenuText;
   private ScreenManager screenManager;
+  private Viewport viewport;
+  private final float WORLD_WIDTH = 480;
+  private final float WORLD_HEIGHT = 800;
+  private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics
+          .getHeight();
+  private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
   public MainMenu(ScreenManager screenManager) {
     this.screenManager = screenManager;
     //TODO: Include relative offsets and spacing
-    leaderboardsButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 200, 100);
-    playButton = new Button(new Sprite(new Texture(Gdx.files.internal("testButton.jpg"))), 200,
-            300);
-    settingsButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 200, 200);
+    playButton = new Button(new Texture(Gdx.files.internal("testButton.jpg")), 200, 400);
     spriteBatch = new SpriteBatch();
     mainMenuText = new BitmapFont();
     mainMenuText.setColor(Color.TEAL);
-    camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-    camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+    camera = new OrthographicCamera();
+    viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
+    viewport.apply();
+    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
     gestureDetector = new GestureDetector(this);
     Gdx.input.setInputProcessor(gestureDetector);
   }
@@ -46,19 +52,22 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
 
   @Override
   public void render(float delta) {
+    camera.update();
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
-    spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
-    spriteBatch.draw(leaderboardsButton.getSprite(), leaderboardsButton.getX(), leaderboardsButton.getY());
-    spriteBatch.draw(settingsButton.getSprite(), settingsButton.getX(), settingsButton.getY());
-    mainMenuText.draw(spriteBatch, "Main Menu", 20, 750);
+    spriteBatch.draw(playButton.getSprite(), playButton.getX(),
+            playButton.getY());
+//    mainMenuText.draw(spriteBatch, "Main Menu", 20, 750);
     spriteBatch.end();
 
   }
 
   @Override
   public void resize(int width, int height) {
+    viewport.update(width, height);
+    camera.position.set(camera.viewportWidth/2 , camera.viewportHeight / 2, 0);
   }
 
   @Override
@@ -86,16 +95,15 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
 
   @Override
   public boolean tap(float x, float y, int count, int button) {
-    float correctedY = Gdx.graphics.getHeight() - y;
-    if (playButton.isClicked(x, correctedY)) {
+    HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
+    WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
+    float worldX = x * WidthWorldPixelRatio;
+    float worldY = y * HeightWorldPixelRatio;
+    if(playButton.isClicked(worldX, worldY)){
+      System.out.println("Go to leaderboards");
       screenManager.setState(ScreenManager.Screens.LOBBY);
-    } else if (leaderboardsButton.isClicked(x, correctedY)) {
-      System.out.println("Change to leaderboards screen");
-    } else if (settingsButton.isClicked(x, correctedY)) {
-      System.out.println("Change to settings screen");
-    } else {
-      System.out.println("Nothing tapped");
     }
+
     return false;
   }
 

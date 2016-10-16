@@ -1,19 +1,24 @@
 package UIElements;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Button {
   private Sprite sprite;
   private float x, y, width, height;
+  private final float WORLD_WIDTH = 480;
+  private final float WORLD_HEIGHT = 800;
 
   public Button(Sprite sprite, float x, float y) {
     this.sprite = sprite;
+    // x and y should be given in world units
     this.x = x;
     this.y = y;
     sprite.setPosition(x, y);
-    this.width = sprite.getWidth();
-    this.height = sprite.getHeight();
+    // This sets the width and height in world units
+    this.width = sprite.getWidth() * WORLD_WIDTH / Gdx.graphics.getWidth();
+    this.height = sprite.getHeight() * WORLD_HEIGHT / Gdx.graphics.getHeight();
   }
 
   public Button(Texture t, float x, float y) {
@@ -27,7 +32,7 @@ public class Button {
 
   public boolean isClicked(float x, float y) {
     if (x >= this.x && x <= this.x + this.width) {
-      if (y >= this.y && y <= this.y + this.height) {
+      if (y <= this.y && y >= this.y - this.height) {
         return true;
       }
     }
