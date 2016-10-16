@@ -112,7 +112,7 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
       screenManager.setState(ScreenManager.Screens.LOBBY);
     } else if (leaderBoardsButton.isClicked(worldX, worldY)) {
       System.out.println("Go to leaderboards");
-      // screenManager.setState(ScreenManager.Screens.LEADERBOARDS);
+      screenManager.setState(ScreenManager.Screens.LEADERBOARDS);
     } else if (settingsButton.isClicked(worldX, worldY)) {
       System.out.println("Go to settings");
       screenManager.setState(ScreenManager.Screens.SETTINGS);

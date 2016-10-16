@@ -13,11 +13,11 @@ public class FilePlayMain extends ApplicationAdapter {
   @Override
   public void create() {
     // Create new state manager and start off at test screen
-    screenManager = new ScreenManager(ScreenManager.Screens.TEST);
+    screenManager = new ScreenManager(ScreenManager.Screens.MAINMENU);
   }
 
 	/*
-		Render class draws objects created in the create class to the screen.
+        Render class draws objects created in the create class to the screen.
 		It is refreshed at the clock rate of the phones screen
 	 */
 

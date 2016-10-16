@@ -41,7 +41,7 @@ public class ScreenManager {
         currentScreen = new Lobby(this);
         break;
       case LEADERBOARDS:
-        currentScreen = new Leaderboards();
+        currentScreen = new Leaderboards(this);
         break;
       case TEST:
         currentScreen = new Test();
