@@ -32,6 +32,8 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
+  // Refer to MainMenu.java for comments regarding each section. Lobby should operate in the
+  // same way with changes to the textures/sprites that must be drawn to the screen.
   public Lobby(ScreenManager screenManager) {
     this.screenManager = screenManager;
     spriteBatch = new SpriteBatch();

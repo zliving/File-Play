@@ -27,12 +27,14 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
   private BitmapFont mainMenuText;
   private ScreenManager screenManager;
   private Viewport viewport;
+  // This is the native screen size that will be the reference for everything placed on the screen.
   private final float WORLD_WIDTH = 480;
   private final float WORLD_HEIGHT = 800;
+  // Ratio of world units and pixels of a screen.
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
-  // TODO: Include relative offsets and spacing
+  // TODO: (Chris): Include relative offsets and spacing
   public MainMenu(ScreenManager screenManager) {
     this.screenManager = screenManager;
     playButton = new Button(new Texture(Gdx.files.internal("play_button.png")), 120, 400);
@@ -43,9 +45,12 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     mainMenuText = new BitmapFont();
     mainMenuText.setColor(Color.YELLOW);
     camera = new OrthographicCamera();
+    // This creates a viewport of the screen using the camera.
     viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
     viewport.apply();
+    // This centers the camera at the center of the viewport
     camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+    // Set up listener for events happening on the screen.
     gestureDetector = new GestureDetector(this);
     Gdx.input.setInputProcessor(gestureDetector);
     this.resize((int) WORLD_WIDTH, (int) WORLD_HEIGHT);
@@ -55,11 +60,14 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
   public void show() {
   }
 
+  // The render method updates the screen every iteration given the change in time between
+  // iterations.
   @Override
   public void render(float delta) {
     camera.update();
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    // This tells LibGDX's 3D engine how to render in 2D
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
@@ -70,6 +78,7 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     spriteBatch.end();
   }
 
+  //The resize method updates the viewport and camera in the case that the window is resized.
   @Override
   public void resize(int width, int height) {
     viewport.update(width, height);
@@ -99,13 +108,19 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     return false;
   }
 
-  // Tap takes uses the upper left hand corner as the origin (0, 0)
+
+  // Tap is part of the GestureListener interface and gives the x and y pixel coordinates
+  // corresponding to a user's touch. Note that the coordinate system for tap refers to the upper
+  // left hand corner as the origin.
   @Override
   public boolean tap(float x, float y, int count, int button) {
     HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
     WidthWorldPixelRatio = WORLD_WIDTH / (float) Gdx.graphics.getWidth();
     float worldX = x * WidthWorldPixelRatio;
+    // Tap takes the upper left hand corner to be the origin (0, 0) therefore some correction
+    // must be made in order to pass into the isClicked method.
     float correctedY = Gdx.graphics.getHeight() - y;
+    // Convert to world units
     float worldY = correctedY * HeightWorldPixelRatio;
     if (playButton.isClicked(worldX, worldY)) {
       System.out.println("Go to lobby");

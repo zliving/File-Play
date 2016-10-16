@@ -30,6 +30,8 @@ public class Play implements Screen, GestureDetector.GestureListener {
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
+  // Refer to MainMenu.java for comments regarding each section. Play should operate in the
+  // same way with changes to the textures/sprites that must be drawn to the screen.
   public Play(ScreenManager screenManager) {
     this.screenManager = screenManager;
     backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
