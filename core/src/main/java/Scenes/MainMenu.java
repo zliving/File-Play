@@ -14,11 +14,14 @@ import com.badlogic.gdx.graphics.GL20;
 
 /**
  * Created by zach on 10/6/16.
+ *
+ * This class implements the main menu screen. So far all it does is draw the screen,  no input
+ * handling yet. The buttons are play, options and leaderboards.
  */
 
 public class MainMenu implements Screen {
 
-  private SpriteBatch mainMenuSB;
+  private SpriteBatch mainMenuSpriteBatch;
   private BitmapFont font;
   private GlyphLayout fontLayout;
 
@@ -27,14 +30,14 @@ public class MainMenu implements Screen {
   private Texture leaderBoardsButton;
   private Texture background;
 
-  //this macro definition will be used to space buttons from one another
-  public final int VERTICAL_SPACING = 90;
-  //this one does the same horizontally
-  public final int HORIZONTAL_SPACING = 110;
+  // These constants will be used to space buttons from one another.
+  public static final int VERTICAL_SPACING = 90;
+  public static final int HORIZONTAL_SPACING = 110;
 
-  //constructor defines the sprite batch, the two buttons and the font
+  // The constructor defines the sprite batch, right now consisting of three buttons,
+  // the background and the text at the very bottom.
   public MainMenu(){
-    mainMenuSB = new SpriteBatch();
+    mainMenuSpriteBatch = new SpriteBatch();
     font = new BitmapFont();
     fontLayout = new GlyphLayout();
     playButton = new Texture("play_button.png");
@@ -58,7 +61,6 @@ public class MainMenu implements Screen {
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-    //code for drawing the background copied from test.java
     // Get the width and height of the device screen.
     float width = Gdx.graphics.getWidth();
     float height = Gdx.graphics.getHeight();
@@ -66,18 +68,21 @@ public class MainMenu implements Screen {
     float middleScreenWidth = width / 2;
     float middleScreenHeight = height / 2;
 
-    mainMenuSB.begin();
-    mainMenuSB.draw(background, middleScreenWidth-140, middleScreenHeight-250, 300, 600);
-    //hard  code the button's positions
-    mainMenuSB.draw(playButton, middleScreenWidth-HORIZONTAL_SPACING, middleScreenHeight + VERTICAL_SPACING);
-    mainMenuSB.draw(optionsButton, middleScreenWidth-HORIZONTAL_SPACING, middleScreenHeight);
-    mainMenuSB.draw(leaderBoardsButton, middleScreenWidth-HORIZONTAL_SPACING, middleScreenHeight - VERTICAL_SPACING);
-    font.draw(mainMenuSB, "-by Rubber Duck", 20, 20);
+    mainMenuSpriteBatch.begin();
+    // The background position and scaling numbers were chosen arbitrarily and different from the buttons
+    mainMenuSpriteBatch.draw(background, middleScreenWidth-140, middleScreenHeight-250, 300, 600);
+    // The buttons are aligned horizontally, and are apart the same amount of space vertically.
+    mainMenuSpriteBatch.draw(playButton, middleScreenWidth-HORIZONTAL_SPACING, middleScreenHeight +
+                              VERTICAL_SPACING);
+    mainMenuSpriteBatch.draw(optionsButton, middleScreenWidth-HORIZONTAL_SPACING,
+                              middleScreenHeight);
+    mainMenuSpriteBatch.draw(leaderBoardsButton, middleScreenWidth-HORIZONTAL_SPACING,
+                              middleScreenHeight - VERTICAL_SPACING);
+    // This two lines draw a watermark at the bottom.
+    font.draw(mainMenuSpriteBatch, "-by Rubber Duck", 20, 20);
     font.setColor(Color.YELLOW);
 
-
-
-    mainMenuSB.end();
+    mainMenuSpriteBatch.end();
 
 
   }
