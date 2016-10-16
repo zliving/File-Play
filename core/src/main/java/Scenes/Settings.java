@@ -25,13 +25,15 @@ public class Settings implements Screen, GestureDetector.GestureListener {
   private Texture settingsMockUp;
   private ScreenManager screenManager;
   private Viewport viewport;
-  private final float WORLD_WIDTH = 480;
-  private final float WORLD_HEIGHT = 800;
+  private static final float WORLD_WIDTH = 480;
+  private static final float WORLD_HEIGHT = 800;
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
-  // Refer to MainMenu.java for comments regarding each section. Settings should operate in the
-  // same way with changes to the textures/sprites that must be drawn to the screen.
+  /**
+   * Refer to MainMenu.java for comments regarding each section. Settings should operate in the
+   * same way with changes to the textures/sprites that must be drawn to the screen.
+   */
   public Settings(ScreenManager screenManager) {
     this.screenManager = screenManager;
     // Creates a button using the given texture at (20, 650) of the native resolution 480

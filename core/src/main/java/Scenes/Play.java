@@ -25,8 +25,8 @@ public class Play implements Screen, GestureDetector.GestureListener {
   private SpriteBatch spriteBatch;
   private ScreenManager screenManager;
   private Viewport viewport;
-  private final float WORLD_WIDTH = 480;
-  private final float WORLD_HEIGHT = 800;
+  private static final float WORLD_WIDTH = 480;
+  private static final float WORLD_HEIGHT = 800;
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
@@ -66,7 +66,7 @@ public class Play implements Screen, GestureDetector.GestureListener {
     // resolution 480 by 800.
     playScreenText.draw(spriteBatch, "Play Screen (To be implemented)", 20, 750);
     // Draws a sprite using the playMockUp texture  located at (65, 300) of the native
-    // resolution 480 by 800
+    // resolution 480 by 800.
     spriteBatch.draw(new Sprite(playMockUp), 65, 300);
     spriteBatch.end();
   }

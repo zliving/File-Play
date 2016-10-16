@@ -27,8 +27,8 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
   private SpriteBatch spriteBatch;
   private ScreenManager screenManager;
   private Viewport viewport;
-  private final float WORLD_WIDTH = 480;
-  private final float WORLD_HEIGHT = 800;
+  private static final float WORLD_WIDTH = 480;
+  private static final float WORLD_HEIGHT = 800;
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
@@ -69,10 +69,10 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
-    // The play button will need to be added in the next iteration
+    // The play button will need to be added in the next iteration.
     spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
     // Draws the text "Lobby Screen (To be implemented)" at the location (20, 750) of the native
-    // resolution 480 by 800
+    // resolution 480 by 800.
     lobbyScreenText.draw(spriteBatch, "Lobby Screen (To be implemented)", 20, 750);
     // Draws the text "Play" at the location (400, 750) of the native resolution 480 by 800.
     playText.draw(spriteBatch, "Play", 400, 750);

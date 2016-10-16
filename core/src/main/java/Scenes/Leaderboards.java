@@ -31,7 +31,7 @@ public class Leaderboards implements Screen, GestureDetector.GestureListener {
   private ScreenManager screenManager;
   private Viewport viewport;
   private Texture leaderboardsMockUp;
-  // TODO: Refactor these constants into Game class
+  // TODO: Refactor these constants into Game class.
   private static final float WORLD_WIDTH = 480;
   private static final float WORLD_HEIGHT = 800;
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
@@ -42,7 +42,7 @@ public class Leaderboards implements Screen, GestureDetector.GestureListener {
   public Leaderboards(ScreenManager screenManager) {
     this.screenManager = screenManager;
     // Create a new button using the "back_button.png" located at (20, 650) of the native
-    // resolution  of 480 by 800
+    // resolution  of 480 by 800.
     backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
     spriteBatch = new SpriteBatch();
     leaderboardText = new BitmapFont();
@@ -69,11 +69,11 @@ public class Leaderboards implements Screen, GestureDetector.GestureListener {
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
-    // Draw the text "Leaderboards (To be implemented)"  located at (20, 750) of the native
-    // resolution 480 by 800
+    // Draws the text "Leaderboards (To be implemented)"  located at (20, 750) of the native
+    // resolution 480 by 800.
     leaderboardText.draw(spriteBatch, "Leaderboards (To be implemented)", 20, 750);
-    // Draw a sprite using the leaderboardsMockUp texture located at (65, 3000) of the native
-    // resolution 480 by 800
+    // Draws a sprite using the leaderboardsMockUp texture located at (65, 3000) of the native
+    // resolution 480 by 800.
     spriteBatch.draw(new Sprite(leaderboardsMockUp), 65, 300);
     spriteBatch.end();
   }
