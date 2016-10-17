@@ -12,7 +12,7 @@ public class ScreenManager {
 
   // Enumeration of program states used to change the state of the screen manager.
   public enum Screens {
-    MAINMENU, SETTINGS, PLAY, LOBBY, LEADERBOARDS, TEST;
+    MAINMENU, SETTINGS, PLAY, LOBBY, LEADERBOARDS, TEST
   }
 
   public ScreenManager() {

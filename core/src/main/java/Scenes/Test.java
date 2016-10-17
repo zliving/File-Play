@@ -18,13 +18,13 @@ import GameObjects.TriviaQuestionBuilder;
 
 
 public class Test implements Screen, GestureDetector.GestureListener {
-  SpriteBatch batch;
-  private BitmapFont font;
-  private GlyphLayout fontLayout;
-  private TriviaQuestionBuilder newTriviaRound;
-  private Camera camera;
-  private Sprite badSprite;
-  private GestureDetector gestureDetector;
+  private final SpriteBatch batch;
+  private final BitmapFont font;
+  private final GlyphLayout fontLayout;
+  private final TriviaQuestionBuilder newTriviaRound;
+  private final Camera camera;
+  private final Sprite badSprite;
+  private final GestureDetector gestureDetector;
 
 
   public Test() {

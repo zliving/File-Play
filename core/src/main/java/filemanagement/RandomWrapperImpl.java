@@ -8,7 +8,7 @@ import java.util.Random;
  * introduce nondeterministic elements and result in extremely flaky tests.
  */
 public class RandomWrapperImpl implements RandomWrapper {
-  Random random;
+  private final Random random;
 
   public RandomWrapperImpl() {
     random = new Random();

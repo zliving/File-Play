@@ -20,17 +20,17 @@ import UIElements.Button;
  * The lobby screen will be where users set their preferences for a game prior to searching for
  * one.
  */
-public class Lobby implements Screen, GestureDetector.GestureListener {
-  private OrthographicCamera camera;
-  private GestureDetector gestureDetector;
-  private BitmapFont lobbyScreenText;
-  private BitmapFont playText;
-  private Button backButton;
-  private Button playButton;
-  private Texture lobbyMockUp;
-  private SpriteBatch spriteBatch;
-  private ScreenManager screenManager;
-  private Viewport viewport;
+class Lobby implements Screen, GestureDetector.GestureListener {
+  private final OrthographicCamera camera;
+  private final GestureDetector gestureDetector;
+  private final BitmapFont lobbyScreenText;
+  private final BitmapFont playText;
+  private final Button backButton;
+  private final Button playButton;
+  private final Texture lobbyMockUp;
+  private final SpriteBatch spriteBatch;
+  private final ScreenManager screenManager;
+  private final Viewport viewport;
   private static final float WORLD_WIDTH = 480;
   private static final float WORLD_HEIGHT = 800;
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();

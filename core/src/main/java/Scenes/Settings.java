@@ -20,15 +20,15 @@ import UIElements.Button;
  * The settings screen is where users will be able to access their profiles and set preferences
  * regarding their gameplay.
  */
-public class Settings implements Screen, GestureDetector.GestureListener {
-  private Button backButton;
-  private SpriteBatch spriteBatch;
-  private OrthographicCamera camera;
-  private GestureDetector gestureDetector;
-  private BitmapFont settingsText;
-  private Texture settingsMockUp;
-  private ScreenManager screenManager;
-  private Viewport viewport;
+class Settings implements Screen, GestureDetector.GestureListener {
+  private final Button backButton;
+  private final SpriteBatch spriteBatch;
+  private final OrthographicCamera camera;
+  private final GestureDetector gestureDetector;
+  private final BitmapFont settingsText;
+  private final Texture settingsMockUp;
+  private final ScreenManager screenManager;
+  private final Viewport viewport;
   private static final float WORLD_WIDTH = 480;
   private static final float WORLD_HEIGHT = 800;
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();

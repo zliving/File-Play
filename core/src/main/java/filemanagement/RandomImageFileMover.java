@@ -4,7 +4,7 @@ package filemanagement;
  * Interface for moving images between the user image gallery and a hidden folder within the
  * gallery.
  */
-public interface RandomImageFileMover {
+interface RandomImageFileMover {
   /*
    * Returns true if a file is moved, returns false otherwise.
    * Moves a random file from the image gallery to the hidden folder.

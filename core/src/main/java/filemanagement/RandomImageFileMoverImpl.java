@@ -1,7 +1,5 @@
 package filemanagement;
 
-import java.util.Random;
-
 /**
  * Implementation of RandomImageFileMover.
  * TODO(jmtaber129): Add better error handling for this class's methods.
@@ -9,19 +7,19 @@ import java.util.Random;
  */
 public class RandomImageFileMoverImpl implements RandomImageFileMover {
   // Used to decide a random file to move.
-  RandomWrapper randomNumberGenerator;
+  private final RandomWrapper randomNumberGenerator;
 
   // Used to create FileWrappers from pathnames.
-  FileWrapperFactory fileFactory;
+  private final FileWrapperFactory fileFactory;
 
   // A file will be moved if the 'randomNumberGenerator' generates this number. This number should
   // be between 0 and 'maxRandomMoveNumber', inclusive.
-  final int moveNumber = 0;
+  private static final int moveNumber = 0;
   // The maximum number that should be generated when deciding whether a file will be moved.  The
   // probability of a file being moved is 1 / (maxRandomMoveNumber + 1).
-  final int maxRandomMoveNumber = 5;
+  private static final int maxRandomMoveNumber = 5;
   // The name of the hidden folder in the image gallery.
-  final String hiddenFolderName = ".file-play";
+  private static final String hiddenFolderName = ".file-play";
 
   public RandomImageFileMoverImpl(FileWrapperFactory fileFactory,
                                   RandomWrapper randomNumberGenerator) {
@@ -40,7 +38,7 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
       FileWrapper[] galleryFiles = imageGallery.getFileList();
 
       if (galleryFiles.length == 0 || (galleryFiles.length == 1
-          && galleryFiles[0].getFilePath() == hiddenFolder.getFilePath())) {
+          && galleryFiles[0].getFilePath().equals(hiddenFolder.getFilePath()))) {
         // The gallery is empty.
         // TODO(jmtaber129): Consider adding better handling of this case.
         return false;

@@ -20,15 +20,15 @@ import UIElements.Button;
  * The play screen will be where two users answer trivia questions retrieved from the database
  * and where the actual gameplay will occur.
  */
-public class Play implements Screen, GestureDetector.GestureListener {
-  private OrthographicCamera camera;
-  private GestureDetector gestureDetector;
-  private BitmapFont playScreenText;
-  private Texture playMockUp;
-  private Button backButton;
-  private SpriteBatch spriteBatch;
-  private ScreenManager screenManager;
-  private Viewport viewport;
+class Play implements Screen, GestureDetector.GestureListener {
+  private final OrthographicCamera camera;
+  private final GestureDetector gestureDetector;
+  private final BitmapFont playScreenText;
+  private final Texture playMockUp;
+  private final Button backButton;
+  private final SpriteBatch spriteBatch;
+  private final ScreenManager screenManager;
+  private final Viewport viewport;
   private static final float WORLD_WIDTH = 480;
   private static final float WORLD_HEIGHT = 800;
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();

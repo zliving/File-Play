@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  * and provides a way of checking if a button is clicked or not.
  */
 public class Button {
-  private Sprite sprite;
+  private final Sprite sprite;
   private float x, y, width, height;
   private static final float WORLD_WIDTH = 480;
   private static final float WORLD_HEIGHT = 800;
@@ -35,7 +35,7 @@ public class Button {
   /**
    * This is an overloaded constructor which takes in a texture and two floats which correspond
    * to the world units of where the object should be drawn. It simply makes a Sprite of the
-   * texture that is passed in and then prooceeds to do the same as the first constructor.
+   * texture that is passed in and then proceeds to do the same as the first constructor.
    *
    * @param t texture of what to create a button of
    * @param x x-coordinate of lower lefthand corner of where t should be drawn.
@@ -59,10 +59,7 @@ public class Button {
    * @return boolean if the button has been pressed or not
    */
   public boolean isClicked(float x, float y) {
-    if (x >= this.x && x <= this.x + this.width && y >= this.y && y <= this.y + this.height) {
-      return true;
-    }
-    return false;
+    return x >= this.x && x <= this.x + this.width && y >= this.y && y <= this.y + this.height;
   }
 
   public Sprite getSprite() {
