@@ -53,7 +53,6 @@ public class Play implements Screen, GestureDetector.GestureListener {
     spriteBatch = new SpriteBatch();
     gestureDetector = new GestureDetector(this);
     Gdx.input.setInputProcessor(gestureDetector);
-    this.resize((int) WORLD_WIDTH, (int) WORLD_HEIGHT);
   }
 
   @Override

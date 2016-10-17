@@ -68,7 +68,6 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     // Set up listener for events happening on the screen.
     gestureDetector = new GestureDetector(this);
     Gdx.input.setInputProcessor(gestureDetector);
-    this.resize((int) WORLD_WIDTH, (int) WORLD_HEIGHT);
   }
 
   @Override

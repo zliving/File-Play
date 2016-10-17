@@ -60,7 +60,6 @@ public class Lobby implements Screen, GestureDetector.GestureListener {
     camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
     gestureDetector = new GestureDetector(this);
     Gdx.input.setInputProcessor(gestureDetector);
-    this.resize((int) WORLD_WIDTH, (int) WORLD_HEIGHT);
   }
 
   @Override

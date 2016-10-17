@@ -1,5 +1,6 @@
 package Scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
 /*
@@ -55,6 +56,8 @@ public class ScreenManager {
         currentScreen = new MainMenu(this);
         break;
     }
+    // Need to resize when switching between different screens.
+    currentScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
   }
 
   public void render(float delta) {
