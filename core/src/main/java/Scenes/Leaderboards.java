@@ -24,15 +24,15 @@ import UIElements.Button;
  * a user's phone screen. User touch input is handled by implementing the GestureListener interface
  * provided by LibGDX.
  */
-public class Leaderboards implements Screen, GestureDetector.GestureListener {
-  private Button backButton;
-  private SpriteBatch spriteBatch;
-  private OrthographicCamera camera;
-  private GestureDetector gestureDetector;
-  private BitmapFont leaderboardText;
-  private ScreenManager screenManager;
-  private Viewport viewport;
-  private Texture leaderboardsMockUp;
+class Leaderboards implements Screen, GestureDetector.GestureListener {
+  private final Button backButton;
+  private final SpriteBatch spriteBatch;
+  private final OrthographicCamera camera;
+  private final GestureDetector gestureDetector;
+  private final BitmapFont leaderboardText;
+  private final ScreenManager screenManager;
+  private final Viewport viewport;
+  private final Texture leaderboardsMockUp;
   private static final float WORLD_WIDTH = 480;
   private static final float WORLD_HEIGHT = 800;
   private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();

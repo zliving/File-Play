@@ -3,7 +3,7 @@ package filemanagement;
 /**
  * Interface for creating FileWrapper objects.
  */
-public interface FileWrapperFactory {
+interface FileWrapperFactory {
   /*
    *  Returns a FileWrapper describing the directory of the local image gallery.
    */

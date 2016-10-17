@@ -3,6 +3,6 @@ package filemanagement;
 /**
  * Wrapper for java.util.Random for better unit tests.
  */
-public interface RandomWrapper {
+interface RandomWrapper {
   int nextInt(int i);
 }

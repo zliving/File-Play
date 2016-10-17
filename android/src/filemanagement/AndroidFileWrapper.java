@@ -6,9 +6,9 @@ import java.io.File;
  * Implementation of the FileWrapper interface for android Files.
  */
 public class AndroidFileWrapper implements FileWrapper {
-  private File wrappedFile;
+  private final File wrappedFile;
 
-  protected AndroidFileWrapper(File androidFile) {
+  AndroidFileWrapper(File androidFile) {
     wrappedFile = androidFile;
   }
 

@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
@@ -22,16 +21,16 @@ import UIElements.Button;
  * MainMenu will display the main menu screen of the game with buttons that transition them into
  * appropriate screens from the main menu.
  */
-public class MainMenu implements Screen, GestureDetector.GestureListener {
-  private Button playButton;
-  private Button leaderBoardsButton;
-  private Button settingsButton;
-  private SpriteBatch spriteBatch;
-  private OrthographicCamera camera;
-  private GestureDetector gestureDetector;
-  private BitmapFont mainMenuText;
-  private ScreenManager screenManager;
-  private Viewport viewport;
+class MainMenu implements Screen, GestureDetector.GestureListener {
+  private final Button playButton;
+  private final Button leaderBoardsButton;
+  private final Button settingsButton;
+  private final SpriteBatch spriteBatch;
+  private final OrthographicCamera camera;
+  private final GestureDetector gestureDetector;
+  private final BitmapFont mainMenuText;
+  private final ScreenManager screenManager;
+  private final Viewport viewport;
   // This is the native screen size that will be the reference for everything placed on the screen.
   private static final float WORLD_WIDTH = 480;
   private static final float WORLD_HEIGHT = 800;
