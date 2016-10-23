@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.1'
+        classpath 'com.android.tools.build:gradle:2.2.2'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.2.0'
         classpath "com.neenbedankt.gradle.plugins:android-apt:1.8"
     }
@@ -87,6 +87,7 @@ project(":core") {
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile 'org.apache.commons:commons-lang3:3.4'
+        //compile 'com.google.android.gms:play-services-games:9.8.00'
 
         // Test dependencies.
         testCompile "junit:junit:4.11"
