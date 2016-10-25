@@ -28,10 +28,6 @@ class Leaderboards extends BaseScreen {
   private final Button backButton;
   private final BitmapFont leaderboardText;
   private final Texture leaderboardsMockUp;
-  private static final float WORLD_WIDTH = 480;
-  private static final float WORLD_HEIGHT = 800;
-  private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
-  private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Leaderboards should operate in
