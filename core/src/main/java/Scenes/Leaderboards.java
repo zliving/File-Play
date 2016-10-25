@@ -24,14 +24,9 @@ import UIElements.Button;
  * a user's phone screen. User touch input is handled by implementing the GestureListener interface
  * provided by LibGDX.
  */
-class Leaderboards implements Screen, GestureDetector.GestureListener {
+class Leaderboards extends BaseScreen {
   private final Button backButton;
-  private final SpriteBatch spriteBatch;
-  private final OrthographicCamera camera;
-  private final GestureDetector gestureDetector;
   private final BitmapFont leaderboardText;
-  private final ScreenManager screenManager;
-  private final Viewport viewport;
   private final Texture leaderboardsMockUp;
   private static final float WORLD_WIDTH = 480;
   private static final float WORLD_HEIGHT = 800;
@@ -43,31 +38,19 @@ class Leaderboards implements Screen, GestureDetector.GestureListener {
    * the same way with changes to the textures/sprites that must be drawn to the screen.
    */
   public Leaderboards(ScreenManager screenManager) {
-    this.screenManager = screenManager;
+    super(screenManager);
+
     // Create a new button using the "back_button.png" located at (20, 650) of the native
     // resolution  of 480 by 800.
     backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
-    spriteBatch = new SpriteBatch();
     leaderboardText = new BitmapFont();
     leaderboardText.setColor(Color.YELLOW);
     leaderboardsMockUp = new Texture(Gdx.files.internal("leaderboards_mockup.png"));
-    camera = new OrthographicCamera();
-    viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-    viewport.apply();
-    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-    gestureDetector = new GestureDetector(this);
-    Gdx.input.setInputProcessor(gestureDetector);
-  }
-
-  @Override
-  public void show() {
   }
 
   @Override
   public void render(float delta) {
-    camera.update();
-    Gdx.gl.glClearColor(0, 0, 0, 1);
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    super.render(delta);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
@@ -78,36 +61,6 @@ class Leaderboards implements Screen, GestureDetector.GestureListener {
     // resolution 480 by 800.
     spriteBatch.draw(new Sprite(leaderboardsMockUp), 65, 300);
     spriteBatch.end();
-  }
-
-  @Override
-  public void resize(int width, int height) {
-    viewport.update(width, height);
-    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-  }
-
-  @Override
-  public void pause() {
-  }
-
-  @Override
-  public void resume() {
-  }
-
-  @Override
-  public void hide() {
-  }
-
-  @Override
-  public void dispose() {
-    spriteBatch.dispose();
-    leaderboardText.dispose();
-    leaderboardsMockUp.dispose();
-  }
-
-  @Override
-  public boolean touchDown(float x, float y, int pointer, int button) {
-    return false;
   }
 
   @Override
@@ -122,39 +75,5 @@ class Leaderboards implements Screen, GestureDetector.GestureListener {
       screenManager.setState(ScreenManager.ScreenType.MAINMENU);
     }
     return false;
-  }
-
-  @Override
-  public boolean longPress(float x, float y) {
-    return false;
-  }
-
-  @Override
-  public boolean fling(float velocityX, float velocityY, int button) {
-    return false;
-  }
-
-  @Override
-  public boolean pan(float x, float y, float deltaX, float deltaY) {
-    return false;
-  }
-
-  @Override
-  public boolean panStop(float x, float y, int pointer, int button) {
-    return false;
-  }
-
-  @Override
-  public boolean zoom(float initialDistance, float distance) {
-    return false;
-  }
-
-  @Override
-  public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-    return false;
-  }
-
-  @Override
-  public void pinchStop() {
   }
 }

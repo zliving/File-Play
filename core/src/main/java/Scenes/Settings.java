@@ -31,6 +31,7 @@ class Settings extends BaseScreen {
    */
   public Settings(ScreenManager screenManager) {
     super(screenManager);
+
     // Creates a button using the given texture at (20, 650) of the native resolution 480
     // by 800.
     backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
@@ -40,14 +41,8 @@ class Settings extends BaseScreen {
   }
 
   @Override
-  public void show() {
-  }
-
-  @Override
   public void render(float delta) {
-    camera.update();
-    Gdx.gl.glClearColor(0, 0, 0, 1);
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    super.render(delta);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
@@ -58,36 +53,6 @@ class Settings extends BaseScreen {
     // resolution.
     spriteBatch.draw(new Sprite(settingsMockUp), 65, 300);
     spriteBatch.end();
-  }
-
-  @Override
-  public void resize(int width, int height) {
-    viewport.update(width, height);
-    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-  }
-
-  @Override
-  public void pause() {
-  }
-
-  @Override
-  public void resume() {
-  }
-
-  @Override
-  public void hide() {
-  }
-
-  @Override
-  public void dispose() {
-    spriteBatch.dispose();
-    settingsText.dispose();
-    settingsMockUp.dispose();
-  }
-
-  @Override
-  public boolean touchDown(float x, float y, int pointer, int button) {
-    return false;
   }
 
   @Override
@@ -102,39 +67,5 @@ class Settings extends BaseScreen {
       screenManager.setState(ScreenManager.ScreenType.MAINMENU);
     }
     return false;
-  }
-
-  @Override
-  public boolean longPress(float x, float y) {
-    return false;
-  }
-
-  @Override
-  public boolean fling(float velocityX, float velocityY, int button) {
-    return false;
-  }
-
-  @Override
-  public boolean pan(float x, float y, float deltaX, float deltaY) {
-    return false;
-  }
-
-  @Override
-  public boolean panStop(float x, float y, int pointer, int button) {
-    return false;
-  }
-
-  @Override
-  public boolean zoom(float initialDistance, float distance) {
-    return false;
-  }
-
-  @Override
-  public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-    return false;
-  }
-
-  @Override
-  public void pinchStop() {
   }
 }
