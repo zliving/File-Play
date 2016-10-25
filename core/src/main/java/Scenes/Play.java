@@ -115,7 +115,7 @@ class Play implements Screen, GestureDetector.GestureListener {
     float worldY = correctedY * HeightWorldPixelRatio;
     if (backButton.isClicked(worldX, worldY)) {
       System.out.println("Go back to lobby");
-      screenManager.setState(ScreenManager.Screens.LOBBY);
+      screenManager.setState(ScreenManager.ScreenType.LOBBY);
     }
     return false;
   }

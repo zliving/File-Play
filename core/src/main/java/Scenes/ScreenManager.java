@@ -11,15 +11,15 @@ public class ScreenManager {
   private Screen currentScreen;
 
   // Enumeration of program states used to change the state of the screen manager.
-  public enum Screens {
+  public enum ScreenType {
     MAINMENU, SETTINGS, PLAY, LOBBY, LEADERBOARDS, TEST
   }
 
   public ScreenManager() {
-    setState(Screens.MAINMENU);
+    setState(ScreenType.MAINMENU);
   }
 
-  public ScreenManager(Screens screen) {
+  public ScreenManager(ScreenType screen) {
     setState(screen);
   }
 
@@ -27,7 +27,7 @@ public class ScreenManager {
    * Changes 'this.currentScreen' to a new instance of the screen corresponding to 'state'.
    * @param state
    */
-  public void setState(Screens state) {
+  public void setState(ScreenType state) {
     // Dispose of the current screen and switch to the new one.
     if (currentScreen != null) {
       currentScreen.dispose();

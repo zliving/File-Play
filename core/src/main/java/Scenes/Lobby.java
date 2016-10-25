@@ -125,10 +125,10 @@ class Lobby implements Screen, GestureDetector.GestureListener {
     float worldY = correctedY * HeightWorldPixelRatio;
     if (backButton.isClicked(worldX, worldY)) {
       System.out.println("Go to mainmenu");
-      screenManager.setState(ScreenManager.Screens.MAINMENU);
+      screenManager.setState(ScreenManager.ScreenType.MAINMENU);
     } else if (playButton.isClicked(worldX, worldY)) {
       System.out.println("Go to play screen");
-      screenManager.setState(ScreenManager.Screens.PLAY);
+      screenManager.setState(ScreenManager.ScreenType.PLAY);
     }
     return false;
   }

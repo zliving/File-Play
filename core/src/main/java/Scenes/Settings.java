@@ -115,7 +115,7 @@ class Settings implements Screen, GestureDetector.GestureListener {
     float worldY = correctedY * HeightWorldPixelRatio;
     if (backButton.isClicked(worldX, worldY)) {
       System.out.println("Go back to main menu");
-      screenManager.setState(ScreenManager.Screens.MAINMENU);
+      screenManager.setState(ScreenManager.ScreenType.MAINMENU);
     }
     return false;
   }
