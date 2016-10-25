@@ -80,8 +80,6 @@ class MainMenu extends BaseScreen {
    */
   @Override
   public boolean tap(float x, float y, int count, int button) {
-    HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
-    WidthWorldPixelRatio = WORLD_WIDTH / (float) Gdx.graphics.getWidth();
     float worldX = x * WidthWorldPixelRatio;
     // Tap takes the upper left hand corner to be the origin (0, 0) therefore some correction
     // must be made in order to pass into the isClicked method.

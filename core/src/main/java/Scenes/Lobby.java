@@ -68,8 +68,6 @@ class Lobby extends BaseScreen {
 
   @Override
   public boolean tap(float x, float y, int count, int button) {
-    HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
-    WidthWorldPixelRatio = WORLD_WIDTH / (float) Gdx.graphics.getWidth();
     float worldX = x * WidthWorldPixelRatio;
     float correctedY = Gdx.graphics.getHeight() - y;
     float worldY = correctedY * HeightWorldPixelRatio;
