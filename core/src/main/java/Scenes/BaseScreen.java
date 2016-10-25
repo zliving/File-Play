@@ -16,14 +16,19 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  */
 
 public abstract class BaseScreen implements Screen, GestureDetector.GestureListener {
-  private final SpriteBatch spriteBatch;
-  private final OrthographicCamera camera;
-  private final GestureDetector gestureDetector;
-  private final Viewport viewport;
-  private final ScreenManager screenManager;
+  protected final SpriteBatch spriteBatch;
+  protected final OrthographicCamera camera;
+  protected final GestureDetector gestureDetector;
+  protected final Viewport viewport;
+  protected final ScreenManager screenManager;
 
-  private static final float WORLD_WIDTH = 480;
-  private static final float WORLD_HEIGHT = 800;
+  // This is the native screen size that will be the reference for everything placed on the screen.
+  protected static final float WORLD_WIDTH = 480;
+  protected static final float WORLD_HEIGHT = 800;
+
+  // Ratio of world units and pixels of a screen.
+  protected float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
+  protected float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
   BaseScreen(ScreenManager screenManager) {
     this.screenManager = screenManager;

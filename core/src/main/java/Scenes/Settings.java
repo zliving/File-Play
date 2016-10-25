@@ -20,39 +20,23 @@ import UIElements.Button;
  * The settings screen is where users will be able to access their profiles and set preferences
  * regarding their gameplay.
  */
-class Settings implements Screen, GestureDetector.GestureListener {
+class Settings extends BaseScreen {
   private final Button backButton;
-  private final SpriteBatch spriteBatch;
-  private final OrthographicCamera camera;
-  private final GestureDetector gestureDetector;
   private final BitmapFont settingsText;
   private final Texture settingsMockUp;
-  private final ScreenManager screenManager;
-  private final Viewport viewport;
-  private static final float WORLD_WIDTH = 480;
-  private static final float WORLD_HEIGHT = 800;
-  private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
-  private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Settings should operate in the
    * same way with changes to the textures/sprites that must be drawn to the screen.
    */
   public Settings(ScreenManager screenManager) {
-    this.screenManager = screenManager;
+    super(screenManager);
     // Creates a button using the given texture at (20, 650) of the native resolution 480
     // by 800.
     backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
-    spriteBatch = new SpriteBatch();
     settingsText = new BitmapFont();
     settingsText.setColor(Color.YELLOW);
     settingsMockUp = new Texture(Gdx.files.internal("settings_mockup.png"));
-    camera = new OrthographicCamera();
-    viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-    viewport.apply();
-    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-    gestureDetector = new GestureDetector(this);
-    Gdx.input.setInputProcessor(gestureDetector);
   }
 
   @Override
