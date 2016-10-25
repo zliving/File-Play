@@ -20,50 +20,29 @@ import UIElements.Button;
  * The play screen will be where two users answer trivia questions retrieved from the database
  * and where the actual gameplay will occur.
  */
-class Play implements Screen, GestureDetector.GestureListener {
-  private final OrthographicCamera camera;
-  private final GestureDetector gestureDetector;
+class Play extends BaseScreen {
   private final BitmapFont playScreenText;
   private final Texture playMockUp;
   private final Button backButton;
-  private final SpriteBatch spriteBatch;
-  private final ScreenManager screenManager;
-  private final Viewport viewport;
-  private static final float WORLD_WIDTH = 480;
-  private static final float WORLD_HEIGHT = 800;
-  private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
-  private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Play should operate in the
    * same way with changes to the textures/sprites that must be drawn to the screen.
    */
   public Play(ScreenManager screenManager) {
-    this.screenManager = screenManager;
+    super(screenManager);
+
     // Creates a button with the given texture at a location of (20, 650) of the native screen
     // resolution 480 by 800.
     backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
     playScreenText = new BitmapFont();
     playScreenText.setColor(Color.YELLOW);
     playMockUp = new Texture(Gdx.files.internal("play_mockup.png"));
-    camera = new OrthographicCamera();
-    viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-    viewport.apply();
-    camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-    spriteBatch = new SpriteBatch();
-    gestureDetector = new GestureDetector(this);
-    Gdx.input.setInputProcessor(gestureDetector);
-  }
-
-  @Override
-  public void show() {
   }
 
   @Override
   public void render(float delta) {
-    camera.update();
-    Gdx.gl.glClearColor(0, 0, 0, 1);
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    super.render(delta);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
@@ -74,36 +53,6 @@ class Play implements Screen, GestureDetector.GestureListener {
     // resolution 480 by 800.
     spriteBatch.draw(new Sprite(playMockUp), 65, 300);
     spriteBatch.end();
-  }
-
-  @Override
-  public void resize(int width, int height) {
-    viewport.update(width, height);
-    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-  }
-
-  @Override
-  public void pause() {
-  }
-
-  @Override
-  public void resume() {
-  }
-
-  @Override
-  public void hide() {
-  }
-
-  @Override
-  public void dispose() {
-    spriteBatch.dispose();
-    playScreenText.dispose();
-    playMockUp.dispose();
-  }
-
-  @Override
-  public boolean touchDown(float x, float y, int pointer, int button) {
-    return false;
   }
 
   @Override
@@ -118,39 +67,5 @@ class Play implements Screen, GestureDetector.GestureListener {
       screenManager.setState(ScreenManager.ScreenType.LOBBY);
     }
     return false;
-  }
-
-  @Override
-  public boolean longPress(float x, float y) {
-    return false;
-  }
-
-  @Override
-  public boolean fling(float velocityX, float velocityY, int button) {
-    return false;
-  }
-
-  @Override
-  public boolean pan(float x, float y, float deltaX, float deltaY) {
-    return false;
-  }
-
-  @Override
-  public boolean panStop(float x, float y, int pointer, int button) {
-    return false;
-  }
-
-  @Override
-  public boolean zoom(float initialDistance, float distance) {
-    return false;
-  }
-
-  @Override
-  public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-    return false;
-  }
-
-  @Override
-  public void pinchStop() {
   }
 }
