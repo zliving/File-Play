@@ -55,7 +55,7 @@ public class TriviaQuestionBuilder {
       for (int i = 0; i < questions.size; i++) {
         for (int j = 0; j < questions.get(i).incorrectAnswers.length; j++) {
           questions.get(i).incorrectAnswers[j] =
-                  StringEscapeUtils.unescapeHtml4(questions.get(i).incorrectAnswers[j]);
+              StringEscapeUtils.unescapeHtml4(questions.get(i).incorrectAnswers[j]);
         }
       }
       return questions;

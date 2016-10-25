@@ -14,7 +14,7 @@ public class FilePlayMain extends ApplicationAdapter {
 
   @Override
   public void create() {
-    screenManager = new ScreenManager(ScreenManager.Screens.MAINMENU);
+    screenManager = new ScreenManager(ScreenManager.ScreenType.MAINMENU);
   }
 
   /**
