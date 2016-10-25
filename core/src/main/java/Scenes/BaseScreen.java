@@ -45,6 +45,12 @@ public abstract class BaseScreen implements Screen, GestureDetector.GestureListe
   public void show() {
   }
 
+  /**
+   * The render method updates the screen every iteration given the change in time between
+   * iterations.
+   *
+   * @param delta time between iterations
+   */
   @Override
   public void render(float delta) {
     camera.update();
@@ -52,6 +58,12 @@ public abstract class BaseScreen implements Screen, GestureDetector.GestureListe
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
   }
 
+  /**
+   * The resize method updates the viewport and camera in the case that the window is resized.
+   *
+   * @param width  width that window is resized to
+   * @param height height that window is resized to
+   */
   @Override
   public void resize(int width, int height) {
     viewport.update(width, height);
