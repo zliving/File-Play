@@ -19,8 +19,8 @@ public class Button {
    * the world units of where the object should be drawn.
    *
    * @param sprite sprite of what to create a button of.
-   * @param x x-coordinate of lower lefthand corner of where t should be drawn.
-   * @param y y-coordinate of lower lefthand corner of where t should be drawn.
+   * @param x      x-coordinate of lower lefthand corner of where t should be drawn.
+   * @param y      y-coordinate of lower lefthand corner of where t should be drawn.
    */
   public Button(Sprite sprite, float x, float y) {
     this.sprite = sprite;

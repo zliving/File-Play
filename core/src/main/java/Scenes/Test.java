@@ -36,7 +36,8 @@ public class Test implements Screen, GestureDetector.GestureListener {
     newTriviaRound.getTriviaQuestions(url);
     font.setColor(Color.TEAL);
     font.getData().setScale(2);
-    font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+    font.getRegion().getTexture()
+        .setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
     badSprite = new Sprite(new Texture(Gdx.files.internal("testButton.jpg")));
@@ -134,7 +135,8 @@ public class Test implements Screen, GestureDetector.GestureListener {
   }
 
   @Override
-  public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
+  public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1,
+                       Vector2 pointer2) {
     return false;
   }
 

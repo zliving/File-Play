@@ -12,7 +12,12 @@ public class ScreenManager {
 
   // Enumeration of program states used to change the state of the screen manager.
   public enum ScreenType {
-    MAINMENU, SETTINGS, PLAY, LOBBY, LEADERBOARDS, TEST
+    MAINMENU,
+    SETTINGS,
+    PLAY,
+    LOBBY,
+    LEADERBOARDS,
+    TEST
   }
 
   public ScreenManager() {
@@ -25,6 +30,7 @@ public class ScreenManager {
 
   /**
    * Changes 'this.currentScreen' to a new instance of the screen corresponding to 'state'.
+   *
    * @param state
    */
   public void setState(ScreenType state) {
