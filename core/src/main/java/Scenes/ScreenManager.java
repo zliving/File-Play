@@ -38,6 +38,7 @@ public class ScreenManager {
     if (currentScreen != null) {
       currentScreen.dispose();
     }
+    /*
     // Switch to the appropriate screen.
     switch (state) {
       case MAINMENU:
@@ -62,6 +63,7 @@ public class ScreenManager {
         currentScreen = new MainMenu(this);
         break;
     }
+    */
     // Need to resize when switching between different screens.
     currentScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
   }

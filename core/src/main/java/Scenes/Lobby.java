@@ -13,6 +13,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.FilePlayMain;
 
 import UIElements.Button;
 
@@ -20,7 +21,7 @@ import UIElements.Button;
  * The lobby screen will be where users set their preferences for a game prior to searching for
  * one.
  */
-class Lobby extends BaseScreen {
+public class Lobby extends BaseScreen {
   private final BitmapFont lobbyScreenText;
   private final BitmapFont playText;
   private final Button backButton;
@@ -31,8 +32,8 @@ class Lobby extends BaseScreen {
    * Refer to MainMenu.java for comments regarding each section. Lobby should operate in the same
    * way with changes to the textures/sprites that must be drawn to the screen.
    */
-  public Lobby(ScreenManager screenManager) {
-    super(screenManager);
+  public Lobby(FilePlayMain mainGame) {
+    super(mainGame);
 
     // Creates a button using the given texture at location (20, 650) of the native resolution 480
     // by 800.
@@ -73,10 +74,10 @@ class Lobby extends BaseScreen {
     float worldY = correctedY * HeightWorldPixelRatio;
     if (backButton.isClicked(worldX, worldY)) {
       System.out.println("Go to mainmenu");
-      screenManager.setState(ScreenManager.ScreenType.MAINMENU);
+      mainGame.setScreen(FilePlayMain.ScreenType.MAINMENU);
     } else if (playButton.isClicked(worldX, worldY)) {
       System.out.println("Go to play screen");
-      screenManager.setState(ScreenManager.ScreenType.PLAY);
+      mainGame.setScreen(FilePlayMain.ScreenType.PLAY);
     }
     return false;
   }

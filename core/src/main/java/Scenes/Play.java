@@ -13,6 +13,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.FilePlayMain;
 
 import UIElements.Button;
 
@@ -20,7 +21,7 @@ import UIElements.Button;
  * The play screen will be where two users answer trivia questions retrieved from the database
  * and where the actual gameplay will occur.
  */
-class Play extends BaseScreen {
+public class Play extends BaseScreen {
   private final BitmapFont playScreenText;
   private final Texture playMockUp;
   private final Button backButton;
@@ -29,8 +30,8 @@ class Play extends BaseScreen {
    * Refer to MainMenu.java for comments regarding each section. Play should operate in the
    * same way with changes to the textures/sprites that must be drawn to the screen.
    */
-  public Play(ScreenManager screenManager) {
-    super(screenManager);
+  public Play(FilePlayMain mainGame) {
+    super(mainGame);
 
     // Creates a button with the given texture at a location of (20, 650) of the native screen
     // resolution 480 by 800.
@@ -62,7 +63,7 @@ class Play extends BaseScreen {
     float worldY = correctedY * HeightWorldPixelRatio;
     if (backButton.isClicked(worldX, worldY)) {
       System.out.println("Go back to lobby");
-      screenManager.setState(ScreenManager.ScreenType.LOBBY);
+      mainGame.setScreen(FilePlayMain.ScreenType.LOBBY);
     }
     return false;
   }

@@ -10,6 +10,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.FilePlayMain;
 
 /**
  * Created by James on 10/24/2016.
@@ -20,7 +21,7 @@ public abstract class BaseScreen implements Screen, GestureDetector.GestureListe
   protected final OrthographicCamera camera;
   protected final GestureDetector gestureDetector;
   protected final Viewport viewport;
-  protected final ScreenManager screenManager;
+  protected final FilePlayMain mainGame;
 
   // This is the native screen size that will be the reference for everything placed on the screen.
   protected static final float WORLD_WIDTH = 480;
@@ -30,8 +31,8 @@ public abstract class BaseScreen implements Screen, GestureDetector.GestureListe
   protected float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   protected float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
-  BaseScreen(ScreenManager screenManager) {
-    this.screenManager = screenManager;
+  BaseScreen(FilePlayMain mainGame) {
+    this.mainGame = mainGame;
     spriteBatch = new SpriteBatch();
     camera = new OrthographicCamera();
     viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);

@@ -12,6 +12,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.FilePlayMain;
 
 import UIElements.Button;
 
@@ -21,7 +22,7 @@ import UIElements.Button;
  * MainMenu will display the main menu screen of the game with buttons that transition them into
  * appropriate screens from the main menu.
  */
-class MainMenu extends BaseScreen {
+public class MainMenu extends BaseScreen {
   private final Button playButton;
   private final Button leaderBoardsButton;
   private final Button settingsButton;
@@ -30,10 +31,10 @@ class MainMenu extends BaseScreen {
   /**
    * MainMenu takes a ScreenManager so that it may use it to change states.
    *
-   * @param screenManager a reference to a ScreenManager in order to change screens.
+   * @param mainGame a reference to a ScreenManager in order to change screens.
    */
-  public MainMenu(ScreenManager screenManager) {
-    super(screenManager);
+  public MainMenu(FilePlayMain mainGame) {
+    super(mainGame);
 
     // Creates a button using the given texture at (120, 400) of the native resolution 480
     // by 800.
@@ -88,13 +89,13 @@ class MainMenu extends BaseScreen {
     float worldY = correctedY * HeightWorldPixelRatio;
     if (playButton.isClicked(worldX, worldY)) {
       System.out.println("Go to lobby");
-      screenManager.setState(ScreenManager.ScreenType.LOBBY);
+      mainGame.setScreen(FilePlayMain.ScreenType.LOBBY);
     } else if (leaderBoardsButton.isClicked(worldX, worldY)) {
       System.out.println("Go to leaderboards");
-      screenManager.setState(ScreenManager.ScreenType.LEADERBOARDS);
+      mainGame.setScreen(FilePlayMain.ScreenType.LEADERBOARDS);
     } else if (settingsButton.isClicked(worldX, worldY)) {
       System.out.println("Go to settings");
-      screenManager.setState(ScreenManager.ScreenType.SETTINGS);
+      mainGame.setScreen(FilePlayMain.ScreenType.SETTINGS);
     }
     return false;
   }
