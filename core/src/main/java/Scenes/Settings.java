@@ -13,6 +13,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.FilePlayMain;
 
 import UIElements.Button;
 
@@ -20,7 +21,7 @@ import UIElements.Button;
  * The settings screen is where users will be able to access their profiles and set preferences
  * regarding their gameplay.
  */
-class Settings extends BaseScreen {
+public class Settings extends BaseScreen {
   private final Button backButton;
   private final BitmapFont settingsText;
   private final Texture settingsMockUp;
@@ -29,8 +30,8 @@ class Settings extends BaseScreen {
    * Refer to MainMenu.java for comments regarding each section. Settings should operate in the
    * same way with changes to the textures/sprites that must be drawn to the screen.
    */
-  public Settings(ScreenManager screenManager) {
-    super(screenManager);
+  public Settings(FilePlayMain mainGame) {
+    super(mainGame);
 
     // Creates a button using the given texture at (20, 650) of the native resolution 480
     // by 800.
@@ -62,7 +63,7 @@ class Settings extends BaseScreen {
     float worldY = correctedY * HeightWorldPixelRatio;
     if (backButton.isClicked(worldX, worldY)) {
       System.out.println("Go back to main menu");
-      screenManager.setState(ScreenManager.ScreenType.MAINMENU);
+      mainGame.setScreen(FilePlayMain.ScreenType.MAINMENU);
     }
     return false;
   }

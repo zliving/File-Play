@@ -13,6 +13,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.FilePlayMain;
 
 import UIElements.Button;
 
@@ -24,7 +25,7 @@ import UIElements.Button;
  * a user's phone screen. User touch input is handled by implementing the GestureListener interface
  * provided by LibGDX.
  */
-class Leaderboards extends BaseScreen {
+public class Leaderboards extends BaseScreen {
   private final Button backButton;
   private final BitmapFont leaderboardText;
   private final Texture leaderboardsMockUp;
@@ -33,8 +34,8 @@ class Leaderboards extends BaseScreen {
    * Refer to MainMenu.java for comments regarding each section. Leaderboards should operate in
    * the same way with changes to the textures/sprites that must be drawn to the screen.
    */
-  public Leaderboards(ScreenManager screenManager) {
-    super(screenManager);
+  public Leaderboards(FilePlayMain mainGame) {
+    super(mainGame);
 
     // Create a new button using the "back_button.png" located at (20, 650) of the native
     // resolution  of 480 by 800.
@@ -66,7 +67,7 @@ class Leaderboards extends BaseScreen {
     float worldY = correctedY * HeightWorldPixelRatio;
     if (backButton.isClicked(worldX, worldY)) {
       System.out.println("Go back to main menu");
-      screenManager.setState(ScreenManager.ScreenType.MAINMENU);
+      mainGame.setScreen(FilePlayMain.ScreenType.MAINMENU);
     }
     return false;
   }
