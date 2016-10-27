@@ -18,6 +18,7 @@ android {
         applicationId "com.mygdx.game"
         minSdkVersion 12
         targetSdkVersion 24
+        multiDexEnabled true
     }
 }
 // called every time gradle gets executed, takes the native dependencies of
