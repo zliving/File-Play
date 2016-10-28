@@ -23,7 +23,7 @@ import UIElements.ButtonActor;
 
 
 public class Test extends BaseScreen implements Screen, GestureDetector.GestureListener {
-  
+
   public Test(FilePlayMain mainGame) {
     super(mainGame);
     ButtonActor a = new ButtonActor(new Texture(Gdx.files.internal("play_button.png")), 240, 400);
