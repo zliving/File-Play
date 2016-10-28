@@ -22,7 +22,7 @@ public abstract class BaseScreen implements Screen, GestureDetector.GestureListe
   protected final SpriteBatch spriteBatch;
   protected final OrthographicCamera camera;
 //  protected final GestureDetector gestureDetector;
-  protected final Viewport viewport;
+//  protected final Viewport viewport;
   protected final FilePlayMain mainGame;
   protected final Stage stage;
 
@@ -36,14 +36,14 @@ public abstract class BaseScreen implements Screen, GestureDetector.GestureListe
 
   BaseScreen(FilePlayMain mainGame) {
     this.mainGame = mainGame;
-    stage = new Stage(new ScreenViewport());
-    Gdx.input.setInputProcessor(stage);
 
     spriteBatch = new SpriteBatch();
     camera = new OrthographicCamera();
-    viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-    viewport.apply();
-    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+    //viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
+    //viewport.apply();
+    stage = new Stage(new ScreenViewport(camera), spriteBatch);
+    Gdx.input.setInputProcessor(stage);
+
 //    gestureDetector = new GestureDetector(this);
 //    Gdx.input.setInputProcessor(gestureDetector);
   }
@@ -63,6 +63,8 @@ public abstract class BaseScreen implements Screen, GestureDetector.GestureListe
     //camera.update();
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    // This is equivalent to updating actors that are added to the stage.
+    stage.act();
     stage.draw();
   }
 
@@ -74,8 +76,7 @@ public abstract class BaseScreen implements Screen, GestureDetector.GestureListe
    */
   @Override
   public void resize(int width, int height) {
-    viewport.update(width, height);
-    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+    stage.getViewport().update(width, height, true);
   }
 
   @Override
@@ -93,6 +94,7 @@ public abstract class BaseScreen implements Screen, GestureDetector.GestureListe
   @Override
   public void dispose() {
     spriteBatch.dispose();
+    stage.dispose();
   }
 
   @Override

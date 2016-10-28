@@ -19,23 +19,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.FilePlayMain;
 
 import GameObjects.TriviaQuestionBuilder;
+import UIElements.ButtonActor;
 
 
 public class Test extends BaseScreen implements Screen, GestureDetector.GestureListener {
-
-
-  class MyActor extends Actor{
-    Texture texture = new Texture(Gdx.files.internal("play_button.png"));
-    @Override
-    public void draw(Batch batch, float parentAlpha){
-
-      batch.draw(texture, 0, 0);
-    }
-  }
-
+  
   public Test(FilePlayMain mainGame) {
     super(mainGame);
-    MyActor a = new MyActor();
+    ButtonActor a = new ButtonActor(new Texture(Gdx.files.internal("play_button.png")), 240, 400);
     stage.addActor(a);
   }
 
@@ -50,6 +41,7 @@ public class Test extends BaseScreen implements Screen, GestureDetector.GestureL
 
   @Override
   public void resize(int width, int height) {
+    super.resize(width, height);
   }
 
   @Override
