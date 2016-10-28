@@ -27,7 +27,9 @@ public class MainMenu extends BaseScreen {
   private final Button leaderBoardsButton;
   private final Button settingsButton;
   private final BitmapFont mainMenuText;
-
+  private final BitmapFont playButtonText;
+  private final BitmapFont leaderBoardsButtonText;
+  private final BitmapFont settingsButtonText;
   /**
    * MainMenu takes a ScreenManager so that it may use it to change states.
    *
@@ -38,18 +40,24 @@ public class MainMenu extends BaseScreen {
 
     // Creates a button using the given texture at (120, 400) of the native resolution 480
     // by 800.
-    playButton = new Button(new Texture(Gdx.files.internal("play_button.png")), 120, 400);
+    playButton = new Button(new Texture(Gdx.files.internal("heavy-sat-yellow-246x46.png")), 120, 400);
 
     // Creates a button using the given texture at (120, 300) of the native resolution
     // 480 by 800.
-    leaderBoardsButton = new Button(new Texture(Gdx.files.internal("leaderboards_button.png")),
+    leaderBoardsButton = new Button(new Texture(Gdx.files.internal("heavy-sat-yellow-246x46.png")),
                                     120, 300);
 
     // Creates a button using the given texture at (120, 200) of the native resolution 480
     // by 800.
-    settingsButton = new Button(new Texture(Gdx.files.internal("options_button.png")), 120, 200);
+    settingsButton = new Button(new Texture(Gdx.files.internal("heavy-sat-yellow-246x46.png")), 120, 200);
     mainMenuText = new BitmapFont();
     mainMenuText.setColor(Color.YELLOW);
+    playButtonText = new BitmapFont();
+    playButtonText.setColor(Color.BLACK);
+    leaderBoardsButtonText = new BitmapFont();
+    leaderBoardsButtonText.setColor(Color.BLACK);
+    settingsButtonText = new BitmapFont();
+    settingsButtonText.setColor(Color.BLACK);
   }
 
   /**
@@ -71,6 +79,17 @@ public class MainMenu extends BaseScreen {
     // Draws the text "Main Menu" at the location (20, 750) of the native screen resolution 480 by
     // 800.
     mainMenuText.draw(spriteBatch, "Main Menu", 20, 750);
+    /* Every button will have it's corresponding name written over it. The locations (x,y) are the
+    * centers of each button and the scaling (1.2f) was chosen arbitrarily.*/
+    playButtonText.draw(spriteBatch, "Play", 230, 430);
+    playButtonText.getData().setScale(1.2f);
+    leaderBoardsButtonText.draw(spriteBatch, "Leaderboards", 195, 330);
+    leaderBoardsButtonText.getData().setScale(1.2f);
+    settingsButtonText.draw(spriteBatch, "Settings", 210, 230);
+    settingsButtonText.getData().setScale(1.2f);
+
+
+
     spriteBatch.end();
   }
 
