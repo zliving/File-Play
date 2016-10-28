@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.FilePlayMain;
 
@@ -19,9 +21,10 @@ import com.mygdx.game.FilePlayMain;
 public abstract class BaseScreen implements Screen, GestureDetector.GestureListener {
   protected final SpriteBatch spriteBatch;
   protected final OrthographicCamera camera;
-  protected final GestureDetector gestureDetector;
+//  protected final GestureDetector gestureDetector;
   protected final Viewport viewport;
   protected final FilePlayMain mainGame;
+  protected final Stage stage;
 
   // This is the native screen size that will be the reference for everything placed on the screen.
   protected static final float WORLD_WIDTH = 480;
@@ -33,13 +36,16 @@ public abstract class BaseScreen implements Screen, GestureDetector.GestureListe
 
   BaseScreen(FilePlayMain mainGame) {
     this.mainGame = mainGame;
+    stage = new Stage(new ScreenViewport());
+    Gdx.input.setInputProcessor(stage);
+
     spriteBatch = new SpriteBatch();
     camera = new OrthographicCamera();
     viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
     viewport.apply();
     camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-    gestureDetector = new GestureDetector(this);
-    Gdx.input.setInputProcessor(gestureDetector);
+//    gestureDetector = new GestureDetector(this);
+//    Gdx.input.setInputProcessor(gestureDetector);
   }
 
   @Override
@@ -54,9 +60,10 @@ public abstract class BaseScreen implements Screen, GestureDetector.GestureListe
    */
   @Override
   public void render(float delta) {
-    camera.update();
+    //camera.update();
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    stage.draw();
   }
 
   /**

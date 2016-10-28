@@ -7,12 +7,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.FilePlayMain;
 
 import GameObjects.TriviaQuestionBuilder;
@@ -20,8 +23,20 @@ import GameObjects.TriviaQuestionBuilder;
 
 public class Test extends BaseScreen implements Screen, GestureDetector.GestureListener {
 
+
+  class MyActor extends Actor{
+    Texture texture = new Texture(Gdx.files.internal("play_button.png"));
+    @Override
+    public void draw(Batch batch, float parentAlpha){
+
+      batch.draw(texture, 0, 0);
+    }
+  }
+
   public Test(FilePlayMain mainGame) {
     super(mainGame);
+    MyActor a = new MyActor();
+    stage.addActor(a);
   }
 
   @Override
@@ -30,7 +45,7 @@ public class Test extends BaseScreen implements Screen, GestureDetector.GestureL
 
   @Override
   public void render(float delta) {
-
+    super.render(delta);
   }
 
   @Override
