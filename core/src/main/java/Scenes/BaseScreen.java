@@ -18,10 +18,10 @@ import com.mygdx.game.FilePlayMain;
  * Created by James on 10/24/2016.
  */
 
-public abstract class BaseScreen implements Screen, GestureDetector.GestureListener {
+public abstract class BaseScreen implements Screen {
   protected final SpriteBatch spriteBatch;
   protected final OrthographicCamera camera;
-//  protected final GestureDetector gestureDetector;
+  //  protected final GestureDetector gestureDetector;
 //  protected final Viewport viewport;
   protected final FilePlayMain mainGame;
   protected final Stage stage;
@@ -36,14 +36,12 @@ public abstract class BaseScreen implements Screen, GestureDetector.GestureListe
 
   BaseScreen(FilePlayMain mainGame) {
     this.mainGame = mainGame;
-
     spriteBatch = new SpriteBatch();
     camera = new OrthographicCamera();
     //viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
     //viewport.apply();
     stage = new Stage(new ScreenViewport(camera), spriteBatch);
     Gdx.input.setInputProcessor(stage);
-
 //    gestureDetector = new GestureDetector(this);
 //    Gdx.input.setInputProcessor(gestureDetector);
   }
@@ -95,45 +93,5 @@ public abstract class BaseScreen implements Screen, GestureDetector.GestureListe
   public void dispose() {
     spriteBatch.dispose();
     stage.dispose();
-  }
-
-  @Override
-  public boolean touchDown(float x, float y, int pointer, int button) {
-    return false;
-  }
-
-  @Override
-  public boolean longPress(float x, float y) {
-    return false;
-  }
-
-  @Override
-  public boolean fling(float velocityX, float velocityY, int button) {
-    return false;
-  }
-
-  @Override
-  public boolean pan(float x, float y, float deltaX, float deltaY) {
-    return false;
-  }
-
-  @Override
-  public boolean panStop(float x, float y, int pointer, int button) {
-    return false;
-  }
-
-  @Override
-  public boolean zoom(float initialDistance, float distance) {
-    return false;
-  }
-
-  @Override
-  public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1,
-                       Vector2 pointer2) {
-    return false;
-  }
-
-  @Override
-  public void pinchStop() {
   }
 }
