@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.mygdx.game.FilePlayMain;
+
 import UIElements.ButtonActor;
 
 /**
@@ -71,7 +72,8 @@ public class MainMenu extends BaseScreen {
     playButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        System.out.println("Hit play button");
+        // Change to lobby screen.
+        mainGame.setScreen(FilePlayMain.ScreenType.LOBBY);
         return true;
       }
     });
