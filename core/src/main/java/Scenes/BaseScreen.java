@@ -4,14 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.FilePlayMain;
 
 /**
@@ -21,8 +16,6 @@ import com.mygdx.game.FilePlayMain;
 public abstract class BaseScreen implements Screen {
   protected final SpriteBatch spriteBatch;
   protected final OrthographicCamera camera;
-  //  protected final GestureDetector gestureDetector;
-//  protected final Viewport viewport;
   protected final FilePlayMain mainGame;
   protected final Stage stage;
 
@@ -38,12 +31,8 @@ public abstract class BaseScreen implements Screen {
     this.mainGame = mainGame;
     spriteBatch = new SpriteBatch();
     camera = new OrthographicCamera();
-    //viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-    //viewport.apply();
     stage = new Stage(new ScreenViewport(camera), spriteBatch);
     Gdx.input.setInputProcessor(stage);
-//    gestureDetector = new GestureDetector(this);
-//    Gdx.input.setInputProcessor(gestureDetector);
   }
 
   @Override
