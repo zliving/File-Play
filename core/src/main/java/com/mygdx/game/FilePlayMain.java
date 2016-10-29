@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
+import Scenes.BaseScreen;
 import Scenes.Leaderboards;
 import Scenes.Lobby;
 import Scenes.MainMenu;
@@ -16,7 +17,7 @@ import Scenes.Test;
  * the MainMenu screen.
  */
 public class FilePlayMain extends ApplicationAdapter {
-  private Screen currentScreen;
+  private BaseScreen currentScreen;
 
   // Enumeration of program states used to change the state of the screen manager.
   public enum ScreenType {
@@ -80,7 +81,7 @@ public class FilePlayMain extends ApplicationAdapter {
         currentScreen = new Leaderboards(this);
         break;
       case TEST:
-        currentScreen = new Test();
+        currentScreen = new Test(this);
         break;
       default:
         currentScreen = new MainMenu(this);
