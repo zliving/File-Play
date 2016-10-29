@@ -21,6 +21,11 @@ public interface FileWrapper {
   FileWrapper[] getFileList();
 
   /*
+   *  Returns true if the wrapped file describes a folder.
+   */
+  boolean isDirectory();
+
+  /*
    *  Returns true if 'this' is moved to 'destination' successfully, returns false otherwise.
    *  Usage:
    *  FileWrapper src;

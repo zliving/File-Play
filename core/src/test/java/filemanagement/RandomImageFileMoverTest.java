@@ -47,26 +47,27 @@ public class RandomImageFileMoverTest {
     FileWrapper mockHiddenFolder = Mockito.mock(FileWrapper.class);
     when(mockHiddenFolder.getFileName()).thenReturn(".file-play");
     when(mockHiddenFolder.getFilePath()).thenReturn("gallery/.file-play");
+    when(mockHiddenFolder.isDirectory()).thenReturn(true);
 
-    FileWrapper[] FileWrappers = new FileWrapper[3];
-    FileWrappers[0] = mockHiddenFolder;
-    FileWrappers[1] = Mockito.mock(FileWrapper.class);
-    FileWrappers[2] = Mockito.mock(FileWrapper.class);
+    FileWrapper[] fileWrappers = new FileWrapper[3];
+    fileWrappers[0] = mockHiddenFolder;
+    fileWrappers[1] = Mockito.mock(FileWrapper.class);
+    fileWrappers[2] = Mockito.mock(FileWrapper.class);
 
-    when(FileWrappers[1].getFileName()).thenReturn("file1");
-    when(FileWrappers[1].getFilePath()).thenReturn("gallery/file1");
-    when(FileWrappers[2].getFileName()).thenReturn("file2");
-    when(FileWrappers[2].getFilePath()).thenReturn("gallery/file2");
+    when(fileWrappers[1].getFileName()).thenReturn("file1");
+    when(fileWrappers[1].getFilePath()).thenReturn("gallery/file1");
+    when(fileWrappers[2].getFileName()).thenReturn("file2");
+    when(fileWrappers[2].getFilePath()).thenReturn("gallery/file2");
 
     FileWrapper moveDestinationFile = Mockito.mock(FileWrapper.class);
     when(moveDestinationFile.getFileName()).thenReturn("file1");
     when(moveDestinationFile.getFilePath()).thenReturn("gallery/.file-play/file1");
 
-    when(FileWrappers[1].move(Mockito.any(FileWrapper.class))).thenReturn(true);
+    when(fileWrappers[1].move(Mockito.any(FileWrapper.class))).thenReturn(true);
     when(fileFactory.createFile("gallery/.file-play/file1")).thenReturn(moveDestinationFile);
     when(randomNumberGenerator.nextInt(3)).thenReturn(1);
 
-    when(mockGalleryFolder.getFileList()).thenReturn(FileWrappers);
+    when(mockGalleryFolder.getFileList()).thenReturn(fileWrappers);
     when(fileFactory.createFile(mockHiddenFolder.getFilePath())).thenReturn(mockHiddenFolder);
     when(fileFactory.getGalleryFile()).thenReturn(mockGalleryFolder);
     // Return the number that will trigger a move.
@@ -84,14 +85,15 @@ public class RandomImageFileMoverTest {
     FileWrapper mockHiddenFolder = Mockito.mock(FileWrapper.class);
     when(mockHiddenFolder.getFileName()).thenReturn(".file-play");
     when(mockHiddenFolder.getFilePath()).thenReturn("gallery/.file-play");
+    when(mockHiddenFolder.isDirectory()).thenReturn(true);
 
-    FileWrapper[] FileWrappers = new FileWrapper[0];
+    FileWrapper[] fileWrappers = new FileWrapper[0];
 
     // Return the number that will trigger a move.
     when(randomNumberGenerator.nextInt(5)).thenReturn(0);
     when(fileFactory.getGalleryFile()).thenReturn(mockGalleryFolder);
     when(fileFactory.createFile(mockHiddenFolder.getFilePath())).thenReturn(mockHiddenFolder);
-    when(mockGalleryFolder.getFileList()).thenReturn(FileWrappers);
+    when(mockGalleryFolder.getFileList()).thenReturn(fileWrappers);
 
     assertFalse(randomImageFileMover.hideRandom());
   }
@@ -105,26 +107,67 @@ public class RandomImageFileMoverTest {
     FileWrapper mockHiddenFolder = Mockito.mock(FileWrapper.class);
     when(mockHiddenFolder.getFileName()).thenReturn(".file-play");
     when(mockHiddenFolder.getFilePath()).thenReturn("gallery/.file-play");
+    when(mockHiddenFolder.isDirectory()).thenReturn(true);
 
-    FileWrapper[] FileWrappers = new FileWrapper[3];
-    FileWrappers[0] = mockHiddenFolder;
-    FileWrappers[1] = Mockito.mock(FileWrapper.class);
-    FileWrappers[2] = Mockito.mock(FileWrapper.class);
+    FileWrapper[] fileWrappers = new FileWrapper[3];
+    fileWrappers[0] = mockHiddenFolder;
+    fileWrappers[1] = Mockito.mock(FileWrapper.class);
+    fileWrappers[2] = Mockito.mock(FileWrapper.class);
 
-    when(FileWrappers[1].getFileName()).thenReturn("file1");
-    when(FileWrappers[1].getFilePath()).thenReturn("gallery/file1");
-    when(FileWrappers[2].getFileName()).thenReturn("file2");
-    when(FileWrappers[2].getFilePath()).thenReturn("gallery/file2");
+    when(fileWrappers[1].getFileName()).thenReturn("file1");
+    when(fileWrappers[1].getFilePath()).thenReturn("gallery/file1");
+    when(fileWrappers[2].getFileName()).thenReturn("file2");
+    when(fileWrappers[2].getFilePath()).thenReturn("gallery/file2");
 
     FileWrapper moveDestinationFile = Mockito.mock(FileWrapper.class);
     when(moveDestinationFile.getFileName()).thenReturn("file1");
     when(moveDestinationFile.getFilePath()).thenReturn("gallery/.file-play/file1");
 
-    when(FileWrappers[1].move(Mockito.any(FileWrapper.class))).thenReturn(true);
+    when(fileWrappers[1].move(Mockito.any(FileWrapper.class))).thenReturn(true);
     when(fileFactory.createFile("gallery/.file-play/file1")).thenReturn(moveDestinationFile);
     when(randomNumberGenerator.nextInt(3)).thenReturn(0).thenReturn(1);
 
-    when(mockGalleryFolder.getFileList()).thenReturn(FileWrappers);
+    when(mockGalleryFolder.getFileList()).thenReturn(fileWrappers);
+    when(fileFactory.createFile(mockHiddenFolder.getFilePath())).thenReturn(mockHiddenFolder);
+    when(fileFactory.getGalleryFile()).thenReturn(mockGalleryFolder);
+    // Return the number that will trigger a move.
+    when(randomNumberGenerator.nextInt(5)).thenReturn(0);
+
+    assertTrue(randomImageFileMover.hideRandom());
+  }
+
+  @Test
+  public void hideRandom_nestedFolderSelected() {
+    FileWrapper mockGalleryFolder = Mockito.mock(FileWrapper.class);
+    when(mockGalleryFolder.getFileName()).thenReturn("gallery");
+    when(mockGalleryFolder.getFilePath()).thenReturn("gallery");
+
+    FileWrapper mockHiddenFolder = Mockito.mock(FileWrapper.class);
+    when(mockHiddenFolder.getFileName()).thenReturn(".file-play");
+    when(mockHiddenFolder.getFilePath()).thenReturn("gallery/.file-play");
+    when(mockHiddenFolder.isDirectory()).thenReturn(true);
+
+    FileWrapper[] fileWrappers = new FileWrapper[3];
+    fileWrappers[0] = mockHiddenFolder;
+    fileWrappers[1] = Mockito.mock(FileWrapper.class);
+    fileWrappers[2] = Mockito.mock(FileWrapper.class);
+
+    when(fileWrappers[1].getFileName()).thenReturn("folder1");
+    when(fileWrappers[1].getFilePath()).thenReturn("gallery/folder1");
+    when(fileWrappers[1].isDirectory()).thenReturn(true);
+    when(fileWrappers[2].getFileName()).thenReturn("file2");
+    when(fileWrappers[2].getFilePath()).thenReturn("gallery/file2");
+    when(fileWrappers[2].isDirectory()).thenReturn(false);
+
+    FileWrapper moveDestinationFile = Mockito.mock(FileWrapper.class);
+    when(moveDestinationFile.getFileName()).thenReturn("file2");
+    when(moveDestinationFile.getFilePath()).thenReturn("gallery/.file-play/file2");
+
+    when(fileWrappers[2].move(Mockito.any(FileWrapper.class))).thenReturn(true);
+    when(fileFactory.createFile("gallery/.file-play/file2")).thenReturn(moveDestinationFile);
+    when(randomNumberGenerator.nextInt(3)).thenReturn(1).thenReturn(2);
+
+    when(mockGalleryFolder.getFileList()).thenReturn(fileWrappers);
     when(fileFactory.createFile(mockHiddenFolder.getFilePath())).thenReturn(mockHiddenFolder);
     when(fileFactory.getGalleryFile()).thenReturn(mockGalleryFolder);
     // Return the number that will trigger a move.
@@ -142,13 +185,14 @@ public class RandomImageFileMoverTest {
     FileWrapper mockHiddenFolder = Mockito.mock(FileWrapper.class);
     when(mockHiddenFolder.getFileName()).thenReturn(".file-play");
     when(mockHiddenFolder.getFilePath()).thenReturn("gallery/.file-play");
+    when(mockHiddenFolder.isDirectory()).thenReturn(true);
 
-    FileWrapper[] FileWrappers = new FileWrapper[1];
-    FileWrappers[0] = mockHiddenFolder;
+    FileWrapper[] fileWrappers = new FileWrapper[1];
+    fileWrappers[0] = mockHiddenFolder;
 
     when(randomNumberGenerator.nextInt(0)).thenReturn(0);
 
-    when(mockGalleryFolder.getFileList()).thenReturn(FileWrappers);
+    when(mockGalleryFolder.getFileList()).thenReturn(fileWrappers);
     when(fileFactory.createFile(mockHiddenFolder.getFilePath())).thenReturn(mockHiddenFolder);
     when(fileFactory.getGalleryFile()).thenReturn(mockGalleryFolder);
     // Return the number that will trigger a move.
@@ -173,14 +217,15 @@ public class RandomImageFileMoverTest {
     FileWrapper mockHiddenFolder = Mockito.mock(FileWrapper.class);
     when(mockHiddenFolder.getFileName()).thenReturn(".file-play");
     when(mockHiddenFolder.getFilePath()).thenReturn("gallery/.file-play");
+    when(mockHiddenFolder.isDirectory()).thenReturn(true);
 
-    FileWrapper[] FileWrappers = new FileWrapper[0];
+    FileWrapper[] fileWrappers = new FileWrapper[0];
 
     // Return the number that will trigger a move.
     when(randomNumberGenerator.nextInt(5)).thenReturn(0);
     when(fileFactory.getGalleryFile()).thenReturn(mockGalleryFolder);
     when(fileFactory.createFile(mockHiddenFolder.getFilePath())).thenReturn(mockHiddenFolder);
-    when(mockHiddenFolder.getFileList()).thenReturn(FileWrappers);
+    when(mockHiddenFolder.getFileList()).thenReturn(fileWrappers);
 
     assertFalse(randomImageFileMover.restoreRandom());
   }
@@ -194,25 +239,26 @@ public class RandomImageFileMoverTest {
     FileWrapper mockHiddenFolder = Mockito.mock(FileWrapper.class);
     when(mockHiddenFolder.getFileName()).thenReturn(".file-play");
     when(mockHiddenFolder.getFilePath()).thenReturn("gallery/.file-play");
+    when(mockHiddenFolder.isDirectory()).thenReturn(true);
 
-    FileWrapper[] FileWrappers = new FileWrapper[2];
-    FileWrappers[0] = Mockito.mock(FileWrapper.class);
-    FileWrappers[1] = Mockito.mock(FileWrapper.class);
+    FileWrapper[] fileWrappers = new FileWrapper[2];
+    fileWrappers[0] = Mockito.mock(FileWrapper.class);
+    fileWrappers[1] = Mockito.mock(FileWrapper.class);
 
-    when(FileWrappers[0].getFileName()).thenReturn("file1");
-    when(FileWrappers[0].getFilePath()).thenReturn("gallery/.file-play/file1");
-    when(FileWrappers[1].getFileName()).thenReturn("file2");
-    when(FileWrappers[1].getFilePath()).thenReturn("gallery/.file-play/file2");
+    when(fileWrappers[0].getFileName()).thenReturn("file1");
+    when(fileWrappers[0].getFilePath()).thenReturn("gallery/.file-play/file1");
+    when(fileWrappers[1].getFileName()).thenReturn("file2");
+    when(fileWrappers[1].getFilePath()).thenReturn("gallery/.file-play/file2");
 
     FileWrapper moveDestinationFile = Mockito.mock(FileWrapper.class);
     when(moveDestinationFile.getFileName()).thenReturn("file1");
     when(moveDestinationFile.getFilePath()).thenReturn("gallery/file1");
 
-    when(FileWrappers[0].move(Mockito.any(FileWrapper.class))).thenReturn(true);
+    when(fileWrappers[0].move(Mockito.any(FileWrapper.class))).thenReturn(true);
     when(fileFactory.createFile("gallery/file1")).thenReturn(moveDestinationFile);
     when(randomNumberGenerator.nextInt(3)).thenReturn(0);
 
-    when(mockHiddenFolder.getFileList()).thenReturn(FileWrappers);
+    when(mockHiddenFolder.getFileList()).thenReturn(fileWrappers);
     when(fileFactory.createFile(mockHiddenFolder.getFilePath())).thenReturn(mockHiddenFolder);
     when(fileFactory.getGalleryFile()).thenReturn(mockGalleryFolder);
     // Return the number that will trigger a move.

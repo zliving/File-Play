@@ -50,7 +50,7 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
       do {
         int sourceFileIndex = randomNumberGenerator.nextInt(galleryFiles.length);
         sourceFile = galleryFiles[sourceFileIndex];
-      } while (sourceFile.getFilePath().equals(hiddenFolder.getFilePath()));
+      } while (sourceFile.isDirectory());
       // Get the file pathname for the destination, and get a FileWrapper for that pathname.
       String destinationPath = hiddenFolder.getFilePath() + "/" + sourceFile.getFileName();
 
