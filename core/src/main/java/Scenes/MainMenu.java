@@ -38,10 +38,10 @@ public class MainMenu extends BaseScreen {
     // by 800.
     settingsButton = new ButtonActor(new Texture(Gdx.files.internal("options_button.png")),
             120, 200);
-    addAllListeners();
-    addAllActors();
     mainMenuText = new BitmapFont();
     mainMenuText.setColor(Color.YELLOW);
+    addAllListeners();
+    addAllActors();
   }
 
   /**
@@ -78,7 +78,7 @@ public class MainMenu extends BaseScreen {
     leaderboardsButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        System.out.println("Hit leader button");
+        mainGame.setScreen(FilePlayMain.ScreenType.LEADERBOARDS);
         return true;
       }
     });
