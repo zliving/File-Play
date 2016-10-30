@@ -62,9 +62,6 @@ public abstract class BaseScreen implements Screen {
    */
   @Override
   public void resize(int width, int height) {
-    System.out.println("Resize occurred");
-    camera.setToOrtho(false, width, height);
-    camera.update();
     stage.getViewport().update(width, height, true);
   }
 
