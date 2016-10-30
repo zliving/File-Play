@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.FilePlayMain;
 
 /**
@@ -31,7 +31,7 @@ public abstract class BaseScreen implements Screen {
     this.mainGame = mainGame;
     spriteBatch = new SpriteBatch();
     camera = new OrthographicCamera();
-    stage = new Stage(new ScreenViewport(camera), spriteBatch);
+    stage = new Stage(new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera), spriteBatch);
     Gdx.input.setInputProcessor(stage);
   }
 
@@ -47,7 +47,6 @@ public abstract class BaseScreen implements Screen {
    */
   @Override
   public void render(float delta) {
-    //camera.update();
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     // This is equivalent to updating actors that are added to the stage.
@@ -63,6 +62,9 @@ public abstract class BaseScreen implements Screen {
    */
   @Override
   public void resize(int width, int height) {
+    System.out.println("Resize occurred");
+    camera.setToOrtho(false, width, height);
+    camera.update();
     stage.getViewport().update(width, height, true);
   }
 
