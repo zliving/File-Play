@@ -26,7 +26,7 @@ public class MainMenu extends BaseScreen {
   private final Button playButton;
   private final Button leaderBoardsButton;
   private final Button settingsButton;
-  private final BitmapFont mainMenuText;
+  private final Button bannerButton;
   private final BitmapFont playButtonText;
   private final BitmapFont leaderBoardsButtonText;
   private final BitmapFont settingsButtonText;
@@ -37,6 +37,11 @@ public class MainMenu extends BaseScreen {
    */
   public MainMenu(FilePlayMain mainGame) {
     super(mainGame);
+
+    // Draws the banner at the upper left corner at (0, height of screen - height of banner) =
+    // (0, 720). For now it's a static image, sooner I'll get the arrow on the right to serve as
+    // a back button and the lines will be a drop-down menu later on.
+    bannerButton = new Button(new Texture(Gdx.files.internal("banner - HSYB-Long.png")), 0, 720);
 
     // Creates a button using the given texture at (120, 400) of the native resolution 480
     // by 800.
@@ -49,9 +54,8 @@ public class MainMenu extends BaseScreen {
 
     // Creates a button using the given texture at (120, 200) of the native resolution 480
     // by 800.
-    settingsButton = new Button(new Texture(Gdx.files.internal("heavy-sat-yellow-246x46.png")), 120, 200);
-    mainMenuText = new BitmapFont();
-    mainMenuText.setColor(Color.YELLOW);
+    settingsButton = new Button(new Texture(Gdx.files.internal("heavy-sat-yellow-246x46.png")),
+                                120, 200);
     playButtonText = new BitmapFont();
     playButtonText.setColor(Color.BLACK);
     leaderBoardsButtonText = new BitmapFont();
@@ -76,9 +80,8 @@ public class MainMenu extends BaseScreen {
     spriteBatch.draw(leaderBoardsButton.getSprite(), leaderBoardsButton.getX(),
                      leaderBoardsButton.getY());
     spriteBatch.draw(settingsButton.getSprite(), settingsButton.getX(), settingsButton.getY());
-    // Draws the text "Main Menu" at the location (20, 750) of the native screen resolution 480 by
-    // 800.
-    mainMenuText.draw(spriteBatch, "Main Menu", 20, 750);
+    spriteBatch.draw(bannerButton.getSprite(), bannerButton.getX(), bannerButton.getY());
+
     /* Every button will have it's corresponding name written over it. The locations (x,y) are the
     * centers of each button and the scaling (1.2f) was chosen arbitrarily.*/
     playButtonText.draw(spriteBatch, "Play", 230, 430);
@@ -87,8 +90,6 @@ public class MainMenu extends BaseScreen {
     leaderBoardsButtonText.getData().setScale(1.2f);
     settingsButtonText.draw(spriteBatch, "Settings", 210, 230);
     settingsButtonText.getData().setScale(1.2f);
-
-
 
     spriteBatch.end();
   }
