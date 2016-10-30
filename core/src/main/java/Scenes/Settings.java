@@ -1,44 +1,39 @@
 package Scenes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.mygdx.game.FilePlayMain;
 
-import UIElements.Button;
+import UIElements.ButtonActor;
 
 /**
  * The settings screen is where users will be able to access their profiles and set preferences
  * regarding their gameplay.
  */
 public class Settings extends BaseScreen {
-  private final Button backButton;
+  private final ButtonActor backButton;
   private final BitmapFont settingsText;
   private final Texture settingsMockUp;
 
   /**
-   * Refer to MainMenu.java for comments regarding each section. Settings should operate in the
-   * same way with changes to the textures/sprites that must be drawn to the screen.
+   * Refer to MainMenu.java for comments regarding each section. Settings should operate in the same
+   * way with changes to the textures/sprites that must be drawn to the screen.
    */
   public Settings(FilePlayMain mainGame) {
     super(mainGame);
-
     // Creates a button using the given texture at (20, 650) of the native resolution 480
     // by 800.
-    backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
+    backButton = new ButtonActor(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
     settingsText = new BitmapFont();
     settingsText.setColor(Color.YELLOW);
     settingsMockUp = new Texture(Gdx.files.internal("settings_mockup.png"));
+    addAllListeners();
+    addAllActors();
   }
 
   @Override
@@ -46,7 +41,6 @@ public class Settings extends BaseScreen {
     super.render(delta);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
-    spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
     // Draws the text "Settings (To be implemented)" at the location (20, 750) of the native 480
     // by 800 resolution.
     settingsText.draw(spriteBatch, "Settings (To be implemented)", 20, 750);
@@ -56,15 +50,28 @@ public class Settings extends BaseScreen {
     spriteBatch.end();
   }
 
+  /**
+   * This adds listeners to each of the buttons along with what to do upon being touched. A new
+   * InputListener is added inline overriding the touchDown method to determine what to do when
+   * touched.
+   */
   @Override
-  public boolean tap(float x, float y, int count, int button) {
-    float worldX = x * WidthWorldPixelRatio;
-    float correctedY = Gdx.graphics.getHeight() - y;
-    float worldY = correctedY * HeightWorldPixelRatio;
-    if (backButton.isClicked(worldX, worldY)) {
-      System.out.println("Go back to main menu");
-      mainGame.setScreen(FilePlayMain.ScreenType.MAINMENU);
-    }
-    return false;
+  protected void addAllListeners() {
+    backButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change to lobby screen.
+        mainGame.setScreen(FilePlayMain.ScreenType.MAINMENU);
+        return true;
+      }
+    });
+  }
+
+  /**
+   * Adds all of the buttons to the stage so that they are drawn to the screen.
+   */
+  @Override
+  protected void addAllActors() {
+    stage.addActor(backButton);
   }
 }

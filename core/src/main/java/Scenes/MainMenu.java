@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.mygdx.game.FilePlayMain;
+
 import UIElements.ButtonActor;
 
 /**
@@ -38,10 +39,10 @@ public class MainMenu extends BaseScreen {
     // by 800.
     settingsButton = new ButtonActor(new Texture(Gdx.files.internal("options_button.png")),
             120, 200);
-    addAllListeners();
-    addAllActors();
     mainMenuText = new BitmapFont();
     mainMenuText.setColor(Color.YELLOW);
+    addAllListeners();
+    addAllActors();
   }
 
   /**
@@ -67,24 +68,26 @@ public class MainMenu extends BaseScreen {
    * InputListener is added inline overriding the touchDown method to determine what to do when
    * touched.
    */
-  private void addAllListeners() {
+  @Override
+  protected void addAllListeners() {
     playButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        System.out.println("Hit play button");
+        // Change to lobby screen.
+        mainGame.setScreen(FilePlayMain.ScreenType.LOBBY);
         return true;
       }
     });
     leaderboardsButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        System.out.println("Hit leader button");
+        mainGame.setScreen(FilePlayMain.ScreenType.LEADERBOARDS);
         return true;
       }
     });
     settingsButton.addListener(new InputListener() {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        System.out.println("Hit settings button");
+        mainGame.setScreen(FilePlayMain.ScreenType.SETTINGS);
         return true;
       }
     });
@@ -93,7 +96,8 @@ public class MainMenu extends BaseScreen {
   /**
    * Adds all of the buttons to the stage so that they are drawn to the screen.
    */
-  private void addAllActors() {
+  @Override
+  protected void addAllActors() {
     stage.addActor(playButton);
     stage.addActor(leaderboardsButton);
     stage.addActor(settingsButton);

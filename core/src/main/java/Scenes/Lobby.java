@@ -1,21 +1,15 @@
 package Scenes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.mygdx.game.FilePlayMain;
 
-import UIElements.Button;
+import UIElements.ButtonActor;
 
 /**
  * The lobby screen will be where users set their preferences for a game prior to searching for
@@ -24,8 +18,8 @@ import UIElements.Button;
 public class Lobby extends BaseScreen {
   private final BitmapFont lobbyScreenText;
   private final BitmapFont playText;
-  private final Button backButton;
-  private final Button playButton;
+  private final ButtonActor backButton;
+  private final ButtonActor playButton;
   private final Texture lobbyMockUp;
 
   /**
@@ -34,19 +28,19 @@ public class Lobby extends BaseScreen {
    */
   public Lobby(FilePlayMain mainGame) {
     super(mainGame);
-
     // Creates a button using the given texture at location (20, 650) of the native resolution 480
     // by 800.
-    backButton = new Button(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
-
+    backButton = new ButtonActor(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
     // Creates a button using the given texture at location (320, 650) of the native resolution 480
     // by 800.
-    playButton = new Button(new Texture(Gdx.files.internal("next_button.png")), 320, 650);
+    playButton = new ButtonActor(new Texture(Gdx.files.internal("next_button.png")), 320, 650);
     lobbyScreenText = new BitmapFont();
     lobbyScreenText.setColor(Color.YELLOW);
     playText = new BitmapFont();
     playText.setColor(Color.YELLOW);
     lobbyMockUp = new Texture(Gdx.files.internal("lobby_mockup.png"));
+    addAllListeners();
+    addAllActors();
   }
 
   @Override
@@ -54,9 +48,6 @@ public class Lobby extends BaseScreen {
     super.render(delta);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
-    spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
-    // The play button will need to be added in the next iteration.
-    spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
     // Draws the text "Lobby Screen (To be implemented)" at the location (20, 750) of the native
     // resolution 480 by 800.
     lobbyScreenText.draw(spriteBatch, "Lobby Screen (To be implemented)", 20, 750);
@@ -67,18 +58,36 @@ public class Lobby extends BaseScreen {
     spriteBatch.end();
   }
 
+  /**
+   * This adds listeners to each of the buttons along with what to do upon being touched. A new
+   * InputListener is added inline overriding the touchDown method to determine what to do when
+   * touched.
+   */
   @Override
-  public boolean tap(float x, float y, int count, int button) {
-    float worldX = x * WidthWorldPixelRatio;
-    float correctedY = Gdx.graphics.getHeight() - y;
-    float worldY = correctedY * HeightWorldPixelRatio;
-    if (backButton.isClicked(worldX, worldY)) {
-      System.out.println("Go to mainmenu");
-      mainGame.setScreen(FilePlayMain.ScreenType.MAINMENU);
-    } else if (playButton.isClicked(worldX, worldY)) {
-      System.out.println("Go to play screen");
-      mainGame.setScreen(FilePlayMain.ScreenType.PLAY);
-    }
-    return false;
+  protected void addAllListeners() {
+    playButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change to play screen.
+        mainGame.setScreen(FilePlayMain.ScreenType.PLAY);
+        return true;
+      }
+    });
+    backButton.addListener(new InputListener() {
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change back to main menu.
+        mainGame.setScreen(FilePlayMain.ScreenType.MAINMENU);
+        return true;
+      }
+    });
+  }
+
+  /**
+   * Adds all of the buttons to the stage so that they are drawn to the screen.
+   */
+  @Override
+  protected void addAllActors() {
+    stage.addActor(playButton);
+    stage.addActor(backButton);
   }
 }
