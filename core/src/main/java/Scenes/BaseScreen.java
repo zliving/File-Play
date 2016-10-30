@@ -83,4 +83,7 @@ public abstract class BaseScreen implements Screen {
     spriteBatch.dispose();
     stage.dispose();
   }
+
+  protected abstract void addAllActors();
+  protected abstract void addAllListeners();
 }

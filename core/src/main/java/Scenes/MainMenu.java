@@ -68,7 +68,8 @@ public class MainMenu extends BaseScreen {
    * InputListener is added inline overriding the touchDown method to determine what to do when
    * touched.
    */
-  private void addAllListeners() {
+  @Override
+  protected void addAllListeners() {
     playButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -95,7 +96,8 @@ public class MainMenu extends BaseScreen {
   /**
    * Adds all of the buttons to the stage so that they are drawn to the screen.
    */
-  private void addAllActors() {
+  @Override
+  protected void addAllActors() {
     stage.addActor(playButton);
     stage.addActor(leaderboardsButton);
     stage.addActor(settingsButton);

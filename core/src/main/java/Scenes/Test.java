@@ -62,6 +62,14 @@ public class Test extends BaseScreen implements Screen, GestureDetector.GestureL
   }
 
   @Override
+  protected void addAllActors() {
+  }
+
+  @Override
+  protected void addAllListeners() {
+  }
+
+  @Override
   public boolean touchDown(float x, float y, int pointer, int button) {
     return false;
   }
@@ -105,4 +113,6 @@ public class Test extends BaseScreen implements Screen, GestureDetector.GestureL
   @Override
   public void pinchStop() {
   }
+
+
 }
