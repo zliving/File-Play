@@ -33,18 +33,72 @@ public final class URLBuilder {
     }
 
     public String getVal() {
-      return Integer.toString(val);
+      String returnStirng = "&category=";
+      return returnStirng + Integer.toString(val);
+    }
+  }
+
+  public enum DifficultyType {
+    EASY(0),
+    MEDIUM(1),
+    HARD(2);
+
+    private int val;
+
+    DifficultyType(int val) {
+      this.val = val;
+    }
+
+    public String getVal() {
+      String returnString = "&difficulty=";
+      switch (this.val) {
+        case 0:
+          returnString = returnString + "easy";
+          break;
+        case 1:
+          returnString = returnString + "medium";
+          break;
+        case 2:
+          returnString = returnString + "hard";
+          break;
+        default:
+          returnString = returnString + "easy";
+          break;
+      }
+      return returnString;
+    }
+  }
+
+  public enum AmountType {
+    SHORT(5),
+    MEDIUM(7),
+    LONG(9);
+
+    private int val;
+
+    AmountType(int val) {
+      this.val = val;
+    }
+
+    public String getVal() {
+      String returnString = "amount=";
+      return returnString + Integer.toString(val);
     }
   }
 
   /**
    * Amount Category Difficulty = easy, medium, hard Type = multiple Each separated by &
    */
-  public URLBuilder() {
+  private URLBuilder() {
     // Assert that this constructor should never be called.
     throw new AssertionError();
   }
 
-  public static String buildURL(int numberOfQuestions, CategoryType category, int difficulty) {
+  public static final String buildURL(AmountType numberOfQuestions, CategoryType category,
+                                DifficultyType difficulty) {
+    String base = "https://www.opentdb.com/api.php?";
+    String multipleChoice = "&type=multiple";
+    return base + numberOfQuestions.getVal() + category.getVal() + difficulty.getVal()
+            + multipleChoice;
   }
 }
