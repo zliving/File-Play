@@ -56,6 +56,7 @@ public class MainMenu extends BaseScreen {
     // by 800.
     settingsButton = new Button(new Texture(Gdx.files.internal("heavy-sat-yellow-246x46.png")),
                                 120, 200);
+
     playButtonText = new BitmapFont();
     playButtonText.setColor(Color.BLACK);
     leaderBoardsButtonText = new BitmapFont();
@@ -117,6 +118,8 @@ public class MainMenu extends BaseScreen {
       System.out.println("Go to settings");
       mainGame.setScreen(FilePlayMain.ScreenType.SETTINGS);
     }
+
+
     return false;
   }
 }
