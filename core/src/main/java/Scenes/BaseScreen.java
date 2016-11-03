@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.FilePlayMain;
@@ -18,6 +21,9 @@ public abstract class BaseScreen implements Screen {
   protected final OrthographicCamera camera;
   protected final FilePlayMain mainGame;
   protected final Stage stage;
+  protected final FreeTypeFontGenerator generator;
+  protected final FreeTypeFontParameter parameter;
+  protected final BitmapFont font;
 
   // This is the native screen size that will be the reference for everything placed on the screen.
   protected static final float WORLD_WIDTH = 480;
@@ -32,6 +38,14 @@ public abstract class BaseScreen implements Screen {
     spriteBatch = new SpriteBatch();
     camera = new OrthographicCamera();
     stage = new Stage(new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera), spriteBatch);
+
+    // Creates font generator to create a bitmap from it. TODO: Refactor this
+    generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts\\VacationPostcardNF.ttf"));
+    parameter = new FreeTypeFontParameter();
+    parameter.size = 36;
+    font = generator.generateFont(parameter);
+    generator.dispose();
+
     Gdx.input.setInputProcessor(stage);
   }
 

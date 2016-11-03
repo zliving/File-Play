@@ -39,8 +39,8 @@ public class MainMenu extends BaseScreen {
     // by 800.
     settingsButton = new ButtonActor(new Texture(Gdx.files.internal("options_button.png")),
             120, 200);
-    mainMenuText = new BitmapFont();
-    mainMenuText.setColor(Color.YELLOW);
+    mainMenuText = font;
+    mainMenuText.setColor(Color.WHITE);
     addAllListeners();
     addAllActors();
   }
