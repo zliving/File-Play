@@ -21,6 +21,7 @@ public class Leaderboards extends BaseScreen {
   private final ButtonActor backButton;
   private final BitmapFont leaderboardText;
   private final Texture leaderboardsMockUp;
+  private final Texture banner;
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Leaderboards should operate in the
@@ -30,10 +31,11 @@ public class Leaderboards extends BaseScreen {
     super(mainGame);
     // Create a new button using the "back_button.png" located at (20, 650) of the native
     // resolution  of 480 by 800.
-    backButton = new ButtonActor(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
+    backButton = new Button(new Texture(Gdx.files.internal("black-back-arrow.png")), 400, 735);
     leaderboardText = new BitmapFont();
     leaderboardText.setColor(Color.YELLOW);
     leaderboardsMockUp = new Texture(Gdx.files.internal("leaderboards_mockup.png"));
+    banner = new Texture(Gdx.files.internal("banner - HSYB-Long.png"));
     addAllListeners();
     addAllActors();
   }
@@ -46,9 +48,12 @@ public class Leaderboards extends BaseScreen {
     // Draws the text "Leaderboards (To be implemented)"  located at (20, 750) of the native
     // resolution 480 by 800.
     leaderboardText.draw(spriteBatch, "Leaderboards (To be implemented)", 20, 750);
+    spriteBatch.draw(backButton.getSprite(), backButton.getX(), backButton.getY());
     // Draws a sprite using the leaderboardsMockUp texture located at (65, 3000) of the native
     // resolution 480 by 800.
     spriteBatch.draw(new Sprite(leaderboardsMockUp), 65, 300);
+    // Draws the banner as a texture located at the top.
+    spriteBatch.draw(new Sprite(banner), 0, 720);
     spriteBatch.end();
   }
 
