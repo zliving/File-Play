@@ -5,98 +5,56 @@ filter: Nearest,Nearest
 repeat: none
 lobby_mockup
   rotate: false
-  xy: 1, 580
+  xy: 1, 217
   size: 350, 259
   orig: 350, 259
   offset: 0, 0
   index: -1
 banner - HSYB-Long
   rotate: false
-  xy: 353, 759
+  xy: 353, 396
   size: 480, 80
   orig: 480, 80
   offset: 0, 0
   index: -1
 settings_mockup
   rotate: false
-  xy: 1, 370
+  xy: 1, 7
   size: 350, 208
   orig: 350, 208
   offset: 0, 0
   index: -1
 leaderboards_mockup
   rotate: false
-  xy: 353, 561
+  xy: 353, 198
   size: 350, 196
   orig: 350, 196
   offset: 0, 0
   index: -1
 play_mockup
   rotate: false
-  xy: 1, 173
+  xy: 353, 1
   size: 350, 195
   orig: 350, 195
   offset: 0, 0
   index: -1
-badlogic
-  rotate: false
-  xy: 353, 303
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
 heavy-sat-yellow-246x46
   rotate: false
-  xy: 1, 125
-  size: 246, 46
-  orig: 246, 46
-  offset: 0, 0
-  index: -1
-leaderboards_button
-  rotate: false
-  xy: 353, 255
-  size: 246, 46
-  orig: 246, 46
-  offset: 0, 0
-  index: -1
-options_button
-  rotate: false
-  xy: 1, 77
+  xy: 705, 348
   size: 246, 46
   orig: 246, 46
   offset: 0, 0
   index: -1
 play_button
   rotate: false
-  xy: 353, 207
+  xy: 705, 300
   size: 246, 46
   orig: 246, 46
   offset: 0, 0
   index: -1
-back_button
-  rotate: false
-  xy: 835, 765
-  size: 129, 74
-  orig: 129, 74
-  offset: 0, 0
-  index: -1
-next_button
-  rotate: false
-  xy: 1, 1
-  size: 129, 74
-  orig: 129, 74
-  offset: 0, 0
-  index: -1
-testButton
-  rotate: false
-  xy: 705, 700
-  size: 104, 57
-  orig: 104, 57
-  offset: 0, 0
-  index: -1
 black-back-arrow
   rotate: false
-  xy: 611, 510
+  xy: 835, 427
   size: 64, 49
   orig: 64, 49
   offset: 0, 0
