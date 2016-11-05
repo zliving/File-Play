@@ -3,12 +3,12 @@ package Scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.mygdx.game.FilePlayMain;
 
 import UIElements.ButtonActor;
@@ -49,7 +49,6 @@ public class Lobby extends BaseScreen {
     // Draws the text "Lobby" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.draw(new Sprite(lobbyMockUp), 65, 300);
-    // Draws the banner
     spriteBatch.end();
   }
 
@@ -58,16 +57,15 @@ public class Lobby extends BaseScreen {
    */
   @Override
   protected void createButtons() {
-    // Creates a button using the given texture at location (20, 650) of the native resolution 480
-    // by 800.
+    // Creates the back button to go back to the previous screen at the given position.
     backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 400, 735);
-    TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+    TextButtonStyle style = new TextButtonStyle();
     // Sets the skin for when the button is not pressed and when it is. The argument that is passed
-    // is taken from the atlas used for the buttonSkin object.
+    // is searched for in the atlas within the buttonSkin object.
     style.up = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
     style.down = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
     style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
-    // Creates the play button at the specificed location with the given style
+    // Creates the play button at the specificed location with the given style.
     playButton = new TextButton("Play", style);
     playButton.setPosition(220, 20);
   }

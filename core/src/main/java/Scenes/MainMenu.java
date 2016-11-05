@@ -13,9 +13,8 @@ import com.mygdx.game.FilePlayMain;
 import UIElements.ButtonActor;
 
 /**
- * TODO(Chris): Change buttons to allow for text Include relative offsets and spacing. MainMenu will
- * display the main menu screen of the game with buttons that transition them into appropriate
- * screens from the main menu.
+ * MainMenu will display the main menu screen of the game with buttons that transition them into
+ * appropriate screens from the main menu.
  */
 public class MainMenu extends BaseScreen {
   private TextButton playButton;
@@ -32,7 +31,7 @@ public class MainMenu extends BaseScreen {
     // Creates GlyphLayout to get width for centering text in the banner.
     bannerTextGlyphLayout = new GlyphLayout(bannerText, "Main Menu");
     // Calculate the center for the text to be drawn in the banner.
-    glyphCenterX  = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
+    glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
     createButtons();
     addAllListeners();
     addAllActors();
@@ -47,13 +46,12 @@ public class MainMenu extends BaseScreen {
   @Override
   public void render(float delta) {
     super.render(delta);
-    /* This tells LibGDX's 3D engine how to render in 2D. */
+    // This tells LibGDX's 3D engine how to render in 2D.
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     // Draws the banner.
     spriteBatch.draw(new Sprite(banner), 0, 720);
-    /* Draws the text "Main Menu" at the location (20, 750) of the native screen resolution 480 by
-     * 800. */
+    // Draws the text "Main Menu" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.end();
   }
@@ -65,14 +63,15 @@ public class MainMenu extends BaseScreen {
   protected void createButtons() {
     TextButtonStyle style = new TextButtonStyle();
     // Sets the skin for when the button is not pressed and when it is. The argument that is passed
-    // is taken from the atlas used for the buttonSkin object.
+    // is searched for in the atlas within the buttonSkin object.
     style.up = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
     style.down = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
     style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
+    // Creates the three buttons using the style specified above.
     playButton = new TextButton("Play", style);
     leaderboardsButton = new TextButton("Leaderboards", style);
     settingsButton = new TextButton("Settings", style);
-    // Sets the location for each of the TextButtons
+    // Sets the location for each of the buttons.
     playButton.setPosition(120, 400);
     leaderboardsButton.setPosition(120, 300);
     settingsButton.setPosition(120, 200);
@@ -96,12 +95,14 @@ public class MainMenu extends BaseScreen {
     leaderboardsButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change to leaderboards screen.
         mainGame.setScreen(FilePlayMain.ScreenType.LEADERBOARDS);
         return true;
       }
     });
     settingsButton.addListener(new InputListener() {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change to the settings screen.
         mainGame.setScreen(FilePlayMain.ScreenType.SETTINGS);
         return true;
       }

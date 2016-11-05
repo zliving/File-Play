@@ -58,7 +58,10 @@ public class Test extends BaseScreen implements Screen, GestureDetector.GestureL
 
   @Override
   public void dispose() {
+  }
 
+  @Override
+  public void createButtons() {
   }
 
   @Override

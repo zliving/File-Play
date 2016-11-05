@@ -21,10 +21,7 @@ import UIElements.ButtonActor;
  */
 public class Leaderboards extends BaseScreen {
   private ButtonActor backButton;
-  private BitmapFont leaderboardText;
   private final Texture leaderboardsMockUp;
-  private final Texture banner;
-  private GlyphLayout leaderboardsGlyphLayout;
   private final int glyphCenterX;
 
 
@@ -34,14 +31,12 @@ public class Leaderboards extends BaseScreen {
    */
   public Leaderboards(FilePlayMain mainGame) {
     super(mainGame);
-    leaderboardText = new BitmapFont();
-    leaderboardText = generateNewFont("VacationPostcardNF.ttf", 36, Color.BLACK);
-    // Creates Glyph to get width of the BitmapFont in order to center.
-    leaderboardsGlyphLayout = new GlyphLayout(leaderboardText, "Leaderboards");
-    // Calculate the center in terms of x for the glyph.
-    glyphCenterX = ((int) WORLD_WIDTH - (int) leaderboardsGlyphLayout.width) / 2;
+    // Creates GlyphLayout with the given string to get width of the BitmapFont in order to
+    // center the text.
+    bannerTextGlyphLayout = new GlyphLayout(bannerText, "Leaderboards");
+    // Calculate the center in terms of x for the GlyphLayout.
+    glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
     leaderboardsMockUp = new Texture(Gdx.files.internal("leaderboards_mockup.png"));
-    banner = new Texture(Gdx.files.internal("banner - HSYB-Long.png"));
     createButtons();
     addAllListeners();
     addAllActors();
@@ -55,11 +50,10 @@ public class Leaderboards extends BaseScreen {
     // Draws the banner as a texture located at the top.
     spriteBatch.draw(new Sprite(banner), 0, 720);
     // Draws the text "Leaderboards" in the center of the banner.
-    leaderboardText.draw(spriteBatch, leaderboardsGlyphLayout, glyphCenterX, 770);
-    // Draws a sprite using the leaderboardsMockUp texture located at (65, 3000) of the native
+    bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
+    // Draws a sprite using the leaderboardsMockUp texture located at (65, 300) of the native
     // resolution 480 by 800.
     spriteBatch.draw(new Sprite(leaderboardsMockUp), 65, 300);
-
     spriteBatch.end();
   }
 
@@ -68,14 +62,7 @@ public class Leaderboards extends BaseScreen {
    */
   @Override
   protected void createButtons() {
-    TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-    // Sets the skin for when the button is not pressed and when it is. The argument that is passed
-    // is taken from the atlas used for the buttonSkin object.
-    style.up = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
-    style.down = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
-    style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
-    // Create a new button using the "back_button.png" located at (20, 650) of the native
-    // resolution of 480 by 800
+    // Creates the back button on the banner to go back a screen.
     backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 400, 735);
   }
 
