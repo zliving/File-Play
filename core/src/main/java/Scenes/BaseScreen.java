@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.FilePlayMain;
 
@@ -22,8 +24,11 @@ public abstract class BaseScreen implements Screen {
   protected final OrthographicCamera camera;
   protected final FilePlayMain mainGame;
   protected final Stage stage;
+  protected final TextureAtlas buttonAtlas;
+  protected Skin buttonSkin;
   private FreeTypeFontGenerator generator;
   private FreeTypeFontParameter parameter;
+
 
   // This is the native screen size that will be the reference for everything placed on the screen.
   protected static final float WORLD_WIDTH = 480;
@@ -33,9 +38,17 @@ public abstract class BaseScreen implements Screen {
   protected float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   protected float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
+  // TODO (Chris): Refactor the atlas into this class. Trim the atlas down
   BaseScreen(FilePlayMain mainGame) {
     this.mainGame = mainGame;
     spriteBatch = new SpriteBatch();
+    /* Creates an atlas object which can use all the textures within it. Each screen will have
+     * access to the atlas in order to create button skins from it. */
+    buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
+    buttonSkin = new Skin();
+    /* Adds all the regions from the atlas so that it can getDrawable using the name of each
+     * texture. */
+    buttonSkin.addRegions(buttonAtlas);
     camera = new OrthographicCamera();
     stage = new Stage(new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera), spriteBatch);
     parameter = new FreeTypeFontParameter();
@@ -113,6 +126,8 @@ public abstract class BaseScreen implements Screen {
   }
 
   protected abstract void addAllActors();
+
   protected abstract void addAllListeners();
+
   protected abstract void createButtons();
 }
