@@ -18,13 +18,10 @@ import UIElements.ButtonActor;
  * one.
  */
 public class Lobby extends BaseScreen {
-  private BitmapFont lobbyText;
-  private GlyphLayout lobbyGlyphLayout;
+
   private ButtonActor backButton;
   private TextButton playButton;
-  private final Texture banner;
   private final Texture lobbyMockUp;
-  private final int glyphCenterX;
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Lobby should operate in the same
@@ -32,14 +29,11 @@ public class Lobby extends BaseScreen {
    */
   public Lobby(FilePlayMain mainGame) {
     super(mainGame);
-    lobbyText = new BitmapFont();
-    lobbyText = generateNewFont("VacationPostcardNF.ttf", 36, Color.BLACK);
-    // Creates Glyph to get width of the BitmapFont in order to center.
-    lobbyGlyphLayout = new GlyphLayout(lobbyText, "Lobby");
-    // Calculate the center in terms of x for the glyph.
-    glyphCenterX = ((int) WORLD_WIDTH - (int) lobbyGlyphLayout.width) / 2;
+    // Creates GlyphLayout to get width for centering text in the banner.
+    bannerTextGlyphLayout = new GlyphLayout(bannerText, "Lobby");
+    // Calculate the center for the text to be drawn in the banner.
+    glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
     lobbyMockUp = new Texture(Gdx.files.internal("lobby_mockup.png"));
-    banner = new Texture(Gdx.files.internal("banner - HSYB-Long.png"));
     createButtons();
     addAllListeners();
     addAllActors();
@@ -50,15 +44,12 @@ public class Lobby extends BaseScreen {
     super.render(delta);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
-    // Draws the banner
+    // Draws the banner.
     spriteBatch.draw(new Sprite(banner), 0, 720);
     // Draws the text "Lobby" in the center of the banner.
-    lobbyText.draw(spriteBatch, lobbyGlyphLayout, glyphCenterX, 770);
-    // Draws the text "Play" at the location (400, 750) of the native resolution 480 by 800.
-    // Draws a sprite using the given texture at a location of (65, 300) of the native resolution.
+    bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.draw(new Sprite(lobbyMockUp), 65, 300);
     // Draws the banner
-
     spriteBatch.end();
   }
 

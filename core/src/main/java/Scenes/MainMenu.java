@@ -1,13 +1,10 @@
 package Scenes;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.mygdx.game.FilePlayMain;
@@ -21,10 +18,6 @@ import UIElements.ButtonActor;
  * screens from the main menu.
  */
 public class MainMenu extends BaseScreen {
-  private BitmapFont mainMenuText;
-  private ButtonActor bannerButton;
-  private TextureAtlas buttonsAtlas;
-  private Skin buttonSkin;
   private TextButton playButton;
   private TextButton leaderboardsButton;
   private TextButton settingsButton;
@@ -36,13 +29,11 @@ public class MainMenu extends BaseScreen {
    */
   public MainMenu(FilePlayMain mainGame) {
     super(mainGame);
-    mainMenuText = new BitmapFont();
-    mainMenuText = generateNewFont("VacationPostcardNF.ttf", 36, Color.WHITE);
-    /* Creates the banner button at the location (0, 720) of the native resolution. */
-    bannerButton = new ButtonActor(new Texture(Gdx.files.internal("banner - HSYB-Long.png")),
-            0, 720);
+    // Creates GlyphLayout to get width for centering text in the banner.
+    bannerTextGlyphLayout = new GlyphLayout(bannerText, "Main Menu");
+    // Calculate the center for the text to be drawn in the banner.
+    glyphCenterX  = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
     createButtons();
-    setButtonLocations();
     addAllListeners();
     addAllActors();
   }
@@ -59,9 +50,11 @@ public class MainMenu extends BaseScreen {
     /* This tells LibGDX's 3D engine how to render in 2D. */
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
+    // Draws the banner.
+    spriteBatch.draw(new Sprite(banner), 0, 720);
     /* Draws the text "Main Menu" at the location (20, 750) of the native screen resolution 480 by
      * 800. */
-    mainMenuText.draw(spriteBatch, "Main Menu", 20, 700);
+    bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.end();
   }
 
@@ -71,26 +64,15 @@ public class MainMenu extends BaseScreen {
   @Override
   protected void createButtons() {
     TextButtonStyle style = new TextButtonStyle();
-    /* Creates and atlas object and a new skin which can use all the textures of the given atlas. */
-    buttonsAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
-    buttonSkin = new Skin();
-    /* Adds all the regions from the atlas so that it can getDrawable using the name of each
-     * texture. */
-    buttonSkin.addRegions(buttonsAtlas);
-    /* Sets the skin for when the button is not pressed and when it is. The argument that is passed
-     * is taken from the atlas used for the buttonSkin object. */
+    // Sets the skin for when the button is not pressed and when it is. The argument that is passed
+    // is taken from the atlas used for the buttonSkin object.
     style.up = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
     style.down = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
     style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
     playButton = new TextButton("Play", style);
     leaderboardsButton = new TextButton("Leaderboards", style);
     settingsButton = new TextButton("Settings", style);
-  }
-
-  /**
-   * This function is where all of the button locations are set.
-   */
-  private void setButtonLocations() {
+    // Sets the location for each of the TextButtons
     playButton.setPosition(120, 400);
     leaderboardsButton.setPosition(120, 300);
     settingsButton.setPosition(120, 200);
@@ -131,7 +113,6 @@ public class MainMenu extends BaseScreen {
    */
   @Override
   protected void addAllActors() {
-    stage.addActor(bannerButton);
     stage.addActor(playButton);
     stage.addActor(leaderboardsButton);
     stage.addActor(settingsButton);
