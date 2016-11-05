@@ -2,6 +2,7 @@ package Scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -21,9 +22,9 @@ public abstract class BaseScreen implements Screen {
   protected final OrthographicCamera camera;
   protected final FilePlayMain mainGame;
   protected final Stage stage;
-  protected final FreeTypeFontGenerator generator;
-  protected final FreeTypeFontParameter parameter;
-  protected final BitmapFont font;
+  private FreeTypeFontGenerator generator;
+  private FreeTypeFontParameter parameter;
+  private BitmapFont font;
 
   // This is the native screen size that will be the reference for everything placed on the screen.
   protected static final float WORLD_WIDTH = 480;
@@ -38,14 +39,8 @@ public abstract class BaseScreen implements Screen {
     spriteBatch = new SpriteBatch();
     camera = new OrthographicCamera();
     stage = new Stage(new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera), spriteBatch);
-
-    // Creates font generator to create a bitmap from it. TODO: Refactor this
-    generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts\\VacationPostcardNF.ttf"));
+    font = new BitmapFont();
     parameter = new FreeTypeFontParameter();
-    parameter.size = 36;
-    font = generator.generateFont(parameter);
-    generator.dispose();
-
     Gdx.input.setInputProcessor(stage);
   }
 
@@ -95,8 +90,50 @@ public abstract class BaseScreen implements Screen {
   public void dispose() {
     spriteBatch.dispose();
     stage.dispose();
+    generator.dispose();
   }
 
+  /**
+   * This function will change the font object in this class to be whatever font is specified by the
+   * 'fontPath' string. The parameter 'fontPath' is assumed to be relative to the fonts directory
+   * inside of the assets folder.
+   *
+   * @param fontPath string representing a relative path from the fonts directory of the assets
+   *                 folder to a .ttf file.
+   * @param size     the desired size in pixels of the font.
+   */
+  protected BitmapFont generateNewFont(String fontPath, int size) {
+    if (generator != null) {
+      generator.dispose();
+    }
+    parameter.size = size;
+    generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts\\" + fontPath));
+    font = generator.generateFont(parameter);
+    return font;
+  }
+
+  /**
+   * Overloaded method of generateNewFont which takes an addition parameter which is the color.
+   *
+   * @param fontPath string representing a relative path from the fonts directory of the assets
+   *                 folder to a .ttf file.
+   * @param size     the desired size in pixels of the font.
+   * @param color    the desired color of the font. Note that this may vary depending on the
+   *                 properties of each individual .ttf file.
+   */
+  protected BitmapFont generateNewFont(String fontPath, int size, Color color) {
+    if (generator != null) {
+      generator.dispose();
+    }
+    parameter.size = size;
+    parameter.color = color;
+    generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts\\" + fontPath));
+    font = generator.generateFont(parameter);
+    return font;
+  }
+
+
   protected abstract void addAllActors();
+
   protected abstract void addAllListeners();
 }
