@@ -21,8 +21,8 @@ import UIElements.ButtonActor;
  * screens from the main menu.
  */
 public class MainMenu extends BaseScreen {
-  private ButtonActor bannerButton;
   private BitmapFont mainMenuText;
+  private ButtonActor bannerButton;
   private TextureAtlas buttonsAtlas;
   private Skin buttonSkin;
   private TextButton playButton;
@@ -36,11 +36,12 @@ public class MainMenu extends BaseScreen {
    */
   public MainMenu(FilePlayMain mainGame) {
     super(mainGame);
-
+    mainMenuText = new BitmapFont();
+    mainMenuText = generateNewFont("VacationPostcardNF.ttf", 36, Color.WHITE);
     /* Creates the banner button at the location (0, 720) of the native resolution. */
     bannerButton = new ButtonActor(new Texture(Gdx.files.internal("banner - HSYB-Long.png")),
             0, 720);
-    createTextButtons();
+    createButtons();
     setButtonLocations();
     addAllListeners();
     addAllActors();
@@ -60,30 +61,36 @@ public class MainMenu extends BaseScreen {
     spriteBatch.begin();
     /* Draws the text "Main Menu" at the location (20, 750) of the native screen resolution 480 by
      * 800. */
+    mainMenuText.draw(spriteBatch, "Main Menu", 20, 700);
     spriteBatch.end();
   }
 
   /**
-   * Creates all of the text buttons that will be drawn to the screen.
+   * Creates all of the buttons that will be drawn to the screen.
    */
-  private void createTextButtons() {
+  @Override
+  protected void createButtons() {
     TextButtonStyle style = new TextButtonStyle();
     /* Creates and atlas object and a new skin which can use all the textures of the given atlas. */
     buttonsAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
     buttonSkin = new Skin();
+    /* Adds all the regions from the atlas so that it can getDrawable using the name of each
+     * texture. */
     buttonSkin.addRegions(buttonsAtlas);
     /* Sets the skin for when the button is not pressed and when it is. The argument that is passed
-     * is taken from the atlas that is passed created for the buttonSkin object. */
+     * is taken from the atlas used for the buttonSkin object. */
     style.up = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
     style.down = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
     style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
     playButton = new TextButton("Play", style);
     leaderboardsButton = new TextButton("Leaderboards", style);
     settingsButton = new TextButton("Settings", style);
-
   }
 
-  private void setButtonLocations(){
+  /**
+   * This function is where all of the button locations are set.
+   */
+  private void setButtonLocations() {
     playButton.setPosition(120, 400);
     leaderboardsButton.setPosition(120, 300);
     settingsButton.setPosition(120, 200);
