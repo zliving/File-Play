@@ -77,4 +77,11 @@ public class Settings extends BaseScreen {
   protected void addAllActors() {
     stage.addActor(backButton);
   }
+
+  // 'At' Override prevents abstract class related build errors.
+  @Override
+  public void createButtons() {
+
+  }
+
 }

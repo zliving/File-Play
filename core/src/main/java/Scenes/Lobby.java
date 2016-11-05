@@ -90,4 +90,9 @@ public class Lobby extends BaseScreen {
     stage.addActor(playButton);
     stage.addActor(backButton);
   }
+
+  @Override
+  public void createButtons() {
+
+  }
 }

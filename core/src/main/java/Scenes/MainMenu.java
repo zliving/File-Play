@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.FilePlayMain;
 
 
@@ -29,6 +31,8 @@ public class MainMenu extends BaseScreen {
   private TextButton leaderboardsButton;
   private TextButton settingsButton;
 
+  //private NinePatch playButton;       // A nine patch button should be declared as such.
+
   /**
    * MainMenu takes in mainGame so that it may use it to change states.
    *
@@ -37,7 +41,7 @@ public class MainMenu extends BaseScreen {
   public MainMenu(FilePlayMain mainGame) {
     super(mainGame);
     mainMenuText = new BitmapFont();
-    mainMenuText = generateNewFont("VacationPostcardNF.ttf", 36, Color.WHITE);
+    mainMenuText = generateNewFont("VacationPostcardNF.ttf", 36, Color.BLACK);
     /* Creates the banner button at the location (0, 720) of the native resolution. */
     bannerButton = new ButtonActor(new Texture(Gdx.files.internal("banner - HSYB-Long.png")),
             0, 720);
@@ -59,9 +63,9 @@ public class MainMenu extends BaseScreen {
     /* This tells LibGDX's 3D engine how to render in 2D. */
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
-    /* Draws the text "Main Menu" at the location (20, 750) of the native screen resolution 480 by
+    /* Draws the text "Main Menu" at the location (145, 770) of the native screen resolution 480 by
      * 800. */
-    mainMenuText.draw(spriteBatch, "Main Menu", 20, 700);
+    mainMenuText.draw(spriteBatch, "Main Menu", 145, 770);
     spriteBatch.end();
   }
 
@@ -71,20 +75,27 @@ public class MainMenu extends BaseScreen {
   @Override
   protected void createButtons() {
     TextButtonStyle style = new TextButtonStyle();
-    /* Creates and atlas object and a new skin which can use all the textures of the given atlas. */
-    buttonsAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
+    /* Creates an atlas object and a new skin which can use all the textures of the given atlas. */
+    buttonsAtlas = new TextureAtlas(Gdx.files.internal("nine patched images.pack"));
     buttonSkin = new Skin();
     /* Adds all the regions from the atlas so that it can getDrawable using the name of each
      * texture. */
     buttonSkin.addRegions(buttonsAtlas);
-    /* Sets the skin for when the button is not pressed and when it is. The argument that is passed
+
+      // How a Nine Patch should be directed
+    //playButton = buttonsAtlas.createPatch("popping-yellow button1");
+
+      /* Sets the skin for when the button is not pressed and when it is. The argument that is passed
      * is taken from the atlas used for the buttonSkin object. */
-    style.up = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
-    style.down = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
+    style.up = buttonSkin.getDrawable("popping-yellow button1");
+    style.down = buttonSkin.getDrawable("popping-yellow button1");
     style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
     playButton = new TextButton("Play", style);
     leaderboardsButton = new TextButton("Leaderboards", style);
     settingsButton = new TextButton("Settings", style);
+    // How a Nine Patch button should be resized.
+      //playButton.draw(spriteBatch, 120, 400, 246, 46);
+
   }
 
   /**
@@ -103,6 +114,7 @@ public class MainMenu extends BaseScreen {
    */
   @Override
   protected void addAllListeners() {
+
     playButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -119,6 +131,7 @@ public class MainMenu extends BaseScreen {
       }
     });
     settingsButton.addListener(new InputListener() {
+      @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         mainGame.setScreen(FilePlayMain.ScreenType.SETTINGS);
         return true;

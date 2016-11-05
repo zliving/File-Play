@@ -79,4 +79,10 @@ public class Leaderboards extends BaseScreen {
   protected void addAllActors() {
     stage.addActor(backButton);
   }
+
+  @Override
+  public void createButtons() {
+
+  }
+
 }
