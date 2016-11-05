@@ -45,13 +45,6 @@ heavy-sat-yellow-246x46
   orig: 246, 46
   offset: 0, 0
   index: -1
-play_button
-  rotate: false
-  xy: 705, 300
-  size: 246, 46
-  orig: 246, 46
-  offset: 0, 0
-  index: -1
 black-back-arrow
   rotate: false
   xy: 835, 427
