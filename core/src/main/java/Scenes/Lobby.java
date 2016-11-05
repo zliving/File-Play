@@ -21,8 +21,8 @@ public class Lobby extends BaseScreen {
   private BitmapFont lobbyText;
   private GlyphLayout lobbyGlyphLayout;
   private ButtonActor backButton;
-  private final Texture banner;
   private TextButton playButton;
+  private final Texture banner;
   private final Texture lobbyMockUp;
   private final int glyphCenterX;
 
@@ -50,6 +50,7 @@ public class Lobby extends BaseScreen {
     super.render(delta);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
+    // Draws the banner
     spriteBatch.draw(new Sprite(banner), 0, 720);
     // Draws the text "Lobby" in the center of the banner.
     lobbyText.draw(spriteBatch, lobbyGlyphLayout, glyphCenterX, 770);
