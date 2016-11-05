@@ -29,7 +29,6 @@ public abstract class BaseScreen implements Screen {
   private FreeTypeFontGenerator generator;
   private FreeTypeFontParameter parameter;
 
-
   // This is the native screen size that will be the reference for everything placed on the screen.
   protected static final float WORLD_WIDTH = 480;
   protected static final float WORLD_HEIGHT = 800;
@@ -42,12 +41,12 @@ public abstract class BaseScreen implements Screen {
   BaseScreen(FilePlayMain mainGame) {
     this.mainGame = mainGame;
     spriteBatch = new SpriteBatch();
-    /* Creates an atlas object which can use all the textures within it. Each screen will have
-     * access to the atlas in order to create button skins from it. */
+    // Creates an atlas object which can use all the textures within it. Each screen will have
+    // access to the atlas in order to create button skins from it.
     buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
     buttonSkin = new Skin();
-    /* Adds all the regions from the atlas so that it can getDrawable using the name of each
-     * texture. */
+    // Adds all the regions from the atlas so that it can getDrawable using the name of each
+    //  texture.
     buttonSkin.addRegions(buttonAtlas);
     camera = new OrthographicCamera();
     stage = new Stage(new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera), spriteBatch);
