@@ -45,7 +45,6 @@ public abstract class BaseScreen implements Screen {
   protected float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
   protected float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
 
-  // TODO (Chris): Refactor the atlas into this class. Trim the atlas down
   BaseScreen(FilePlayMain mainGame) {
     this.mainGame = mainGame;
     spriteBatch = new SpriteBatch();

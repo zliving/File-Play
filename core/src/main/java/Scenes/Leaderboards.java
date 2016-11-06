@@ -14,10 +14,10 @@ import com.mygdx.game.FilePlayMain;
 import UIElements.ButtonActor;
 
 /**
- * TODO (Chris): Include private helper methods to help with readability. The leaderboards screen
- * will display a ranking of users and statistics based on their gameplay. This class implements the
- * LibGDX screen interface in order to render the contents to a user's phone screen. User touch
- * input is handled by implementing the GestureListener interface provided by LibGDX.
+ * The leaderboards screen will display a ranking of users and statistics based on their gameplay.
+ * This class implements the LibGDX screen interface in order to render the contents to a user's
+ * phone screen. User touch input is handled by implementing the GestureListener interface provided
+ * by LibGDX.
  */
 public class Leaderboards extends BaseScreen {
   private ButtonActor backButton;
