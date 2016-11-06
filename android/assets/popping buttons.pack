@@ -1,0 +1,69 @@
+
+popping buttons.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+micro popping blue
+  rotate: false
+  xy: 1, 1
+  size: 42, 34
+  split: 15, 15, 13, 14
+  orig: 42, 34
+  offset: 0, 0
+  index: -1
+micro popping cyan
+  rotate: false
+  xy: 45, 1
+  size: 42, 34
+  split: 14, 15, 13, 13
+  orig: 42, 34
+  offset: 0, 0
+  index: -1
+micro popping green
+  rotate: false
+  xy: 89, 1
+  size: 42, 34
+  split: 14, 14, 12, 13
+  orig: 42, 34
+  offset: 0, 0
+  index: -1
+micro popping orange
+  rotate: false
+  xy: 133, 1
+  size: 42, 34
+  split: 14, 14, 12, 12
+  orig: 42, 34
+  offset: 0, 0
+  index: -1
+micro popping pink
+  rotate: false
+  xy: 177, 1
+  size: 42, 34
+  split: 13, 14, 11, 11
+  orig: 42, 34
+  offset: 0, 0
+  index: -1
+micro popping red
+  rotate: false
+  xy: 221, 1
+  size: 42, 34
+  split: 14, 14, 11, 11
+  orig: 42, 34
+  offset: 0, 0
+  index: -1
+micro popping yellow
+  rotate: false
+  xy: 265, 1
+  size: 42, 34
+  split: 14, 13, 12, 12
+  orig: 42, 34
+  offset: 0, 0
+  index: -1
+mirco popping indigo
+  rotate: false
+  xy: 309, 1
+  size: 42, 34
+  split: 14, 15, 12, 12
+  orig: 42, 34
+  offset: 0, 0
+  index: -1
