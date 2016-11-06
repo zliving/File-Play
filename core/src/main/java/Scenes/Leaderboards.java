@@ -20,6 +20,7 @@ import UIElements.ButtonActor;
  * by LibGDX.
  */
 public class Leaderboards extends BaseScreen {
+  // This is for the back button on the banner to go back a screen.
   private ButtonActor backButton;
   private final Texture leaderboardsMockUp;
   private final int glyphCenterX;
@@ -62,7 +63,6 @@ public class Leaderboards extends BaseScreen {
    */
   @Override
   protected void createButtons() {
-    // Creates the back button on the banner to go back a screen.
     backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 400, 735);
   }
 

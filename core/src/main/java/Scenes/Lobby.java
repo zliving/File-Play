@@ -18,8 +18,9 @@ import UIElements.ButtonActor;
  * one.
  */
 public class Lobby extends BaseScreen {
-
+  // This is for the back button on the banner to go back a screen.
   private ButtonActor backButton;
+  // This is for the play button to move from the lobby to the play screen.
   private TextButton playButton;
   private final Texture lobbyMockUp;
 
@@ -57,7 +58,6 @@ public class Lobby extends BaseScreen {
    */
   @Override
   protected void createButtons() {
-    // Creates the back button to go back to the previous screen at the given position.
     backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 400, 735);
     TextButtonStyle style = new TextButtonStyle();
     // Sets the skin for when the button is not pressed and when it is. The argument that is passed
@@ -65,7 +65,6 @@ public class Lobby extends BaseScreen {
     style.up = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
     style.down = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
     style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
-    // Creates the play button at the specificed location with the given style.
     playButton = new TextButton("Play", style);
     playButton.setPosition(220, 20);
   }

@@ -13,7 +13,7 @@ import com.mygdx.game.FilePlayMain;
 import UIElements.ButtonActor;
 
 /**
- * MainMenu will display the main menu screen of the game with buttons that transition them into
+ * MainMenu displays the main menu screen of the game with buttons that transition them into
  * appropriate screens from the main menu.
  */
 public class MainMenu extends BaseScreen {

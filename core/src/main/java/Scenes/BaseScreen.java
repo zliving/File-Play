@@ -38,7 +38,7 @@ public abstract class BaseScreen implements Screen {
   protected static final float WORLD_WIDTH = 480;
   protected static final float WORLD_HEIGHT = 800;
 
-  // Used to calculate where to draw the text in the banner so that it is centered
+  // Used to calculate where to draw the text in the banner so that it is centered.
   protected int glyphCenterX;
 
   // Ratio of world units and pixels of a screen.
