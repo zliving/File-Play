@@ -5,11 +5,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.FilePlayMain;
 
@@ -22,12 +26,20 @@ public abstract class BaseScreen implements Screen {
   protected final OrthographicCamera camera;
   protected final FilePlayMain mainGame;
   protected final Stage stage;
+  protected final TextureAtlas buttonAtlas;
+  protected final Texture banner;
+  protected GlyphLayout bannerTextGlyphLayout;
+  protected BitmapFont bannerText;
+  protected Skin buttonSkin;
   private FreeTypeFontGenerator generator;
   private FreeTypeFontParameter parameter;
 
   // This is the native screen size that will be the reference for everything placed on the screen.
   protected static final float WORLD_WIDTH = 480;
   protected static final float WORLD_HEIGHT = 800;
+
+  // Used to calculate where to draw the text in the banner so that it is centered.
+  protected int glyphCenterX;
 
   // Ratio of world units and pixels of a screen.
   protected float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
@@ -36,9 +48,22 @@ public abstract class BaseScreen implements Screen {
   BaseScreen(FilePlayMain mainGame) {
     this.mainGame = mainGame;
     spriteBatch = new SpriteBatch();
+    // Initializes the banner Texture.
+    banner = new Texture(Gdx.files.internal("banner - HSYB-Long.png"));
+    // Creates new FreeTypeFontParameter to modify fonts.
+    parameter = new FreeTypeFontParameter();
+    // Creates BitmapFont for the text that is going to be in the center of the banner.
+    bannerText = new BitmapFont();
+    bannerText = generateNewFont("VacationPostcardNF.ttf", 36, Color.BLACK);
+    // Creates an atlas object which can use all the textures within it. Each screen will have
+    // access to the atlas in order to create button skins from it.
+    buttonAtlas = new TextureAtlas(Gdx.files.internal("nano.pack"));
+    buttonSkin = new Skin();
+    // Adds all the regions from the atlas so that it can getDrawable using the name of each
+    // texture.
+    buttonSkin.addRegions(buttonAtlas);
     camera = new OrthographicCamera();
     stage = new Stage(new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera), spriteBatch);
-    parameter = new FreeTypeFontParameter();
     Gdx.input.setInputProcessor(stage);
   }
 
@@ -113,6 +138,8 @@ public abstract class BaseScreen implements Screen {
   }
 
   protected abstract void addAllActors();
+
   protected abstract void addAllListeners();
+
   protected abstract void createButtons();
 }

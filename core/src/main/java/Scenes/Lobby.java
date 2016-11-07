@@ -3,10 +3,12 @@ package Scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.mygdx.game.FilePlayMain;
 
 import UIElements.ButtonActor;
@@ -16,10 +18,10 @@ import UIElements.ButtonActor;
  * one.
  */
 public class Lobby extends BaseScreen {
-  private final BitmapFont lobbyScreenText;
-  private final BitmapFont playText;
-  private final ButtonActor backButton;
-  private final ButtonActor playButton;
+  // This is for the back button on the banner to go back a screen.
+  private ButtonActor backButton;
+  // This is for the play button to move from the lobby to the play screen.
+  private TextButton playButton;
   private final Texture lobbyMockUp;
 
   /**
@@ -28,17 +30,12 @@ public class Lobby extends BaseScreen {
    */
   public Lobby(FilePlayMain mainGame) {
     super(mainGame);
-    // Creates a button using the given texture at location (20, 650) of the native resolution 480
-    // by 800.
-    backButton = new ButtonActor(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
-    // Creates a button using the given texture at location (320, 650) of the native resolution 480
-    // by 800.
-    playButton = new ButtonActor(new Texture(Gdx.files.internal("next_button.png")), 320, 650);
-    lobbyScreenText = new BitmapFont();
-    lobbyScreenText.setColor(Color.YELLOW);
-    playText = new BitmapFont();
-    playText.setColor(Color.YELLOW);
+    // Creates GlyphLayout to get width for centering text in the banner.
+    bannerTextGlyphLayout = new GlyphLayout(bannerText, "Lobby");
+    // Calculate the center for the text to be drawn in the banner.
+    glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
     lobbyMockUp = new Texture(Gdx.files.internal("lobby_mockup.png"));
+    createButtons();
     addAllListeners();
     addAllActors();
   }
@@ -48,14 +45,28 @@ public class Lobby extends BaseScreen {
     super.render(delta);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
-    // Draws the text "Lobby Screen (To be implemented)" at the location (20, 750) of the native
-    // resolution 480 by 800.
-    lobbyScreenText.draw(spriteBatch, "Lobby Screen (To be implemented)", 20, 750);
-    // Draws the text "Play" at the location (400, 750) of the native resolution 480 by 800.
-    playText.draw(spriteBatch, "Play", 400, 750);
-    // Draws a sprite using the given texture at a location of (65, 300) of the native resolution.
+    // Draws the banner.
+    spriteBatch.draw(new Sprite(banner), 0, 720);
+    // Draws the text "Lobby" in the center of the banner.
+    bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.draw(new Sprite(lobbyMockUp), 65, 300);
     spriteBatch.end();
+  }
+
+  /**
+   * Creates all of the  buttons that will be drawn to the screen.
+   */
+  @Override
+  protected void createButtons() {
+    backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 400, 735);
+    TextButtonStyle style = new TextButtonStyle();
+    // Sets the skin for when the button is not pressed and when it is. The argument that is passed
+    // is searched for in the atlas within the buttonSkin object.
+    style.up = buttonSkin.getDrawable("nano yellow");
+    style.down = buttonSkin.getDrawable("nano yellow");
+    style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
+    playButton = new TextButton("Play", style);
+    playButton.setPosition(220, 20);
   }
 
   /**
@@ -65,18 +76,17 @@ public class Lobby extends BaseScreen {
    */
   @Override
   protected void addAllListeners() {
-    playButton.addListener(new InputListener() {
-      @Override
-      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        // Change to play screen.
-        mainGame.setScreen(FilePlayMain.ScreenType.PLAY);
-        return true;
-      }
-    });
     backButton.addListener(new InputListener() {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         // Change back to main menu.
         mainGame.setScreen(FilePlayMain.ScreenType.MAINMENU);
+        return true;
+      }
+    });
+    playButton.addListener(new InputListener() {
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change to Play screen.
+        mainGame.setScreen(FilePlayMain.ScreenType.PLAY);
         return true;
       }
     });
@@ -87,12 +97,7 @@ public class Lobby extends BaseScreen {
    */
   @Override
   protected void addAllActors() {
-    stage.addActor(playButton);
     stage.addActor(backButton);
-  }
-
-  @Override
-  public void createButtons() {
-
+    stage.addActor(playButton);
   }
 }

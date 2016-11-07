@@ -1,37 +1,27 @@
 package Scenes;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.FilePlayMain;
 
 
 import UIElements.ButtonActor;
 
 /**
- * TODO(Chris): Change buttons to allow for text Include relative offsets and spacing. MainMenu will
- * display the main menu screen of the game with buttons that transition them into appropriate
- * screens from the main menu.
+ * MainMenu displays the main menu screen of the game with buttons that transition them into
+ * appropriate screens from the main menu.
  */
 public class MainMenu extends BaseScreen {
-  private BitmapFont mainMenuText;
-  private ButtonActor bannerButton;
-  private TextureAtlas buttonsAtlas;
-  private Skin buttonSkin;
   private TextButton playButton;
   private TextButton leaderboardsButton;
   private TextButton settingsButton;
-
-  //private NinePatch playButton;       // A nine patch button should be declared as such.
+  private final int BUTTON_HEIGHT = 50;
+  private final int BUTTON_WIDTH = 250;
 
   /**
    * MainMenu takes in mainGame so that it may use it to change states.
@@ -40,13 +30,11 @@ public class MainMenu extends BaseScreen {
    */
   public MainMenu(FilePlayMain mainGame) {
     super(mainGame);
-    mainMenuText = new BitmapFont();
-    mainMenuText = generateNewFont("VacationPostcardNF.ttf", 36, Color.BLACK);
-    /* Creates the banner button at the location (0, 720) of the native resolution. */
-    bannerButton = new ButtonActor(new Texture(Gdx.files.internal("banner - HSYB-Long.png")),
-            0, 720);
+    // Creates GlyphLayout to get width for centering text in the banner.
+    bannerTextGlyphLayout = new GlyphLayout(bannerText, "Main Menu");
+    // Calculate the center for the text to be drawn in the banner.
+    glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
     createButtons();
-    setButtonLocations();
     addAllListeners();
     addAllActors();
   }
@@ -60,12 +48,13 @@ public class MainMenu extends BaseScreen {
   @Override
   public void render(float delta) {
     super.render(delta);
-    /* This tells LibGDX's 3D engine how to render in 2D. */
+    // This tells LibGDX's 3D engine how to render in 2D.
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
-    /* Draws the text "Main Menu" at the location (145, 770) of the native screen resolution 480 by
-     * 800. */
-    mainMenuText.draw(spriteBatch, "Main Menu", 145, 770);
+    // Draws the banner.
+    spriteBatch.draw(new Sprite(banner), 0, 720);
+    // Draws the text "Main Menu" in the center of the banner.
+    bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.end();
   }
 
@@ -75,36 +64,25 @@ public class MainMenu extends BaseScreen {
   @Override
   protected void createButtons() {
     TextButtonStyle style = new TextButtonStyle();
-    /* Creates an atlas object and a new skin which can use all the textures of the given atlas. */
-    buttonsAtlas = new TextureAtlas(Gdx.files.internal("nine patched images.pack"));
-    buttonSkin = new Skin();
-    /* Adds all the regions from the atlas so that it can getDrawable using the name of each
-     * texture. */
-    buttonSkin.addRegions(buttonsAtlas);
-
-      // How a Nine Patch should be directed
-    //playButton = buttonsAtlas.createPatch("popping-yellow button1");
-
-      /* Sets the skin for when the button is not pressed and when it is. The argument that is passed
-     * is taken from the atlas used for the buttonSkin object. */
-    style.up = buttonSkin.getDrawable("popping-yellow button1");
-    style.down = buttonSkin.getDrawable("popping-yellow button1");
+    // Sets the skin for when the button is not pressed and when it is. The argument that is passed
+    // is searched for in the atlas within the buttonSkin object.
+    style.up = buttonSkin.getDrawable("nano yellow");
+    style.down = buttonSkin.getDrawable("nano yellow");
     style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
+    // Creates the three buttons using the style specified above.
     playButton = new TextButton("Play", style);
     leaderboardsButton = new TextButton("Leaderboards", style);
     settingsButton = new TextButton("Settings", style);
-    // How a Nine Patch button should be resized.
-      //playButton.draw(spriteBatch, 120, 400, 246, 46);
-
-  }
-
-  /**
-   * This function is where all of the button locations are set.
-   */
-  private void setButtonLocations() {
+    // Sets the location and height for each of the buttons.
     playButton.setPosition(120, 400);
+    playButton.setHeight(BUTTON_HEIGHT);
+    playButton.setWidth(BUTTON_WIDTH);
     leaderboardsButton.setPosition(120, 300);
+    leaderboardsButton.setHeight(BUTTON_HEIGHT);
+    leaderboardsButton.setWidth(BUTTON_WIDTH);
     settingsButton.setPosition(120, 200);
+    settingsButton.setHeight(BUTTON_HEIGHT);
+    settingsButton.setWidth(BUTTON_WIDTH);
   }
 
   /**
@@ -114,7 +92,6 @@ public class MainMenu extends BaseScreen {
    */
   @Override
   protected void addAllListeners() {
-
     playButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -126,13 +103,14 @@ public class MainMenu extends BaseScreen {
     leaderboardsButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change to leaderboards screen.
         mainGame.setScreen(FilePlayMain.ScreenType.LEADERBOARDS);
         return true;
       }
     });
     settingsButton.addListener(new InputListener() {
-      @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change to the settings screen.
         mainGame.setScreen(FilePlayMain.ScreenType.SETTINGS);
         return true;
       }
@@ -144,7 +122,6 @@ public class MainMenu extends BaseScreen {
    */
   @Override
   protected void addAllActors() {
-    stage.addActor(bannerButton);
     stage.addActor(playButton);
     stage.addActor(leaderboardsButton);
     stage.addActor(settingsButton);
