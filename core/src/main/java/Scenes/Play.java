@@ -28,7 +28,7 @@ public class Play extends BaseScreen {
     super(mainGame);
     // Creates a button with the given texture at a location of (20, 650) of the native screen
     // resolution 480 by 800.
-    backButton = new ButtonActor(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
+    backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 20, 650);
     playScreenText = new BitmapFont();
     playScreenText.setColor(Color.YELLOW);
     playMockUp = new Texture(Gdx.files.internal("play_mockup.png"));
@@ -73,5 +73,10 @@ public class Play extends BaseScreen {
   @Override
   protected void addAllActors() {
     stage.addActor(backButton);
+  }
+
+  @Override
+  public void createButtons() {
+
   }
 }

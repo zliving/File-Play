@@ -4,22 +4,34 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.FilePlayMain;
+
 
 import UIElements.ButtonActor;
 
 /**
- * TODO(Chris): Refactor world width, height, batch, and ratios into Game class. TODO(Chris):
- * Include relative offsets and spacing. MainMenu will display the main menu screen of the game with
- * buttons that transition them into appropriate screens from the main menu.
+ * TODO(Chris): Change buttons to allow for text Include relative offsets and spacing. MainMenu will
+ * display the main menu screen of the game with buttons that transition them into appropriate
+ * screens from the main menu.
  */
 public class MainMenu extends BaseScreen {
-  private final ButtonActor playButton;
-  private final ButtonActor leaderboardsButton;
-  private final ButtonActor settingsButton;
-  private final BitmapFont mainMenuText;
+  private BitmapFont mainMenuText;
+  private ButtonActor bannerButton;
+  private TextureAtlas buttonsAtlas;
+  private Skin buttonSkin;
+  private TextButton playButton;
+  private TextButton leaderboardsButton;
+  private TextButton settingsButton;
+
+  //private NinePatch playButton;       // A nine patch button should be declared as such.
 
   /**
    * MainMenu takes in mainGame so that it may use it to change states.
@@ -28,19 +40,13 @@ public class MainMenu extends BaseScreen {
    */
   public MainMenu(FilePlayMain mainGame) {
     super(mainGame);
-    // Creates a button using the given texture at (120, 400) of the native resolution 480
-    // by 800.
-    playButton = new ButtonActor(new Texture(Gdx.files.internal("play_button.png")), 120, 400);
-    // Creates a button using the given texture at (120, 300) of the native resolution
-    // 480 by 800.
-    leaderboardsButton = new ButtonActor(new Texture(Gdx.files.internal("leaderboards_button.png")),
-            120, 300);
-    // Creates a button using the given texture at (120, 200) of the native resolution 480
-    // by 800.
-    settingsButton = new ButtonActor(new Texture(Gdx.files.internal("options_button.png")),
-            120, 200);
     mainMenuText = new BitmapFont();
-    mainMenuText.setColor(Color.YELLOW);
+    mainMenuText = generateNewFont("VacationPostcardNF.ttf", 36, Color.BLACK);
+    /* Creates the banner button at the location (0, 720) of the native resolution. */
+    bannerButton = new ButtonActor(new Texture(Gdx.files.internal("banner - HSYB-Long.png")),
+            0, 720);
+    createButtons();
+    setButtonLocations();
     addAllListeners();
     addAllActors();
   }
@@ -54,13 +60,51 @@ public class MainMenu extends BaseScreen {
   @Override
   public void render(float delta) {
     super.render(delta);
-    // This tells LibGDX's 3D engine how to render in 2D.
+    /* This tells LibGDX's 3D engine how to render in 2D. */
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
-    // Draws the text "Main Menu" at the location (20, 750) of the native screen resolution 480 by
-    // 800.
-    mainMenuText.draw(spriteBatch, "Main Menu", 20, 750);
+    /* Draws the text "Main Menu" at the location (145, 770) of the native screen resolution 480 by
+     * 800. */
+    mainMenuText.draw(spriteBatch, "Main Menu", 145, 770);
     spriteBatch.end();
+  }
+
+  /**
+   * Creates all of the buttons that will be drawn to the screen.
+   */
+  @Override
+  protected void createButtons() {
+    TextButtonStyle style = new TextButtonStyle();
+    /* Creates an atlas object and a new skin which can use all the textures of the given atlas. */
+    buttonsAtlas = new TextureAtlas(Gdx.files.internal("nine patched images.pack"));
+    buttonSkin = new Skin();
+    /* Adds all the regions from the atlas so that it can getDrawable using the name of each
+     * texture. */
+    buttonSkin.addRegions(buttonsAtlas);
+
+      // How a Nine Patch should be directed
+    //playButton = buttonsAtlas.createPatch("popping-yellow button1");
+
+      /* Sets the skin for when the button is not pressed and when it is. The argument that is passed
+     * is taken from the atlas used for the buttonSkin object. */
+    style.up = buttonSkin.getDrawable("popping-yellow button1");
+    style.down = buttonSkin.getDrawable("popping-yellow button1");
+    style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
+    playButton = new TextButton("Play", style);
+    leaderboardsButton = new TextButton("Leaderboards", style);
+    settingsButton = new TextButton("Settings", style);
+    // How a Nine Patch button should be resized.
+      //playButton.draw(spriteBatch, 120, 400, 246, 46);
+
+  }
+
+  /**
+   * This function is where all of the button locations are set.
+   */
+  private void setButtonLocations() {
+    playButton.setPosition(120, 400);
+    leaderboardsButton.setPosition(120, 300);
+    settingsButton.setPosition(120, 200);
   }
 
   /**
@@ -70,6 +114,7 @@ public class MainMenu extends BaseScreen {
    */
   @Override
   protected void addAllListeners() {
+
     playButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -86,6 +131,7 @@ public class MainMenu extends BaseScreen {
       }
     });
     settingsButton.addListener(new InputListener() {
+      @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         mainGame.setScreen(FilePlayMain.ScreenType.SETTINGS);
         return true;
@@ -98,6 +144,7 @@ public class MainMenu extends BaseScreen {
    */
   @Override
   protected void addAllActors() {
+    stage.addActor(bannerButton);
     stage.addActor(playButton);
     stage.addActor(leaderboardsButton);
     stage.addActor(settingsButton);
