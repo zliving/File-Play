@@ -1,9 +1,8 @@
 package Scenes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -16,8 +15,7 @@ import UIElements.ButtonActor;
  * regarding their gameplay.
  */
 public class Settings extends BaseScreen {
-  private final ButtonActor backButton;
-  private final BitmapFont settingsText;
+  private ButtonActor backButton;
   private final Texture settingsMockUp;
 
   /**
@@ -26,12 +24,12 @@ public class Settings extends BaseScreen {
    */
   public Settings(FilePlayMain mainGame) {
     super(mainGame);
-    // Creates a button using the given texture at (20, 650) of the native resolution 480
-    // by 800.
-    backButton = new ButtonActor(new Texture(Gdx.files.internal("back_button.png")), 20, 650);
-    settingsText = new BitmapFont();
-    settingsText.setColor(Color.YELLOW);
+    // Creates GlyphLayout to get width of the BitmapFont in order to center text in the banner.
+    bannerTextGlyphLayout = new GlyphLayout(bannerText, "Settings");
+    // Calculate the center in terms of x for the GlyphLayout.
+    glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
     settingsMockUp = new Texture(Gdx.files.internal("settings_mockup.png"));
+    createButtons();
     addAllListeners();
     addAllActors();
   }
@@ -41,13 +39,22 @@ public class Settings extends BaseScreen {
     super.render(delta);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
-    // Draws the text "Settings (To be implemented)" at the location (20, 750) of the native 480
-    // by 800 resolution.
-    settingsText.draw(spriteBatch, "Settings (To be implemented)", 20, 750);
+    spriteBatch.draw(new Sprite(banner), 0, 720);
+    // Draws the text "Settings" in the center of the banner.
+    bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     // Draws a sprite using the given texture at the location (65, 300) of the native 480 by 800
     // resolution.
     spriteBatch.draw(new Sprite(settingsMockUp), 65, 300);
     spriteBatch.end();
+  }
+
+  /**
+   * Creates all of the  buttons that will be drawn to the screen.
+   */
+  @Override
+  public void createButtons() {
+    // Creates the back button at the given location in terms of the native screen resolution.
+    backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 400, 735);
   }
 
   /**

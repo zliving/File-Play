@@ -1,25 +1,25 @@
 package Scenes;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.mygdx.game.FilePlayMain;
+
 
 import UIElements.ButtonActor;
 
 /**
- * TODO(Chris): Refactor world width, height, batch, and ratios into Game class. TODO(Chris):
- * Include relative offsets and spacing. MainMenu will display the main menu screen of the game with
- * buttons that transition them into appropriate screens from the main menu.
+ * MainMenu displays the main menu screen of the game with buttons that transition them into
+ * appropriate screens from the main menu.
  */
 public class MainMenu extends BaseScreen {
-  private final ButtonActor playButton;
-  private final ButtonActor leaderboardsButton;
-  private final ButtonActor settingsButton;
-  private final BitmapFont mainMenuText;
+  private TextButton playButton;
+  private TextButton leaderboardsButton;
+  private TextButton settingsButton;
 
   /**
    * MainMenu takes in mainGame so that it may use it to change states.
@@ -28,19 +28,11 @@ public class MainMenu extends BaseScreen {
    */
   public MainMenu(FilePlayMain mainGame) {
     super(mainGame);
-    // Creates a button using the given texture at (120, 400) of the native resolution 480
-    // by 800.
-    playButton = new ButtonActor(new Texture(Gdx.files.internal("play_button.png")), 120, 400);
-    // Creates a button using the given texture at (120, 300) of the native resolution
-    // 480 by 800.
-    leaderboardsButton = new ButtonActor(new Texture(Gdx.files.internal("leaderboards_button.png")),
-            120, 300);
-    // Creates a button using the given texture at (120, 200) of the native resolution 480
-    // by 800.
-    settingsButton = new ButtonActor(new Texture(Gdx.files.internal("options_button.png")),
-            120, 200);
-    mainMenuText = new BitmapFont();
-    mainMenuText.setColor(Color.YELLOW);
+    // Creates GlyphLayout to get width for centering text in the banner.
+    bannerTextGlyphLayout = new GlyphLayout(bannerText, "Main Menu");
+    // Calculate the center for the text to be drawn in the banner.
+    glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
+    createButtons();
     addAllListeners();
     addAllActors();
   }
@@ -57,10 +49,32 @@ public class MainMenu extends BaseScreen {
     // This tells LibGDX's 3D engine how to render in 2D.
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
-    // Draws the text "Main Menu" at the location (20, 750) of the native screen resolution 480 by
-    // 800.
-    mainMenuText.draw(spriteBatch, "Main Menu", 20, 750);
+    // Draws the banner.
+    spriteBatch.draw(new Sprite(banner), 0, 720);
+    // Draws the text "Main Menu" in the center of the banner.
+    bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.end();
+  }
+
+  /**
+   * Creates all of the buttons that will be drawn to the screen.
+   */
+  @Override
+  protected void createButtons() {
+    TextButtonStyle style = new TextButtonStyle();
+    // Sets the skin for when the button is not pressed and when it is. The argument that is passed
+    // is searched for in the atlas within the buttonSkin object.
+    style.up = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
+    style.down = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
+    style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
+    // Creates the three buttons using the style specified above.
+    playButton = new TextButton("Play", style);
+    leaderboardsButton = new TextButton("Leaderboards", style);
+    settingsButton = new TextButton("Settings", style);
+    // Sets the location for each of the buttons.
+    playButton.setPosition(120, 400);
+    leaderboardsButton.setPosition(120, 300);
+    settingsButton.setPosition(120, 200);
   }
 
   /**
@@ -81,12 +95,14 @@ public class MainMenu extends BaseScreen {
     leaderboardsButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change to leaderboards screen.
         mainGame.setScreen(FilePlayMain.ScreenType.LEADERBOARDS);
         return true;
       }
     });
     settingsButton.addListener(new InputListener() {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change to the settings screen.
         mainGame.setScreen(FilePlayMain.ScreenType.SETTINGS);
         return true;
       }
