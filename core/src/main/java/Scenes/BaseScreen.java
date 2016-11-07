@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.FilePlayMain;
 
@@ -57,7 +58,7 @@ public abstract class BaseScreen implements Screen {
     bannerText = generateNewFont("VacationPostcardNF.ttf", 36, Color.BLACK);
     // Creates an atlas object which can use all the textures within it. Each screen will have
     // access to the atlas in order to create button skins from it.
-    buttonAtlas = new TextureAtlas(Gdx.files.internal("nano.pack"));
+    buttonAtlas = new TextureAtlas(Gdx.files.internal("final atlas.pack"));
     buttonSkin = new Skin();
     // Adds all the regions from the atlas so that it can getDrawable using the name of each
     // texture.
@@ -135,6 +136,29 @@ public abstract class BaseScreen implements Screen {
     parameter.color = color;
     generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts\\" + fontPath));
     return generator.generateFont(parameter);
+  }
+
+  /**
+   * This method returns the x value of 'offset' from the right end of 'button'.
+   *
+   * @param button the button to calculate the offset from
+   * @param offset the offset from the right end that is desired.
+   * @return the x coordinate 'offset' pixels from the right end of 'button'
+   */
+  protected float getButtonXOffset(TextButton button, float offset){
+    return button.getX() + button.getWidth() + offset;
+  }
+
+  /**
+   * This method returns the y value of 'offset' from the bottom end of 'button' using an offset of
+   * -('button' height + offset) from the bottom end of 'button'
+   *
+   * @param button the button to calculate the offset from
+   * @param offset the offset from the bottom end that is desired.
+   * @return the y coordinate 'offset' pixels from the bottom end of 'button'
+   */
+  protected float getButtonYOffset(TextButton button, float offset){
+    return button.getY() - (button.getHeight() + offset);
   }
 
   protected abstract void addAllActors();

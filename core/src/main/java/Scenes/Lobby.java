@@ -22,7 +22,16 @@ public class Lobby extends BaseScreen {
   private ButtonActor backButton;
   // This is for the play button to move from the lobby to the play screen.
   private TextButton playButton;
-  private final Texture lobbyMockUp;
+  // Buttons for each of the categories
+  private TextButton generalButton;
+  private TextButton booksButton;
+  private TextButton filmButton;
+  private TextButton musicButton;
+  private TextButton televisionButton;
+  private TextButton videoGamesButton;
+  private TextButton sportsButton;
+  // Spacing between buttons at the same height
+  private final int OFFSET = 10;
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Lobby should operate in the same
@@ -34,7 +43,6 @@ public class Lobby extends BaseScreen {
     bannerTextGlyphLayout = new GlyphLayout(bannerText, "Lobby");
     // Calculate the center for the text to be drawn in the banner.
     glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
-    lobbyMockUp = new Texture(Gdx.files.internal("lobby_mockup.png"));
     createButtons();
     addAllListeners();
     addAllActors();
@@ -49,7 +57,6 @@ public class Lobby extends BaseScreen {
     spriteBatch.draw(new Sprite(banner), 0, 720);
     // Draws the text "Lobby" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
-    spriteBatch.draw(new Sprite(lobbyMockUp), 65, 300);
     spriteBatch.end();
   }
 
@@ -59,14 +66,33 @@ public class Lobby extends BaseScreen {
   @Override
   protected void createButtons() {
     backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 400, 735);
-    TextButtonStyle style = new TextButtonStyle();
-    // Sets the skin for when the button is not pressed and when it is. The argument that is passed
-    // is searched for in the atlas within the buttonSkin object.
-    style.up = buttonSkin.getDrawable("nano yellow");
-    style.down = buttonSkin.getDrawable("nano yellow");
-    style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
+    TextButtonStyle style;
+    style = setStyle("nano yellow", "nano yellow");
     playButton = new TextButton("Play", style);
     playButton.setPosition(220, 20);
+    playButton.setHeight(50);
+    playButton.setWidth(250);
+    style = setStyle("nano blue", "nano blue");
+    generalButton = new TextButton("General", style);
+    generalButton.setPosition(100, 600);
+    style = setStyle("nano cyan", "nano cyan");
+    booksButton = new TextButton("Books", style);
+    booksButton.setPosition(getButtonXOffset(generalButton, OFFSET), generalButton.getY());
+    style = setStyle("nano green", "nano green");
+    filmButton = new TextButton("Film", style);
+    filmButton.setPosition(getButtonXOffset(booksButton, OFFSET), booksButton.getY());
+    style = setStyle("nano indigo", "nano indigo");
+    musicButton = new TextButton("Music", style);
+    musicButton.setPosition(generalButton.getX(), getButtonYOffset(generalButton, OFFSET));
+    style = setStyle("nano orange", "nano orange");
+    televisionButton = new TextButton("Television", style);
+    televisionButton.setPosition(getButtonXOffset(musicButton, OFFSET), musicButton.getY());
+    style = setStyle("nano pink", "nano pink");
+    videoGamesButton = new TextButton("Video Games", style);
+    videoGamesButton.setPosition(generalButton.getX(), getButtonYOffset(televisionButton, OFFSET));
+    style = setStyle("nano red", "nano red");
+    sportsButton = new TextButton("Sports", style);
+    sportsButton.setPosition(getButtonXOffset(videoGamesButton, OFFSET), videoGamesButton.getY());
   }
 
   /**
@@ -99,5 +125,33 @@ public class Lobby extends BaseScreen {
   protected void addAllActors() {
     stage.addActor(backButton);
     stage.addActor(playButton);
+    stage.addActor(generalButton);
+    stage.addActor(booksButton);
+    stage.addActor(filmButton);
+    stage.addActor(musicButton);
+    stage.addActor(televisionButton);
+    stage.addActor(videoGamesButton);
+    stage.addActor(sportsButton);
+  }
+
+  /**
+   * Sets the style for when the button is not pressed and when it is using the atlas to find which
+   * textures to use corresponding to the strings 'up' and 'down'. The style font is the font used
+   * for text within buttons and can be changed to whatever is preffered.
+   *
+   * @param up   string corresponding to the atlas texture to use for when the button is not
+   *             pressed.
+   * @param down string corresponding to the atlas texture to use for when the button is pressed.
+   * @return a style with the corresponding 'up' and 'down' textures used for the button and the
+   * font that is set within the method.
+   */
+  private TextButtonStyle setStyle(String up, String down) {
+    TextButtonStyle style = new TextButtonStyle();
+    // Sets the skin for when the button is not pressed and when it is. The argument that is passed
+    // is searched for in the atlas within the buttonSkin object.
+    style.up = buttonSkin.getDrawable(up);
+    style.down = buttonSkin.getDrawable(down);
+    style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
+    return style;
   }
 }
