@@ -63,8 +63,8 @@ public class RandomImageFileMoverTest {
     when(moveDestinationFile.getFileName()).thenReturn("file1");
     when(moveDestinationFile.getFilePath()).thenReturn("gallery/.file-play/file1");
 
-    when(fileWrappers[1].move(Mockito.any(FileWrapper.class))).thenReturn(true);
     when(fileFactory.createFile("gallery/.file-play/file1")).thenReturn(moveDestinationFile);
+    when(fileWrappers[1].move(moveDestinationFile)).thenReturn(true);
     when(randomNumberGenerator.nextInt(3)).thenReturn(1);
 
     when(mockGalleryFolder.getFileList()).thenReturn(fileWrappers);
@@ -74,6 +74,8 @@ public class RandomImageFileMoverTest {
     when(randomNumberGenerator.nextInt(5)).thenReturn(0);
 
     assertTrue(randomImageFileMover.hideRandom());
+
+    verify(fileWrappers[1]).move(moveDestinationFile);
   }
 
   @Test
@@ -123,8 +125,8 @@ public class RandomImageFileMoverTest {
     when(moveDestinationFile.getFileName()).thenReturn("file1");
     when(moveDestinationFile.getFilePath()).thenReturn("gallery/.file-play/file1");
 
-    when(fileWrappers[1].move(Mockito.any(FileWrapper.class))).thenReturn(true);
     when(fileFactory.createFile("gallery/.file-play/file1")).thenReturn(moveDestinationFile);
+    when(fileWrappers[1].move(moveDestinationFile)).thenReturn(true);
     when(randomNumberGenerator.nextInt(3)).thenReturn(0).thenReturn(1);
 
     when(mockGalleryFolder.getFileList()).thenReturn(fileWrappers);
@@ -134,6 +136,8 @@ public class RandomImageFileMoverTest {
     when(randomNumberGenerator.nextInt(5)).thenReturn(0);
 
     assertTrue(randomImageFileMover.hideRandom());
+
+    verify(fileWrappers[1]).move(moveDestinationFile);
   }
 
   @Test
@@ -163,8 +167,8 @@ public class RandomImageFileMoverTest {
     when(moveDestinationFile.getFileName()).thenReturn("file2");
     when(moveDestinationFile.getFilePath()).thenReturn("gallery/.file-play/file2");
 
-    when(fileWrappers[2].move(Mockito.any(FileWrapper.class))).thenReturn(true);
     when(fileFactory.createFile("gallery/.file-play/file2")).thenReturn(moveDestinationFile);
+    when(fileWrappers[2].move(moveDestinationFile)).thenReturn(true);
     when(randomNumberGenerator.nextInt(3)).thenReturn(1).thenReturn(2);
 
     when(mockGalleryFolder.getFileList()).thenReturn(fileWrappers);
@@ -174,6 +178,8 @@ public class RandomImageFileMoverTest {
     when(randomNumberGenerator.nextInt(5)).thenReturn(0);
 
     assertTrue(randomImageFileMover.hideRandom());
+
+    verify(fileWrappers[2]).move(moveDestinationFile);
   }
 
   @Test
@@ -205,7 +211,7 @@ public class RandomImageFileMoverTest {
   public void restoreRandom_dontMove() {
     // Return a number that won't trigger a move.
     when(randomNumberGenerator.nextInt(5)).thenReturn(3);
-    assertEquals(randomImageFileMover.restoreRandom(), false);
+    assertFalse(randomImageFileMover.restoreRandom());
   }
 
   @Test
@@ -254,8 +260,8 @@ public class RandomImageFileMoverTest {
     when(moveDestinationFile.getFileName()).thenReturn("file1");
     when(moveDestinationFile.getFilePath()).thenReturn("gallery/file1");
 
-    when(fileWrappers[0].move(Mockito.any(FileWrapper.class))).thenReturn(true);
     when(fileFactory.createFile("gallery/file1")).thenReturn(moveDestinationFile);
+    when(fileWrappers[0].move(moveDestinationFile)).thenReturn(true);
     when(randomNumberGenerator.nextInt(3)).thenReturn(0);
 
     when(mockHiddenFolder.getFileList()).thenReturn(fileWrappers);
@@ -265,5 +271,70 @@ public class RandomImageFileMoverTest {
     when(randomNumberGenerator.nextInt(5)).thenReturn(0);
 
     assertTrue(randomImageFileMover.restoreRandom());
+
+    verify(fileWrappers[0]).move(moveDestinationFile);
+  }
+
+  @Test
+  public void restoreAll_emptyHiddenFolder() {
+    FileWrapper mockGalleryFolder = Mockito.mock(FileWrapper.class);
+    when(mockGalleryFolder.getFileName()).thenReturn("gallery");
+    when(mockGalleryFolder.getFilePath()).thenReturn("gallery");
+
+    FileWrapper mockHiddenFolder = Mockito.mock(FileWrapper.class);
+    when(mockHiddenFolder.getFileName()).thenReturn(".file-play");
+    when(mockHiddenFolder.getFilePath()).thenReturn("gallery/.file-play");
+    when(mockHiddenFolder.isDirectory()).thenReturn(true);
+
+    FileWrapper[] fileWrappers = {};
+
+    when(mockHiddenFolder.getFileList()).thenReturn(fileWrappers);
+
+    when(fileFactory.createFile(mockHiddenFolder.getFilePath())).thenReturn(mockHiddenFolder);
+    when(fileFactory.getGalleryFile()).thenReturn(mockGalleryFolder);
+
+    assertTrue(randomImageFileMover.restoreAll());
+  }
+
+  @Test
+  public void restoreAll_restore() {
+    FileWrapper mockGalleryFolder = Mockito.mock(FileWrapper.class);
+    when(mockGalleryFolder.getFileName()).thenReturn("gallery");
+    when(mockGalleryFolder.getFilePath()).thenReturn("gallery");
+
+    FileWrapper mockHiddenFolder = Mockito.mock(FileWrapper.class);
+    when(mockHiddenFolder.getFileName()).thenReturn(".file-play");
+    when(mockHiddenFolder.getFilePath()).thenReturn("gallery/.file-play");
+    when(mockHiddenFolder.isDirectory()).thenReturn(true);
+
+    FileWrapper[] fileWrappers = new FileWrapper[2];
+    fileWrappers[0] = Mockito.mock(FileWrapper.class);
+    fileWrappers[1] = Mockito.mock(FileWrapper.class);
+
+    when(fileWrappers[0].getFileName()).thenReturn("file1");
+    when(fileWrappers[0].getFilePath()).thenReturn("gallery/.file-play/file1");
+    when(fileWrappers[1].getFileName()).thenReturn("file2");
+    when(fileWrappers[1].getFilePath()).thenReturn("gallery/.file-play/file2");
+
+    FileWrapper[] destinationFiles = new FileWrapper[2];
+    destinationFiles[0] = Mockito.mock(FileWrapper.class);
+    destinationFiles[1] = Mockito.mock(FileWrapper.class);
+
+    when(destinationFiles[0].getFileName()).thenReturn("file1");
+    when(destinationFiles[0].getFilePath()).thenReturn("gallery/file1");
+    when(destinationFiles[1].getFileName()).thenReturn("file2");
+    when(destinationFiles[1].getFilePath()).thenReturn("gallery/file2");
+
+    when(fileWrappers[0].move(Mockito.any(FileWrapper.class))).thenReturn(true);
+    when(fileFactory.createFile("gallery/file1")).thenReturn(destinationFiles[0]);
+
+    when(fileWrappers[1].move(Mockito.any(FileWrapper.class))).thenReturn(true);
+    when(fileFactory.createFile("gallery/file2")).thenReturn(destinationFiles[1]);
+
+    when(mockHiddenFolder.getFileList()).thenReturn(fileWrappers);
+    when(fileFactory.createFile(mockHiddenFolder.getFilePath())).thenReturn(mockHiddenFolder);
+    when(fileFactory.getGalleryFile()).thenReturn(mockGalleryFolder);
+
+    assertTrue(randomImageFileMover.restoreAll());
   }
 }
