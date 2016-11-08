@@ -108,10 +108,6 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
 
     FileWrapper[] hiddenFiles = hiddenFolder.getFileList();
 
-    if (hiddenFiles.length == 0) {
-      return false;
-    }
-
     for (FileWrapper file : hiddenFiles) {
       String destinationPath = imageGallery.getFilePath() + "/" + file.getFileName();
 
@@ -120,6 +116,6 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
       file.move(destinationFile);
     }
 
-    return true;
+    return hiddenFiles.length != 0;
   }
 }
