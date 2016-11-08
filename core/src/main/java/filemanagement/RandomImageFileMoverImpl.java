@@ -113,7 +113,6 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
     }
 
     for (FileWrapper file : hiddenFiles) {
-      System.out.println("Moving file.");
       String destinationPath = imageGallery.getFilePath() + "/" + file.getFileName();
 
       FileWrapper destinationFile = fileFactory.createFile(destinationPath);
