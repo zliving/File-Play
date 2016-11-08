@@ -32,6 +32,9 @@ public class RandomImageFileMoverTest {
   }
 
   @Test
+  /*
+   * Tests when a move is not triggered.
+   */
   public void hideRandom_dontMove() {
     // Return a number that won't trigger a move.
     when(randomNumberGenerator.nextInt(5)).thenReturn(3);
@@ -39,6 +42,9 @@ public class RandomImageFileMoverTest {
   }
 
   @Test
+  /*
+   * Tests when a file should be moved, and no edge cases are present.
+   */
   public void hideRandom_doMove() {
     FileWrapper mockGalleryFolder = Mockito.mock(FileWrapper.class);
     when(mockGalleryFolder.getFileName()).thenReturn("gallery");
@@ -79,6 +85,9 @@ public class RandomImageFileMoverTest {
   }
 
   @Test
+  /*
+   * Tests when the image gallery is completely empty.
+   */
   public void hideRandom_emptyGallery() {
     FileWrapper mockGalleryFolder = Mockito.mock(FileWrapper.class);
     when(mockGalleryFolder.getFileName()).thenReturn("gallery");
@@ -101,6 +110,10 @@ public class RandomImageFileMoverTest {
   }
 
   @Test
+  /*
+   * Tests when the first file selected is the hidden folder. A different file should be randomly
+   * selected and moved.
+   */
   public void hideRandom_hiddenFolderSelected() {
     FileWrapper mockGalleryFolder = Mockito.mock(FileWrapper.class);
     when(mockGalleryFolder.getFileName()).thenReturn("gallery");
@@ -141,6 +154,10 @@ public class RandomImageFileMoverTest {
   }
 
   @Test
+  /*
+   * Tests when the first file selected is a nested folder, and should not be moved. A different
+   * file should be randomly selected and moved.
+   */
   public void hideRandom_nestedFolderSelected() {
     FileWrapper mockGalleryFolder = Mockito.mock(FileWrapper.class);
     when(mockGalleryFolder.getFileName()).thenReturn("gallery");
@@ -183,6 +200,9 @@ public class RandomImageFileMoverTest {
   }
 
   @Test
+  /*
+   * Tests when the only file in the gallery is the hidden folder.
+   */
   public void hideRandom_onlyHiddenFolder() {
     FileWrapper mockGalleryFolder = Mockito.mock(FileWrapper.class);
     when(mockGalleryFolder.getFileName()).thenReturn("gallery");
@@ -208,6 +228,9 @@ public class RandomImageFileMoverTest {
   }
 
   @Test
+  /*
+   * Tests when a move is not triggered.
+   */
   public void restoreRandom_dontMove() {
     // Return a number that won't trigger a move.
     when(randomNumberGenerator.nextInt(5)).thenReturn(3);
@@ -215,6 +238,9 @@ public class RandomImageFileMoverTest {
   }
 
   @Test
+  /*
+   * Tests when the hidden folder is empty, and no files are moved.
+   */
   public void restoreRandom_emptyHiddenFolder() {
     FileWrapper mockGalleryFolder = Mockito.mock(FileWrapper.class);
     when(mockGalleryFolder.getFileName()).thenReturn("gallery");
@@ -237,6 +263,9 @@ public class RandomImageFileMoverTest {
   }
 
   @Test
+  /*
+   * Tests when a move should be done, and the hidden folder is not empty.
+   */
   public void restoreRandom_doMove() {
     FileWrapper mockGalleryFolder = Mockito.mock(FileWrapper.class);
     when(mockGalleryFolder.getFileName()).thenReturn("gallery");
@@ -276,6 +305,9 @@ public class RandomImageFileMoverTest {
   }
 
   @Test
+  /*
+   * Tests when the hidden folder is empty, and no files are moved.
+   */
   public void restoreAll_emptyHiddenFolder() {
     FileWrapper mockGalleryFolder = Mockito.mock(FileWrapper.class);
     when(mockGalleryFolder.getFileName()).thenReturn("gallery");
@@ -297,6 +329,9 @@ public class RandomImageFileMoverTest {
   }
 
   @Test
+  /*
+   * Tests when files are present in the hidden folder and should be moved.
+   */
   public void restoreAll_restore() {
     FileWrapper mockGalleryFolder = Mockito.mock(FileWrapper.class);
     when(mockGalleryFolder.getFileName()).thenReturn("gallery");
