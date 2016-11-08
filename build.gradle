@@ -98,7 +98,6 @@ project(":core") {
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile 'org.apache.commons:commons-lang3:3.4'
-        //compile 'com.google.android.gms:play-services-games:9.8.00'
 
         // Test dependencies.
         testCompile "junit:junit:4.11"
