@@ -293,7 +293,7 @@ public class RandomImageFileMoverTest {
     when(fileFactory.createFile(mockHiddenFolder.getFilePath())).thenReturn(mockHiddenFolder);
     when(fileFactory.getGalleryFile()).thenReturn(mockGalleryFolder);
 
-    assertTrue(randomImageFileMover.restoreAll());
+    assertFalse(randomImageFileMover.restoreAll());
   }
 
   @Test
@@ -325,16 +325,19 @@ public class RandomImageFileMoverTest {
     when(destinationFiles[1].getFileName()).thenReturn("file2");
     when(destinationFiles[1].getFilePath()).thenReturn("gallery/file2");
 
-    when(fileWrappers[0].move(Mockito.any(FileWrapper.class))).thenReturn(true);
     when(fileFactory.createFile("gallery/file1")).thenReturn(destinationFiles[0]);
+    when(fileWrappers[0].move(destinationFiles[0])).thenReturn(true);
 
-    when(fileWrappers[1].move(Mockito.any(FileWrapper.class))).thenReturn(true);
     when(fileFactory.createFile("gallery/file2")).thenReturn(destinationFiles[1]);
+    when(fileWrappers[1].move(destinationFiles[1])).thenReturn(true);
 
     when(mockHiddenFolder.getFileList()).thenReturn(fileWrappers);
     when(fileFactory.createFile(mockHiddenFolder.getFilePath())).thenReturn(mockHiddenFolder);
     when(fileFactory.getGalleryFile()).thenReturn(mockGalleryFolder);
 
     assertTrue(randomImageFileMover.restoreAll());
+
+    verify(fileWrappers[0]).move(destinationFiles[0]);
+    verify(fileWrappers[1]).move(destinationFiles[1]);
   }
 }
