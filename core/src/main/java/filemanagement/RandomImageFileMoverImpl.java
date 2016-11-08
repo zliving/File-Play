@@ -99,4 +99,23 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
       return false;
     }
   }
+
+  @Override
+  public boolean restoreAll() {
+    FileWrapper imageGallery = fileFactory.getGalleryFile();
+    FileWrapper hiddenFolder =
+        fileFactory.createFile(imageGallery.getFilePath() + "/" + hiddenFolderName);
+
+    FileWrapper[] hiddenFiles = hiddenFolder.getFileList();
+
+    for (FileWrapper file : hiddenFiles) {
+      String destinationPath = imageGallery.getFilePath() + "/" + file.getFileName();
+
+      FileWrapper destinationFile = fileFactory.createFile(destinationPath);
+
+      file.move(destinationFile);
+    }
+
+    return hiddenFiles.length != 0;
+  }
 }
