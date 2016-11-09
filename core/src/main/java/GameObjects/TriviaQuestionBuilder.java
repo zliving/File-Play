@@ -34,11 +34,9 @@ public class TriviaQuestionBuilder {
             URL url;
             url = new URL(triviaApiUrl);
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-
             // If we have an open connection get the trivia from OpenTDB
             if (con != null) {
                 try {
-
                     BufferedReader br =
                             new BufferedReader(
                                     new InputStreamReader(con.getInputStream()));
@@ -47,12 +45,10 @@ public class TriviaQuestionBuilder {
                         questionJSON += line;
                     }
                     br.close();
-
                     // Take the JSON retrieved from OpenTDB API and parse it into a JSON object.
                     JsonValue root = new JsonReader().parse(questionJSON);
                     JsonValue resultJson = root.get("results");
                     Array<TriviaQuestion> questions = new Array<TriviaQuestion>();
-
                     if (root.get("response_code").asInt() != 0) {
                         Array<TriviaQuestion> errorArray = new Array<TriviaQuestion>();
                         TriviaQuestion errorQuestion = new TriviaQuestion();
@@ -61,7 +57,6 @@ public class TriviaQuestionBuilder {
 
                         return errorArray;
                     }
-
                     // Iterate through the resulting JSON and put each question into a TriviaQuestion object.
                     for (JsonValue resultsJson : resultJson.iterator()) {
                         TriviaQuestion newQuestion = new TriviaQuestion();
@@ -70,7 +65,6 @@ public class TriviaQuestionBuilder {
                         newQuestion.incorrectAnswers = (resultsJson.get("incorrect_answers").asStringArray());
                         questions.add(newQuestion);
                     }
-
                     // Iterate through each incorrect answer and unescape the HTML that might be in them.
                     for (int i = 0; i < questions.size; i++) {
                         for (int j = 0; j < questions.get(i).incorrectAnswers.length; j++) {
