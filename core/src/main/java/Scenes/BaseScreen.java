@@ -133,7 +133,7 @@ public abstract class BaseScreen implements Screen {
     }
     parameter.size = size;
     parameter.color = color;
-    generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts\\" + fontPath));
+    generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/" + fontPath));
     return generator.generateFont(parameter);
   }
 
