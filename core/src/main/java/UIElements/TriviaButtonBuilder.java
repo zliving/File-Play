@@ -39,20 +39,31 @@ public class TriviaButtonBuilder extends Game {
   // The atlas to get regions of the texture pack to place as single textures
   TextureAtlas buttonAtlas;
   String question;
-  float xButtonPosition = 50;
+  protected static final float WORLD_WIDTH = 480;
+  protected static final float WORLD_HEIGHT = 800;
+  protected static final float xButtonPosition = 50;
   float yButtonPosition = 400;
   int questionNumber = 0;
-  TriviaButtonListener buttonListener = new TriviaButtonListener();
+  TriviaButtonListener buttonListener;
+  TextButton questionButton;
+  Array<TextButton> newQuestionBlock;
+  TextButton correctAnswerButton;
+  TextButton incorrectAnswerButton;
+  Array<TextButton> incorrectButtons;
+  public Array<TriviaQuestion> newTriviaGame;
+  public Array<TextButton> questionSet;
 
+  public TriviaButtonBuilder() {
+    this.create();
+  }
 
   private Array<TriviaQuestion> generateTriviaData(String url) {
 
     // Get an array of questions from the database.
     TriviaQuestionBuilder newTriviaGame = new TriviaQuestionBuilder();
     url = "https://www.opentdb.com/api.php?amount=10&type=multiple";
-    Array<TriviaQuestion> newQuestionSet = newTriviaGame.getTriviaQuestions(url);
 
-    return newQuestionSet;
+    return newTriviaGame.getTriviaQuestions(url);
   }
 
   private Array<TextButton> generateButtons(TriviaQuestion currentQuestion) {
@@ -69,11 +80,16 @@ public class TriviaButtonBuilder extends Game {
 
     // Generate new array of TextButtons for each question.
     // Build static buttons for the correct answer and question.
-    Array<TextButton> newQuestionBlock = new Array<TextButton>();
-    TextButton questionButton = new TextButton(currentQuestion.question, textButtonStyle);
+    newQuestionBlock = new Array<TextButton>();
+    questionButton = new TextButton(currentQuestion.question, textButtonStyle);
     questionButton.setPosition(xButtonPosition, yButtonPosition);
-    yButtonPosition -= questionButton.getHeight();
-    TextButton correctAnswerButton = new TextButton(currentQuestion.correctAnswer, textButtonStyle);
+      System.out.println("World width "+ WORLD_WIDTH +" Button Width"+ questionButton.getWidth());
+      questionButton.getLabelCell().width(300);
+      questionButton.getLabelCell().left();
+      questionButton.getLabel().setWrap(true);
+      questionButton.invalidate();
+    yButtonPosition -= questionButton.getHeight()+50;
+    correctAnswerButton = new TextButton(currentQuestion.correctAnswer, textButtonStyle);
     correctAnswerButton.setPosition(xButtonPosition, yButtonPosition);
     yButtonPosition -= questionButton.getHeight();
 
@@ -82,8 +98,7 @@ public class TriviaButtonBuilder extends Game {
     newQuestionBlock.add(correctAnswerButton);
 
     // Create a button for each incorrect answer.
-    TextButton incorrectAnswerButton;
-    Array<TextButton> incorrectButtons = new Array<TextButton>();
+    incorrectButtons = new Array<TextButton>();
     for (int i = 0; i < currentQuestion.incorrectAnswers.length; i++) {
       incorrectAnswerButton = new TextButton(currentQuestion.incorrectAnswers[i], textButtonStyle);
       incorrectAnswerButton.setPosition(xButtonPosition, yButtonPosition);
@@ -91,20 +106,30 @@ public class TriviaButtonBuilder extends Game {
       newQuestionBlock.add(incorrectAnswerButton);
     }
 
-    // Add the custom buttonListener to each button.
-    for (int i = 0; i < newQuestionBlock.size; i++) {
-      newQuestionBlock.get(i).addListener(buttonListener);
-    }
-
-
+    yButtonPosition = 400;
     //button = new TextButton(question, textButtonStyle);
     //stage.addActor(button);
     return newQuestionBlock;
   }
 
-  private Array<TextButton> updateTriviaButtons(Array<TextButton> questionSet, TriviaQuestion newQuestion) {
+  private void addListener () {
+    // Add the custom buttonListener to each button.
+    for (int i = 0; i < newQuestionBlock.size; i++) {
+      buttonListener = new TriviaButtonListener(this, questionNumber, i);
+      newQuestionBlock.get(i).addListener(buttonListener);
+    }
+  }
 
-    return questionSet;
+  public void updateTriviaButtons() {
+    ++questionNumber;
+    stage.clear();
+    questionSet = generateButtons(newTriviaGame.get(questionNumber));
+    addListener();
+    for (int i = 0; i < questionSet.size; i++) {
+      stage.addActor(questionSet.get(i));
+    }
+    Gdx.input.setInputProcessor(stage);
+
   }
 
   @Override
@@ -112,9 +137,10 @@ public class TriviaButtonBuilder extends Game {
     stage = new Stage();
 
     // On the creation of the class build the trivia buttons and add them to the stage.
-    Array<TriviaQuestion> newTriviaGame = generateTriviaData("");
+    newTriviaGame = generateTriviaData("");
 
-    Array<TextButton> questionSet = generateButtons(newTriviaGame.get(questionNumber));
+    questionSet = generateButtons(newTriviaGame.get(questionNumber));
+    addListener();
     for (int i = 0; i < questionSet.size; i++) {
       stage.addActor(questionSet.get(i));
     }
