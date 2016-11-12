@@ -37,7 +37,7 @@ public interface UrlBuilderWrapper {
     }
 
     public String getVal() {
-      switch (this.val) {
+      switch (val) {
         case 0:
           return "easy";
         case 1:
