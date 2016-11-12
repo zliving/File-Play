@@ -83,9 +83,10 @@ public abstract class BaseScreen implements Screen {
   public void render(float delta) {
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    // This is equivalent to updating actors that are added to the stage.
-    stage.act();
-    stage.draw();
+    spriteBatch.setProjectionMatrix(camera.combined);
+    spriteBatch.begin();
+    spriteBatch.draw(banner, 0, 720);
+    spriteBatch.end();
   }
 
   /**

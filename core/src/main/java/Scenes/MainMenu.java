@@ -48,11 +48,9 @@ public class MainMenu extends BaseScreen {
   @Override
   public void render(float delta) {
     super.render(delta);
-    // This tells LibGDX's 3D engine how to render in 2D.
-    spriteBatch.setProjectionMatrix(camera.combined);
+    stage.act();
+    stage.draw();
     spriteBatch.begin();
-    // Draws the banner.
-    spriteBatch.draw(banner, 0, 720);
     // Draws the text "Main Menu" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.end();

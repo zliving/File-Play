@@ -51,11 +51,10 @@ public class Lobby extends BaseScreen {
   @Override
   public void render(float delta) {
     super.render(delta);
-    spriteBatch.setProjectionMatrix(camera.combined);
-    spriteBatch.begin();
-    // Draws the banner.
-    spriteBatch.draw(banner, 0, 720);
     // Draws the text "Lobby" in the center of the banner.
+    stage.act(delta);
+    stage.draw();
+    spriteBatch.begin();
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.end();
   }
@@ -65,7 +64,7 @@ public class Lobby extends BaseScreen {
    */
   @Override
   protected void createButtons() {
-    backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 400, 735);
+    backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 0, 735);
     TextButtonStyle style;
     style = setStyle("nano yellow", "nano yellow");
     playButton = new TextButton("Play", style);
