@@ -4,13 +4,12 @@ package GameObjects;
  * Created by Chris on 11/12/2016.
  */
 
-public interface UrlBuilderWrapper {
+public interface UrlBuilder {
   enum CategoryType {
     GENERAL(9),
     FILM(11),
     MUSIC(12),
     VIDEOGAMES(15),
-    BOARDGAMES(16),
     SCIENCENATURE(17),
     HISTORY(23);
 
@@ -26,23 +25,17 @@ public interface UrlBuilderWrapper {
   }
 
   enum DifficultyType {
-    EASY(0),
-    MEDIUM(1),
-    HARD(2);
-
-    private int val;
-
-    DifficultyType(int val) {
-      this.val = val;
-    }
+    EASY,
+    MEDIUM,
+    HARD;
 
     public String getVal() {
-      switch (val) {
-        case 0:
+      switch (this) {
+        case EASY:
           return "easy";
-        case 1:
+        case MEDIUM:
           return "medium";
-        case 2:
+        case HARD:
           return "hard";
         default:
           return "easy";
