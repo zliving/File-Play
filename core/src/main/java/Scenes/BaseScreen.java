@@ -55,10 +55,10 @@ public abstract class BaseScreen implements Screen {
     parameter = new FreeTypeFontParameter();
     // Creates BitmapFont for the text that is going to be in the center of the banner.
     bannerText = new BitmapFont();
-    bannerText = generateNewFont("VacationPostcardNF.ttf", 36, Color.BLACK);
+    bannerText = generateNewFont("BROADSolid.ttf", 36, Color.BLACK);
     // Creates an atlas object which can use all the textures within it. Each screen will have
     // access to the atlas in order to create button skins from it.
-    buttonAtlas = new TextureAtlas(Gdx.files.internal("final atlas.pack"));
+    buttonAtlas = new TextureAtlas(Gdx.files.internal("buttonAtlas.pack"));
     buttonSkin = new Skin();
     // Adds all the regions from the atlas so that it can getDrawable using the name of each
     // texture.
@@ -134,7 +134,7 @@ public abstract class BaseScreen implements Screen {
     }
     parameter.size = size;
     parameter.color = color;
-    generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts\\" + fontPath));
+    generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/" + fontPath));
     return generator.generateFont(parameter);
   }
 

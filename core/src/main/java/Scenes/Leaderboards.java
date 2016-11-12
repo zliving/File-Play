@@ -22,7 +22,6 @@ import UIElements.ButtonActor;
 public class Leaderboards extends BaseScreen {
   // This is for the back button on the banner to go back a screen.
   private ButtonActor backButton;
-  private final Texture leaderboardsMockUp;
   private final int glyphCenterX;
 
 
@@ -37,7 +36,6 @@ public class Leaderboards extends BaseScreen {
     bannerTextGlyphLayout = new GlyphLayout(bannerText, "Leaderboards");
     // Calculate the center in terms of x for the GlyphLayout.
     glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
-    leaderboardsMockUp = new Texture(Gdx.files.internal("leaderboards_mockup.png"));
     createButtons();
     addAllListeners();
     addAllActors();
@@ -52,9 +50,6 @@ public class Leaderboards extends BaseScreen {
     spriteBatch.draw(new Sprite(banner), 0, 720);
     // Draws the text "Leaderboards" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
-    // Draws a sprite using the leaderboardsMockUp texture located at (65, 300) of the native
-    // resolution 480 by 800.
-    spriteBatch.draw(new Sprite(leaderboardsMockUp), 65, 300);
     spriteBatch.end();
   }
 

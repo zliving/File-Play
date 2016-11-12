@@ -16,7 +16,6 @@ import UIElements.ButtonActor;
  */
 public class Settings extends BaseScreen {
   private ButtonActor backButton;
-  private final Texture settingsMockUp;
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Settings should operate in the same
@@ -28,7 +27,6 @@ public class Settings extends BaseScreen {
     bannerTextGlyphLayout = new GlyphLayout(bannerText, "Settings");
     // Calculate the center in terms of x for the GlyphLayout.
     glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
-    settingsMockUp = new Texture(Gdx.files.internal("settings_mockup.png"));
     createButtons();
     addAllListeners();
     addAllActors();
@@ -42,9 +40,6 @@ public class Settings extends BaseScreen {
     spriteBatch.draw(new Sprite(banner), 0, 720);
     // Draws the text "Settings" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
-    // Draws a sprite using the given texture at the location (65, 300) of the native 480 by 800
-    // resolution.
-    spriteBatch.draw(new Sprite(settingsMockUp), 65, 300);
     spriteBatch.end();
   }
 

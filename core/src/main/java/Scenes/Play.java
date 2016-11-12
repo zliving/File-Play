@@ -16,7 +16,6 @@ import UIElements.ButtonActor;
  * where the actual gameplay will occur.
  */
 public class Play extends BaseScreen {
-  private final Texture playMockUp;
   private ButtonActor backButton;
   private final int glyphCenterX;
 
@@ -30,7 +29,6 @@ public class Play extends BaseScreen {
     bannerTextGlyphLayout = new GlyphLayout(bannerText, "Play");
     // Calculate the center in terms of x for the glyph.
     glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
-    playMockUp = new Texture(Gdx.files.internal("play_mockup.png"));
     createButtons();
     addAllListeners();
     addAllActors();
@@ -45,9 +43,6 @@ public class Play extends BaseScreen {
     spriteBatch.draw(new Sprite(banner), 0, 720);
     // Draws the text "Play" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
-    // Draws a sprite using the playMockUp texture  located at (65, 300) of the native
-    // resolution 480 by 800.
-    spriteBatch.draw(new Sprite(playMockUp), 65, 300);
     spriteBatch.end();
   }
 

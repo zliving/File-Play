@@ -72,25 +72,25 @@ public class Lobby extends BaseScreen {
     playButton.setPosition(220, 20);
     playButton.setHeight(50);
     playButton.setWidth(250);
-    style = setStyle("nano blue", "nano blue");
+    style = setStyle("nano blue", "nano blue pressed");
     generalButton = new TextButton("General", style);
     generalButton.setPosition(100, 600);
-    style = setStyle("nano cyan", "nano cyan");
+    style = setStyle("nano cyan", "nano cyan pressed");
     booksButton = new TextButton("Books", style);
     booksButton.setPosition(getButtonXOffset(generalButton, OFFSET), generalButton.getY());
-    style = setStyle("nano green", "nano green");
+    style = setStyle("nano green", "nano green pressed");
     filmButton = new TextButton("Film", style);
     filmButton.setPosition(getButtonXOffset(booksButton, OFFSET), booksButton.getY());
-    style = setStyle("nano indigo", "nano indigo");
+    style = setStyle("nano indigo", "nano indigo pressed");
     musicButton = new TextButton("Music", style);
     musicButton.setPosition(generalButton.getX(), getButtonYOffset(generalButton, OFFSET));
-    style = setStyle("nano orange", "nano orange");
+    style = setStyle("nano orange", "nano orange pressed");
     televisionButton = new TextButton("Television", style);
     televisionButton.setPosition(getButtonXOffset(musicButton, OFFSET), musicButton.getY());
-    style = setStyle("nano pink", "nano pink");
+    style = setStyle("nano pink", "nano pink pressed");
     videoGamesButton = new TextButton("Video Games", style);
     videoGamesButton.setPosition(generalButton.getX(), getButtonYOffset(televisionButton, OFFSET));
-    style = setStyle("nano red", "nano red");
+    style = setStyle("nano red", "nano red pressed");
     sportsButton = new TextButton("Sports", style);
     sportsButton.setPosition(getButtonXOffset(videoGamesButton, OFFSET), videoGamesButton.getY());
   }
@@ -151,7 +151,7 @@ public class Lobby extends BaseScreen {
     // is searched for in the atlas within the buttonSkin object.
     style.up = buttonSkin.getDrawable(up);
     style.down = buttonSkin.getDrawable(down);
-    style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
+    style.font = generateNewFont("unanimoi.ttf", 30, Color.BLACK);
     return style;
   }
 }
