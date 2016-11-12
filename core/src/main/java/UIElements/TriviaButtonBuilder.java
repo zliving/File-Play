@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
 
-
 import GameObjects.TriviaQuestion;
 import GameObjects.TriviaQuestionBuilder;
 import InputListeners.TriviaButtonListener;
@@ -25,35 +24,40 @@ public class TriviaButtonBuilder extends Game {
 
   // The stage is where we place the buttons since they
   // will be actors now rather than just textures.
-  Stage stage;
+  private Stage stage;
   // TextButton is the standard actor we will use to display any text on the buttons.
   // These buttons have a their own listeners and states
   TextButton button;
   // TextButtonStyle allows us to change the look of the button based on its state
-  TextButton.TextButtonStyle textButtonStyle;
+  private TextButton.TextButtonStyle textButtonStyle;
   // Allows us to place a created font on the buttons
-  BitmapFont font;
+  private BitmapFont font;
   // The Skin allows us to dynamically change how the buttons look.
-  Skin skin;
+  private Skin skin;
   // This is how we will use textures as they will be in one file and we use
   // The atlas to get regions of the texture pack to place as single textures
   TextureAtlas buttonAtlas;
   String question;
   protected static final float WORLD_WIDTH = 480;
   protected static final float WORLD_HEIGHT = 800;
-  protected static final float xButtonPosition = 50;
-  float yButtonPosition = 400;
-  int questionNumber = 0;
-  TriviaButtonListener buttonListener;
-  TextButton questionButton;
-  Array<TextButton> newQuestionBlock;
-  TextButton correctAnswerButton;
-  TextButton incorrectAnswerButton;
-  Array<TextButton> incorrectButtons;
+  private static final float xButtonPosition = 50;
+  private float yButtonPosition = 400;
+  private int questionNumber = 0;
+  private TriviaButtonListener buttonListener;
+  private TextButton questionButton;
+  private Array<TextButton> newQuestionBlock;
+  private TextButton correctAnswerButton;
+  private TextButton incorrectAnswerButton;
+  private Array<TextButton> incorrectButtons;
   public Array<TriviaQuestion> newTriviaGame;
   public Array<TextButton> questionSet;
+  private Array<TextButton> shuffleButtonBlock;
+  private boolean timerIsOn = false;
+  int timing =0;
+  private long startTime =0;
 
   public TriviaButtonBuilder() {
+    startTime = System.currentTimeMillis();
     this.create();
   }
 
@@ -83,15 +87,14 @@ public class TriviaButtonBuilder extends Game {
     newQuestionBlock = new Array<TextButton>();
     questionButton = new TextButton(currentQuestion.question, textButtonStyle);
     questionButton.setPosition(xButtonPosition, yButtonPosition);
-      System.out.println("World width "+ WORLD_WIDTH +" Button Width"+ questionButton.getWidth());
       questionButton.getLabelCell().width(300);
       questionButton.getLabelCell().left();
       questionButton.getLabel().setWrap(true);
       questionButton.invalidate();
     yButtonPosition -= questionButton.getHeight()+50;
     correctAnswerButton = new TextButton(currentQuestion.correctAnswer, textButtonStyle);
-    correctAnswerButton.setPosition(xButtonPosition, yButtonPosition);
-    yButtonPosition -= questionButton.getHeight();
+    //correctAnswerButton.setPosition(xButtonPosition, yButtonPosition);
+   // yButtonPosition -= questionButton.getHeight();
 
     // Push the question and correctAnswerButton onto the array.
     newQuestionBlock.add(questionButton);
@@ -101,26 +104,41 @@ public class TriviaButtonBuilder extends Game {
     incorrectButtons = new Array<TextButton>();
     for (int i = 0; i < currentQuestion.incorrectAnswers.length; i++) {
       incorrectAnswerButton = new TextButton(currentQuestion.incorrectAnswers[i], textButtonStyle);
-      incorrectAnswerButton.setPosition(xButtonPosition, yButtonPosition);
-      yButtonPosition -= incorrectAnswerButton.getHeight();
+      //incorrectAnswerButton.setPosition(xButtonPosition, yButtonPosition);
+      //yButtonPosition -= incorrectAnswerButton.getHeight();
       newQuestionBlock.add(incorrectAnswerButton);
+    }
+    // Shuffle all of the answers to each question.
+    shuffleButtonBlock = new Array<TextButton>();
+    shuffleButtonBlock.add(newQuestionBlock.first());
+    newQuestionBlock.removeValue(newQuestionBlock.first(),false);
+    int size = newQuestionBlock.size;
+    for(int i=0; i<size; i++) {
+      TextButton temp = newQuestionBlock.random();
+      newQuestionBlock.removeValue(temp,false);
+      shuffleButtonBlock.add(temp);
+    }
+    // Place each question below the previous.
+    for(int i=1; i<shuffleButtonBlock.size; i++) {
+      shuffleButtonBlock.get(i).setPosition(xButtonPosition,yButtonPosition);
+      yButtonPosition -= shuffleButtonBlock.get(i).getHeight()+20;
     }
 
     yButtonPosition = 400;
     //button = new TextButton(question, textButtonStyle);
     //stage.addActor(button);
-    return newQuestionBlock;
+    return shuffleButtonBlock;
   }
 
   private void addListener () {
     // Add the custom buttonListener to each button.
-    for (int i = 0; i < newQuestionBlock.size; i++) {
+    for (int i = 1; i < shuffleButtonBlock.size; i++) {
       buttonListener = new TriviaButtonListener(this, questionNumber, i);
-      newQuestionBlock.get(i).addListener(buttonListener);
+      shuffleButtonBlock.get(i).addListener(buttonListener);
     }
   }
 
-  public void updateTriviaButtons() {
+  private void updateTriviaButtons() {
     ++questionNumber;
     stage.clear();
     questionSet = generateButtons(newTriviaGame.get(questionNumber));
@@ -135,12 +153,11 @@ public class TriviaButtonBuilder extends Game {
   @Override
   public void create() {
     stage = new Stage();
-
     // On the creation of the class build the trivia buttons and add them to the stage.
     newTriviaGame = generateTriviaData("");
-
     questionSet = generateButtons(newTriviaGame.get(questionNumber));
     addListener();
+    stage.clear();
     for (int i = 0; i < questionSet.size; i++) {
       stage.addActor(questionSet.get(i));
     }
@@ -155,6 +172,13 @@ public class TriviaButtonBuilder extends Game {
 
   @Override
   public void render() {
+    // Count the time between each question that is presented.
+    long timePassed = (System.currentTimeMillis() - startTime) / 1000;
+    //System.out.println("Time elapsed in seconds = " + timePassed);
+    if(timePassed > 15 ) {
+      startTime = System.currentTimeMillis();
+      updateTriviaButtons();
+    }
     super.render();
     stage.draw();
   }
