@@ -85,6 +85,7 @@ public abstract class BaseScreen implements Screen {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
+    // Draw the banner at the top of the screen.
     spriteBatch.draw(banner, 0, 720);
     spriteBatch.end();
   }

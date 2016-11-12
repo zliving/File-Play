@@ -3,7 +3,6 @@ package Scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.mygdx.game.FilePlayMain;
@@ -35,9 +34,9 @@ public class Settings extends BaseScreen {
   @Override
   public void render(float delta) {
     super.render(delta);
-    spriteBatch.setProjectionMatrix(camera.combined);
+    stage.act(delta);
+    stage.draw();
     spriteBatch.begin();
-    spriteBatch.draw(banner, 0, 720);
     // Draws the text "Settings" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.end();
@@ -49,7 +48,7 @@ public class Settings extends BaseScreen {
   @Override
   public void createButtons() {
     // Creates the back button at the given location in terms of the native screen resolution.
-    backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 400, 735);
+    backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 0, 735);
   }
 
   /**

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -60,7 +59,7 @@ public class Lobby extends BaseScreen {
   }
 
   /**
-   * Creates all of the  buttons that will be drawn to the screen.
+   * Creates all of the buttons that will be drawn to the screen.
    */
   @Override
   protected void createButtons() {
@@ -150,7 +149,7 @@ public class Lobby extends BaseScreen {
     // is searched for in the atlas within the buttonSkin object.
     style.up = buttonSkin.getDrawable(up);
     style.down = buttonSkin.getDrawable(down);
-    style.font = generateNewFont("unanimoi.ttf", 30, Color.BLACK);
+    style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
     return style;
   }
 }
