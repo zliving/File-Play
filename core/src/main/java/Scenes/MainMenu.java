@@ -52,7 +52,7 @@ public class MainMenu extends BaseScreen {
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     // Draws the banner.
-    spriteBatch.draw(new Sprite(banner), 0, 720);
+    spriteBatch.draw(banner, 0, 720);
     // Draws the text "Main Menu" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.end();

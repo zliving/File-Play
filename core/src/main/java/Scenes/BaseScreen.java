@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -27,8 +28,8 @@ public abstract class BaseScreen implements Screen {
   protected final OrthographicCamera camera;
   protected final FilePlayMain mainGame;
   protected final Stage stage;
-  protected final TextureAtlas buttonAtlas;
-  protected final Texture banner;
+  protected TextureAtlas buttonAtlas;
+  protected final Sprite banner;
   protected GlyphLayout bannerTextGlyphLayout;
   protected BitmapFont bannerText;
   protected Skin buttonSkin;
@@ -49,8 +50,6 @@ public abstract class BaseScreen implements Screen {
   BaseScreen(FilePlayMain mainGame) {
     this.mainGame = mainGame;
     spriteBatch = new SpriteBatch();
-    // Initializes the banner Texture.
-    banner = new Texture(Gdx.files.internal("banner - HSYB-Long.png"));
     // Creates new FreeTypeFontParameter to modify fonts.
     parameter = new FreeTypeFontParameter();
     // Creates BitmapFont for the text that is going to be in the center of the banner.
@@ -60,6 +59,8 @@ public abstract class BaseScreen implements Screen {
     // access to the atlas in order to create button skins from it.
     buttonAtlas = new TextureAtlas(Gdx.files.internal("buttonAtlas.pack"));
     buttonSkin = new Skin();
+    // Initializes the banner Sprite.
+    banner = buttonAtlas.createSprite("banner - plain");
     // Adds all the regions from the atlas so that it can getDrawable using the name of each
     // texture.
     buttonSkin.addRegions(buttonAtlas);

@@ -37,7 +37,7 @@ public class Settings extends BaseScreen {
     super.render(delta);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
-    spriteBatch.draw(new Sprite(banner), 0, 720);
+    spriteBatch.draw(banner, 0, 720);
     // Draws the text "Settings" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.end();

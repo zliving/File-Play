@@ -47,7 +47,7 @@ public class Leaderboards extends BaseScreen {
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
     // Draws the banner as a texture located at the top.
-    spriteBatch.draw(new Sprite(banner), 0, 720);
+    spriteBatch.draw(banner, 0, 720);
     // Draws the text "Leaderboards" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.end();
