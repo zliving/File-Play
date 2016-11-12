@@ -30,26 +30,32 @@ public class TriviaButtonListener extends InputListener {
     this.buttonNumber = buttonNumber;
   }
 
+  public void disableButtons() {
+    for(int i=0; i<questionSet.size; i++) {
+      questionSet.get(i).setDisabled(true);
+    }
+  }
+
   // Check if there is an initial button pressed.
   public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-    Gdx.app.log("Button has been ", "Pressed");
     String correctAnswer = newTriviaGame.get(index).correctAnswer;
     String selectedAnswer = questionSet.get(buttonNumber).getText().toString();
 
-    System.out.println("Correct Answer = "+correctAnswer);
-    System.out.println("Selected Answer = "+selectedAnswer);
-    if(selectedAnswer.compareTo(correctAnswer) == 0) {
-      System.out.println("The Answer is correct");
-      builderClass.updateTriviaButtons();
-
+    if(selectedAnswer.compareTo(correctAnswer) == 0 && !questionSet.get(buttonNumber).isDisabled()) {
+      System.out.println("The answer is correct");
+      disableButtons();
+    } else if(!questionSet.get(buttonNumber).isDisabled()) {
+      System.out.println("The answer is incorrect.");
+      disableButtons();
     }
+
 
     return true;
   }
 
-  // When button is released calculations will be performed here.
+
   public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-    Gdx.app.log("Button ahs been", "Released");
+
   }
 
 }
