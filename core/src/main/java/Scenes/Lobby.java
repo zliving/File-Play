@@ -43,7 +43,7 @@ public class Lobby extends BaseScreen {
   private BitmapFont labelFont;
   // Spacing and offsets to draw with respect to text and buttons.
   private final int OFFSET = 10;
-  
+  private final int LABELX = 20;
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Lobby should operate in the same
