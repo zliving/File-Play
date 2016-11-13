@@ -3,6 +3,7 @@ package Scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -21,7 +22,7 @@ public class Lobby extends BaseScreen {
   private ButtonActor backButton;
   // This is for the play button to move from the lobby to the play screen.
   private TextButton playButton;
-  // Buttons for each of the categories
+  // Buttons for each of the categories.
   private TextButton generalButton;
   private TextButton booksButton;
   private TextButton filmButton;
@@ -29,8 +30,15 @@ public class Lobby extends BaseScreen {
   private TextButton televisionButton;
   private TextButton videoGamesButton;
   private TextButton sportsButton;
-  // Spacing between buttons at the same height
+  // Buttons for each of the difficulties.
+  private TextButton easyButton;
+  private TextButton mediumButton;
+  private TextButton hardButton;
+  // Font for the labels "Category", "Difficulty", and "Number of Questions"
+  private BitmapFont labelFont;
+  // Spacing and offsets to draw with respect to text and buttons.
   private final int OFFSET = 10;
+  private final int LABELX = 20;
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Lobby should operate in the same
@@ -42,6 +50,7 @@ public class Lobby extends BaseScreen {
     bannerTextGlyphLayout = new GlyphLayout(bannerText, "Lobby");
     // Calculate the center for the text to be drawn in the banner.
     glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
+    labelFont = generateNewFont("BROADSolid.ttf", 36, Color.WHITE);
     createButtons();
     addAllListeners();
     addAllActors();
@@ -55,6 +64,8 @@ public class Lobby extends BaseScreen {
     stage.draw();
     spriteBatch.begin();
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
+    labelFont.draw(spriteBatch, "Categories", LABELX, 690);
+    labelFont.draw(spriteBatch, "Difficulty", LABELX, 470);
     spriteBatch.end();
   }
 
@@ -72,25 +83,29 @@ public class Lobby extends BaseScreen {
     playButton.setWidth(250);
     style = setStyle("nano blue", "nano blue pressed");
     generalButton = new TextButton("General", style);
-    generalButton.setPosition(100, 600);
+    generalButton.setPosition(20, 600);
     style = setStyle("nano cyan", "nano cyan pressed");
     booksButton = new TextButton("Books", style);
     booksButton.setPosition(getButtonXOffset(generalButton, OFFSET), generalButton.getY());
     style = setStyle("nano green", "nano green pressed");
     filmButton = new TextButton("Film", style);
-    filmButton.setPosition(getButtonXOffset(booksButton, OFFSET), booksButton.getY());
-    style = setStyle("nano indigo", "nano indigo pressed");
-    musicButton = new TextButton("Music", style);
-    musicButton.setPosition(generalButton.getX(), getButtonYOffset(generalButton, OFFSET));
-    style = setStyle("nano orange", "nano orange pressed");
-    televisionButton = new TextButton("Television", style);
-    televisionButton.setPosition(getButtonXOffset(musicButton, OFFSET), musicButton.getY());
-    style = setStyle("nano pink", "nano pink pressed");
-    videoGamesButton = new TextButton("Video Games", style);
-    videoGamesButton.setPosition(generalButton.getX(), getButtonYOffset(televisionButton, OFFSET));
+    filmButton.setPosition(getButtonXOffset(booksButton, OFFSET), generalButton.getY());
     style = setStyle("nano red", "nano red pressed");
     sportsButton = new TextButton("Sports", style);
-    sportsButton.setPosition(getButtonXOffset(videoGamesButton, OFFSET), videoGamesButton.getY());
+    sportsButton.setPosition(getButtonXOffset(filmButton, OFFSET),
+            generalButton.getY());
+    style = setStyle("nano orange", "nano orange pressed");
+    televisionButton = new TextButton("Television", style);
+    televisionButton.setPosition(generalButton.getX(), getButtonYOffset(generalButton, OFFSET));
+    style = setStyle("nano pink", "nano pink pressed");
+    videoGamesButton = new TextButton("Video Games", style);
+    videoGamesButton.setPosition(getButtonXOffset(televisionButton, OFFSET),
+            getButtonYOffset(generalButton, OFFSET));
+    style = setStyle("nano indigo", "nano indigo pressed");
+    musicButton = new TextButton("Music", style);
+    musicButton.setPosition(getButtonXOffset(videoGamesButton, OFFSET),
+            getButtonYOffset(generalButton, OFFSET));
+
   }
 
   /**
