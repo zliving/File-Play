@@ -35,11 +35,15 @@ public class Lobby extends BaseScreen {
   private TextButton easyButton;
   private TextButton mediumButton;
   private TextButton hardButton;
-  // Font for the labels "Category", "Difficulty", and "Number of Questions"
+  // Buttons for the game length.
+  private TextButton shortButton;
+  private TextButton mediumLengthButton;
+  private TextButton longButton;
+  // Font for the labels "Category", "Difficulty", and "Game Length"
   private BitmapFont labelFont;
   // Spacing and offsets to draw with respect to text and buttons.
   private final int OFFSET = 10;
-  private final int LABELX = 20;
+  
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Lobby should operate in the same
@@ -68,7 +72,7 @@ public class Lobby extends BaseScreen {
     // Draws all the labels for each section.
     labelFont.draw(spriteBatch, "Categories", LABELX, 690);
     labelFont.draw(spriteBatch, "Difficulty", LABELX, 470);
-    labelFont.draw(spriteBatch, "Number of Questions", LABELX, 300);
+    labelFont.draw(spriteBatch, "Game Length", LABELX, 300);
     spriteBatch.end();
   }
 
@@ -118,7 +122,15 @@ public class Lobby extends BaseScreen {
     style = setStyle("nano red", "nano red pressed");
     hardButton = new TextButton("Hard", style);
     hardButton.setPosition(getButtonXOffset(mediumButton, OFFSET), easyButton.getY());
-
+    style = setStyle("nano cyan", "nano cyan pressed");
+    shortButton = new TextButton("Short (5)", style);
+    shortButton.setPosition(generalButton.getX(), 210);
+    style = setStyle("nano indigo" , "nano indigo pressed");
+    mediumLengthButton = new TextButton("Medium (7)", style);
+    mediumLengthButton.setPosition(getButtonXOffset(shortButton, OFFSET), shortButton.getY());
+    style = setStyle("nano orange", "nano orange pressed");
+    longButton = new TextButton("Long (9)", style);
+    longButton.setPosition(getButtonXOffset(mediumLengthButton, OFFSET), shortButton.getY());
   }
 
   /**
@@ -161,6 +173,9 @@ public class Lobby extends BaseScreen {
     stage.addActor(easyButton);
     stage.addActor(mediumButton);
     stage.addActor(hardButton);
+    stage.addActor(shortButton);
+    stage.addActor(mediumLengthButton);
+    stage.addActor(longButton);
   }
 
   /**
