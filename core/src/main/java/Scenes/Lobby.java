@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.mygdx.game.FilePlayMain;
@@ -59,13 +60,15 @@ public class Lobby extends BaseScreen {
   @Override
   public void render(float delta) {
     super.render(delta);
-    // Draws the text "Lobby" in the center of the banner.
     stage.act(delta);
     stage.draw();
     spriteBatch.begin();
+    // Draws the text "Lobby" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
+    // Draws all the labels for each section.
     labelFont.draw(spriteBatch, "Categories", LABELX, 690);
     labelFont.draw(spriteBatch, "Difficulty", LABELX, 470);
+    labelFont.draw(spriteBatch, "Number of Questions", LABELX, 300);
     spriteBatch.end();
   }
 
@@ -76,6 +79,7 @@ public class Lobby extends BaseScreen {
   protected void createButtons() {
     backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 0, 735);
     TextButtonStyle style;
+
     style = setStyle("nano yellow", "nano yellow");
     playButton = new TextButton("Play", style);
     playButton.setPosition(220, 20);
@@ -105,6 +109,15 @@ public class Lobby extends BaseScreen {
     musicButton = new TextButton("Music", style);
     musicButton.setPosition(getButtonXOffset(videoGamesButton, OFFSET),
             getButtonYOffset(generalButton, OFFSET));
+    style = setStyle("nano green", "nano green pressed");
+    easyButton = new TextButton("Easy", style);
+    easyButton.setPosition(generalButton.getX(), 380);
+    style = setStyle("nano yellow", "nano yellow pressed");
+    mediumButton = new TextButton("Medium", style);
+    mediumButton.setPosition(getButtonXOffset(easyButton, OFFSET), easyButton.getY());
+    style = setStyle("nano red", "nano red pressed");
+    hardButton = new TextButton("Hard", style);
+    hardButton.setPosition(getButtonXOffset(mediumButton, OFFSET), easyButton.getY());
 
   }
 
@@ -145,6 +158,9 @@ public class Lobby extends BaseScreen {
     stage.addActor(televisionButton);
     stage.addActor(videoGamesButton);
     stage.addActor(sportsButton);
+    stage.addActor(easyButton);
+    stage.addActor(mediumButton);
+    stage.addActor(hardButton);
   }
 
   /**
