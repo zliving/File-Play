@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.mygdx.game.FilePlayMain;
@@ -33,7 +32,7 @@ public class Lobby extends BaseScreen {
   private TextButton sportsButton;
   // Buttons for each of the difficulties.
   private TextButton easyButton;
-  private TextButton mediumButton;
+  private TextButton mediumDifficultyButton;
   private TextButton hardButton;
   // Buttons for the game length.
   private TextButton shortButton;
@@ -120,11 +119,11 @@ public class Lobby extends BaseScreen {
     easyButton = new TextButton("Easy", style);
     easyButton.setPosition(generalButton.getX(), 380);
     style = setStyle("nano yellow", "nano yellow pressed");
-    mediumButton = new TextButton("Medium", style);
-    mediumButton.setPosition(getButtonXOffset(easyButton, OFFSET), easyButton.getY());
+    mediumDifficultyButton = new TextButton("Medium", style);
+    mediumDifficultyButton.setPosition(getButtonXOffset(easyButton, OFFSET), easyButton.getY());
     style = setStyle("nano red", "nano red pressed");
     hardButton = new TextButton("Hard", style);
-    hardButton.setPosition(getButtonXOffset(mediumButton, OFFSET), easyButton.getY());
+    hardButton.setPosition(getButtonXOffset(mediumDifficultyButton, OFFSET), easyButton.getY());
     style = setStyle("nano cyan", "nano cyan pressed");
     shortButton = new TextButton("Short (5)", style);
     shortButton.setPosition(generalButton.getX(), 210);
@@ -153,7 +152,11 @@ public class Lobby extends BaseScreen {
     playButton.addListener(new InputListener() {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         // Change to Play screen.
-        mainGame.setScreen(FilePlayMain.ScreenType.PLAY);
+        if(pressedCategory == null || pressedDifficulty == null || pressedLength == null){
+          System.out.println("One of the preferences has not been selected");
+        } else {
+          mainGame.setScreen(FilePlayMain.ScreenType.PLAY);
+        }
         return true;
       }
     });
@@ -208,9 +211,9 @@ public class Lobby extends BaseScreen {
     televisionButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        if(pressedCategory == null){
+        if (pressedCategory == null) {
           pressedCategory = televisionButton;
-        } else if(pressedCategory != null){
+        } else if (pressedCategory != null) {
           pressedCategory.setChecked(false);
           pressedCategory = televisionButton;
         }
@@ -220,9 +223,9 @@ public class Lobby extends BaseScreen {
     videoGamesButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        if(pressedCategory == null){
+        if (pressedCategory == null) {
           pressedCategory = videoGamesButton;
-        } else if(pressedCategory != null){
+        } else if (pressedCategory != null) {
           pressedCategory.setChecked(false);
           pressedCategory = videoGamesButton;
         }
@@ -232,15 +235,89 @@ public class Lobby extends BaseScreen {
     musicButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        if(pressedCategory == null){
+        if (pressedCategory == null) {
           pressedCategory = musicButton;
-        } else if(pressedCategory != null){
+        } else if (pressedCategory != null) {
           pressedCategory.setChecked(false);
           pressedCategory = musicButton;
         }
         return true;
       }
     });
+    easyButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if (pressedDifficulty == null) {
+          pressedDifficulty = easyButton;
+        } else if (pressedDifficulty != null) {
+          pressedDifficulty.setChecked(false);
+          pressedDifficulty = easyButton;
+        }
+        return true;
+      }
+    });
+    mediumDifficultyButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if (pressedDifficulty == null) {
+          pressedDifficulty = mediumDifficultyButton;
+        } else if (pressedDifficulty != null) {
+          pressedDifficulty.setChecked(false);
+          pressedDifficulty = mediumDifficultyButton;
+        }
+        return true;
+      }
+    });
+    hardButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if (pressedDifficulty == null) {
+          pressedDifficulty = hardButton;
+        } else if (pressedDifficulty != null) {
+          pressedDifficulty.setChecked(false);
+          pressedDifficulty = hardButton;
+        }
+        return true;
+      }
+    });
+    shortButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if (pressedLength == null) {
+          pressedLength = shortButton;
+        } else if (pressedLength != null) {
+          pressedLength.setChecked(false);
+          pressedLength = shortButton;
+        }
+        return true;
+      }
+    });
+    mediumLengthButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if (pressedLength == null) {
+          pressedLength = mediumLengthButton;
+        } else if (pressedLength != null) {
+          pressedLength.setChecked(false);
+          pressedLength = mediumLengthButton;
+        }
+        return true;
+      }
+    });
+    longButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if (pressedLength == null) {
+          pressedLength = longButton;
+        } else if (pressedLength != null) {
+          pressedLength.setChecked(false);
+          pressedLength = longButton;
+        }
+        return true;
+      }
+    });
+
+
   }
 
   /**
@@ -258,7 +335,7 @@ public class Lobby extends BaseScreen {
     stage.addActor(videoGamesButton);
     stage.addActor(sportsButton);
     stage.addActor(easyButton);
-    stage.addActor(mediumButton);
+    stage.addActor(mediumDifficultyButton);
     stage.addActor(hardButton);
     stage.addActor(shortButton);
     stage.addActor(mediumLengthButton);
