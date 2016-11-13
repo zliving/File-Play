@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.FilePlayMain;
 
 import UIElements.ButtonActor;
@@ -16,6 +18,7 @@ import UIElements.ButtonActor;
 public class Play extends BaseScreen {
   private ButtonActor backButton;
   private final int glyphCenterX;
+  public Music music;
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Play should operate in the same way
@@ -30,6 +33,15 @@ public class Play extends BaseScreen {
     createButtons();
     addAllListeners();
     addAllActors();
+    // Creates a Music instance of the song to be used during game play.
+    /* Credit for the composition goes to Ludwig van Beethoven.
+       Credit for the performance goes to Simone Rezi.
+       Credit for hosting the file goes to musopen.org.
+     */
+    music = Gdx.audio.newMusic(Gdx.files.internal("data/beethoven.mp3"));
+    // Plays the song and loops it.
+    music.play();
+    music.setLooping(true);
   }
 
   @Override
@@ -75,5 +87,12 @@ public class Play extends BaseScreen {
   @Override
   protected void addAllActors() {
     stage.addActor(backButton);
+  }
+
+
+  // Disposes the music so that it only plays during gameplay.
+  @Override
+  public void dispose(){
+    music.dispose();
   }
 }
