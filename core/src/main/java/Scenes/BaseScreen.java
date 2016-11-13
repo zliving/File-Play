@@ -57,7 +57,7 @@ public abstract class BaseScreen implements Screen {
     bannerText = generateNewFont("BROADSolid.ttf", 36, Color.BLACK);
     // Creates an atlas object which can use all the textures within it. Each screen will have
     // access to the atlas in order to create button skins from it.
-    buttonAtlas = new TextureAtlas(Gdx.files.internal("buttonAtlas.pack"));
+    buttonAtlas = new TextureAtlas(Gdx.files.internal("final atlas 4.pack"));
     buttonSkin = new Skin();
     // Initializes the banner Sprite.
     banner = buttonAtlas.createSprite("banner - plain");
@@ -81,7 +81,8 @@ public abstract class BaseScreen implements Screen {
    */
   @Override
   public void render(float delta) {
-    Gdx.gl.glClearColor(0, 0, 0, 1);
+    // Sets the background to a medium dark shade of grey.
+    Gdx.gl.glClearColor(100/225.0f, 100/225.0f, 100/225.0f, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
