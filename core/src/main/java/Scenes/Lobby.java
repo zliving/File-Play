@@ -152,7 +152,7 @@ public class Lobby extends BaseScreen {
     playButton.addListener(new InputListener() {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         // Change to Play screen.
-        if(pressedCategory == null || pressedDifficulty == null || pressedLength == null){
+        if (pressedCategory == null || pressedDifficulty == null || pressedLength == null) {
           System.out.println("One of the preferences has not been selected");
         } else {
           mainGame.setScreen(FilePlayMain.ScreenType.PLAY);
