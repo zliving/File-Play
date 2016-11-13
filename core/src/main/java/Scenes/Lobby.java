@@ -44,6 +44,10 @@ public class Lobby extends BaseScreen {
   // Spacing and offsets to draw with respect to text and buttons.
   private final int OFFSET = 10;
   private final int LABELX = 20;
+  // References to the buttons that are currently pressed.
+  private TextButton pressedCategory;
+  private TextButton pressedDifficulty;
+  private TextButton pressedLength;
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Lobby should operate in the same
@@ -83,7 +87,6 @@ public class Lobby extends BaseScreen {
   protected void createButtons() {
     backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 0, 735);
     TextButtonStyle style;
-
     style = setStyle("nano yellow", "nano yellow");
     playButton = new TextButton("Play", style);
     playButton.setPosition(220, 20);
@@ -125,7 +128,7 @@ public class Lobby extends BaseScreen {
     style = setStyle("nano cyan", "nano cyan pressed");
     shortButton = new TextButton("Short (5)", style);
     shortButton.setPosition(generalButton.getX(), 210);
-    style = setStyle("nano indigo" , "nano indigo pressed");
+    style = setStyle("nano indigo", "nano indigo pressed");
     mediumLengthButton = new TextButton("Medium (7)", style);
     mediumLengthButton.setPosition(getButtonXOffset(shortButton, OFFSET), shortButton.getY());
     style = setStyle("nano orange", "nano orange pressed");
@@ -151,6 +154,90 @@ public class Lobby extends BaseScreen {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         // Change to Play screen.
         mainGame.setScreen(FilePlayMain.ScreenType.PLAY);
+        return true;
+      }
+    });
+    generalButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if (pressedCategory == null) {
+          pressedCategory = generalButton;
+        } else if (pressedCategory != null) {
+          pressedCategory.setChecked(false);
+          pressedCategory = generalButton;
+        }
+        return true;
+      }
+    });
+    booksButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if (pressedCategory == null) {
+          pressedCategory = booksButton;
+        } else if (pressedCategory != null) {
+          pressedCategory.setChecked(false);
+          pressedCategory = booksButton;
+        }
+        return true;
+      }
+    });
+    filmButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if (pressedCategory == null) {
+          pressedCategory = filmButton;
+        } else if (pressedCategory != null) {
+          pressedCategory.setChecked(false);
+          pressedCategory = filmButton;
+        }
+        return true;
+      }
+    });
+    sportsButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if (pressedCategory == null) {
+          pressedCategory = sportsButton;
+        } else if (pressedCategory != null) {
+          pressedCategory.setChecked(false);
+          pressedCategory = sportsButton;
+        }
+        return true;
+      }
+    });
+    televisionButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if(pressedCategory == null){
+          pressedCategory = televisionButton;
+        } else if(pressedCategory != null){
+          pressedCategory.setChecked(false);
+          pressedCategory = televisionButton;
+        }
+        return true;
+      }
+    });
+    videoGamesButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if(pressedCategory == null){
+          pressedCategory = videoGamesButton;
+        } else if(pressedCategory != null){
+          pressedCategory.setChecked(false);
+          pressedCategory = videoGamesButton;
+        }
+        return true;
+      }
+    });
+    musicButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if(pressedCategory == null){
+          pressedCategory = musicButton;
+        } else if(pressedCategory != null){
+          pressedCategory.setChecked(false);
+          pressedCategory = musicButton;
+        }
         return true;
       }
     });
@@ -195,6 +282,7 @@ public class Lobby extends BaseScreen {
     // is searched for in the atlas within the buttonSkin object.
     style.up = buttonSkin.getDrawable(up);
     style.down = buttonSkin.getDrawable(down);
+    style.checked = buttonSkin.getDrawable(down);
     style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
     return style;
   }
