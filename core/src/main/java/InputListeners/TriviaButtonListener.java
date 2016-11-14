@@ -40,7 +40,7 @@ public class TriviaButtonListener extends InputListener {
   public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
     String correctAnswer = newTriviaGame.get(index).correctAnswer;
     String selectedAnswer = questionSet.get(buttonNumber).getText().toString();
-
+    // Check if the answer is correct and there hasn't been a click registered yet. 
     if(selectedAnswer.compareTo(correctAnswer) == 0 && !questionSet.get(buttonNumber).isDisabled()) {
       System.out.println("The answer is correct");
       disableButtons();
