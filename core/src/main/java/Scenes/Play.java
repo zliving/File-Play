@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.mygdx.game.FilePlayMain;
 
+import GameObjects.TriviaScoreManager;
 import UIElements.ButtonActor;
 import UIElements.TriviaButtonBuilder;
 
@@ -33,6 +34,11 @@ public class Play extends BaseScreen {
     createButtons();
     addAllListeners();
     addAllActors();
+  }
+
+  public void goToEndGameScreen(TriviaScoreManager gameScore) {
+
+    mainGame.setScreen(FilePlayMain.ScreenType.GAMEOVERLOBBY);
   }
 
   @Override
