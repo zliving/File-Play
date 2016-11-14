@@ -19,6 +19,13 @@ import InputListeners.TriviaButtonListener;
  * Created by zach on 10/23/16. TriviaButtonBuilder will create sets of buttons for each trivia
  * question. Will return an array of buttons for each question. To update the screen you need to
  * call updateTriviaButton after each question is answered.
+ *
+ * Each button created will be given an InputListener in the form of the TriviaButtonListener class,
+ * Which takes the current instance of TriviaButton Builder, the current question index, the index
+ * number of the button pressed, and the instance of TriviaScoreManager that is created.
+ *
+ * This class has become more of a manager than just a button creater class. Refactoring should be
+ * done at a later time.
  */
 
 public class TriviaButtonBuilder extends Game {

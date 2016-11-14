@@ -12,7 +12,8 @@ import UIElements.TriviaButtonBuilder;
 
 /**
  * Created by zach on 10/24/16. TriviaButtonListener is a gesture listener specifically for trivia
- * buttons. When each button is clicked the listener will make calculations on each button.
+ * buttons. When each button is clicked the listener will check if the answer is correct, if it is
+ * then the score is calculated and passed to TriviaScoreManager.
  */
 
 public class TriviaButtonListener extends InputListener {
