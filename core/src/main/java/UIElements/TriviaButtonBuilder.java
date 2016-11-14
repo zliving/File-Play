@@ -51,7 +51,7 @@ public class TriviaButtonBuilder extends Game {
   private TextButton incorrectAnswerButton;
   private Array<TextButton> incorrectButtons;
   public Array<TriviaQuestion> newTriviaGame;
-  public Array<TextButton> questionSet;
+  public Array<TextButton> questionSetButtons;
   private Array<TextButton> shuffleButtonBlock;
   private boolean timerIsOn = false;
   private int timing =0;
@@ -145,10 +145,10 @@ public class TriviaButtonBuilder extends Game {
     if(questionNumber < newTriviaGame.size-1) {
       ++questionNumber;
       stage.clear();
-      questionSet = generateButtons(newTriviaGame.get(questionNumber));
+      questionSetButtons = generateButtons(newTriviaGame.get(questionNumber));
       addListener();
-      for (int i = 0; i < questionSet.size; i++) {
-        stage.addActor(questionSet.get(i));
+      for (int i = 0; i < questionSetButtons.size; i++) {
+        stage.addActor(questionSetButtons.get(i));
       }
       Gdx.input.setInputProcessor(stage);
     } else {
@@ -163,11 +163,11 @@ public class TriviaButtonBuilder extends Game {
     stage = new Stage();
     // On the creation of the class build the trivia buttons and add them to the stage.
     newTriviaGame = generateTriviaData("");
-    questionSet = generateButtons(newTriviaGame.get(questionNumber));
+    questionSetButtons = generateButtons(newTriviaGame.get(questionNumber));
     addListener();
     stage.clear();
-    for (int i = 0; i < questionSet.size; i++) {
-      stage.addActor(questionSet.get(i));
+    for (int i = 0; i < questionSetButtons.size; i++) {
+      stage.addActor(questionSetButtons.get(i));
     }
     Gdx.input.setInputProcessor(stage);
 

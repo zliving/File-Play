@@ -17,39 +17,40 @@ import UIElements.TriviaButtonBuilder;
 
 public class TriviaButtonListener extends InputListener {
 
-  TriviaButtonBuilder builderClass;
-  Array<TriviaQuestion> newTriviaGame;
-  public Array<TextButton> questionSet;
+  TriviaButtonBuilder triviaButtonBuilder;
+  Array<TriviaQuestion> newTriviaGameQuestions;
+  public Array<TextButton> questionSetButtons;
   private int index;
   private int buttonNumber;
   private TriviaScoreManager scoreManager;
 
-  public TriviaButtonListener(TriviaButtonBuilder builderClass, int index, int buttonNumber,
+  public TriviaButtonListener(TriviaButtonBuilder triviaButtonBuilder, int index, int buttonNumber,
                               TriviaScoreManager scoreManager) {
-    this.builderClass = builderClass;
-    this.newTriviaGame= builderClass.newTriviaGame;
-    this.questionSet = builderClass.questionSet;
+    this.triviaButtonBuilder = triviaButtonBuilder;
+    this.newTriviaGameQuestions= triviaButtonBuilder.newTriviaGame;
+    this.questionSetButtons = triviaButtonBuilder.questionSetButtons;
     this.index = index;
     this.buttonNumber = buttonNumber;
     this.scoreManager = scoreManager;
   }
 
   public void disableButtons() {
-    for(int i=0; i<questionSet.size; i++) {
-      questionSet.get(i).setDisabled(true);
+    for(int i=0; i<questionSetButtons.size; i++) {
+      questionSetButtons.get(i).setDisabled(true);
     }
   }
 
   // Check if there is an initial button pressed.
   public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-    String correctAnswer = newTriviaGame.get(index).correctAnswer;
-    String selectedAnswer = questionSet.get(buttonNumber).getText().toString();
+    String correctAnswer = newTriviaGameQuestions.get(index).correctAnswer;
+    String selectedAnswer = questionSetButtons.get(buttonNumber).getText().toString();
     // Check if the answer is correct and there hasn't been a click registered yet.
-    if(selectedAnswer.compareTo(correctAnswer) == 0 && !questionSet.get(buttonNumber).isDisabled()) {
-      scoreManager.setPlayerScore(10*(15-builderClass.timePassed));
+    if(selectedAnswer.compareTo(correctAnswer) == 0 && !questionSetButtons.get(buttonNumber).isDisabled()) {
+      scoreManager.setPlayerScore(10*(15-triviaButtonBuilder.timePassed));
       System.out.println("The answer is correct, current score is: " + scoreManager.getPlayerScore());
       disableButtons();
-    } else if(!questionSet.get(buttonNumber).isDisabled()) {
+    } else if(!questionSetButtons.get(buttonNumber).isDisabled()) {
+      System.out.println("The answer is incorrect.");
       System.out.println("The answer is incorrect.");
       disableButtons();
     }
