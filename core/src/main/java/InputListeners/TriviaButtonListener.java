@@ -1,6 +1,7 @@
 package InputListeners;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -47,12 +48,13 @@ public class TriviaButtonListener extends InputListener {
     String selectedAnswer = questionSetButtons.get(buttonNumber).getText().toString();
     // Check if the answer is correct and there hasn't been a click registered yet.
     if(selectedAnswer.compareTo(correctAnswer) == 0 && !questionSetButtons.get(buttonNumber).isDisabled()) {
-      scoreManager.setPlayerScore(10*(15-triviaButtonBuilder.timePassed));
+      scoreManager.setPlayerScore(10*(int)(15-triviaButtonBuilder.timePassed));
       System.out.println("The answer is correct, current score is: " + scoreManager.getPlayerScore());
+      questionSetButtons.get(buttonNumber).setColor(Color.GREEN);
       disableButtons();
     } else if(!questionSetButtons.get(buttonNumber).isDisabled()) {
       System.out.println("The answer is incorrect.");
-      System.out.println("The answer is incorrect.");
+      questionSetButtons.get(buttonNumber).setColor(Color.RED);
       disableButtons();
     }
 
