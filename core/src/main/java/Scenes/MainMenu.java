@@ -2,7 +2,6 @@ package Scenes;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -20,6 +19,8 @@ public class MainMenu extends BaseScreen {
   private TextButton playButton;
   private TextButton leaderboardsButton;
   private TextButton settingsButton;
+  private final int BUTTON_HEIGHT = 50;
+  private final int BUTTON_WIDTH = 250;
 
   /**
    * MainMenu takes in mainGame so that it may use it to change states.
@@ -46,11 +47,9 @@ public class MainMenu extends BaseScreen {
   @Override
   public void render(float delta) {
     super.render(delta);
-    // This tells LibGDX's 3D engine how to render in 2D.
-    spriteBatch.setProjectionMatrix(camera.combined);
+    stage.act();
+    stage.draw();
     spriteBatch.begin();
-    // Draws the banner.
-    spriteBatch.draw(new Sprite(banner), 0, 720);
     // Draws the text "Main Menu" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.end();
@@ -64,17 +63,23 @@ public class MainMenu extends BaseScreen {
     TextButtonStyle style = new TextButtonStyle();
     // Sets the skin for when the button is not pressed and when it is. The argument that is passed
     // is searched for in the atlas within the buttonSkin object.
-    style.up = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
-    style.down = buttonSkin.getDrawable("heavy-sat-yellow-246x46");
+    style.up = buttonSkin.getDrawable("nano yellow");
+    style.down = buttonSkin.getDrawable("nano yellow");
     style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
     // Creates the three buttons using the style specified above.
     playButton = new TextButton("Play", style);
     leaderboardsButton = new TextButton("Leaderboards", style);
     settingsButton = new TextButton("Settings", style);
-    // Sets the location for each of the buttons.
+    // Sets the location and height for each of the buttons.
     playButton.setPosition(120, 400);
+    playButton.setHeight(BUTTON_HEIGHT);
+    playButton.setWidth(BUTTON_WIDTH);
     leaderboardsButton.setPosition(120, 300);
+    leaderboardsButton.setHeight(BUTTON_HEIGHT);
+    leaderboardsButton.setWidth(BUTTON_WIDTH);
     settingsButton.setPosition(120, 200);
+    settingsButton.setHeight(BUTTON_HEIGHT);
+    settingsButton.setWidth(BUTTON_WIDTH);
   }
 
   /**

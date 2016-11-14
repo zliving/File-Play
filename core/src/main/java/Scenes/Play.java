@@ -1,10 +1,8 @@
 package Scenes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.mygdx.game.FilePlayMain;
@@ -17,7 +15,6 @@ import UIElements.TriviaButtonBuilder;
  * where the actual gameplay will occur.
  */
 public class Play extends BaseScreen {
-  private final Texture playMockUp;
   private ButtonActor backButton;
   private final int glyphCenterX;
   private TriviaButtonBuilder newTriviaGame;
@@ -42,10 +39,9 @@ public class Play extends BaseScreen {
   @Override
   public void render(float delta) {
     super.render(delta);
-    spriteBatch.setProjectionMatrix(camera.combined);
+    stage.act(delta);
+    stage.draw();
     spriteBatch.begin();
-    // Draws the banner.
-    spriteBatch.draw(new Sprite(banner), 0, 720);
     // Draws the text "Play" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     // Draws a sprite using the playMockUp texture  located at (65, 300) of the native
@@ -61,7 +57,7 @@ public class Play extends BaseScreen {
   @Override
   public void createButtons() {
     // Creates back button at the given location to go back a screen.
-    backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 400, 735);
+    backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 0, 735);
   }
 
   /**

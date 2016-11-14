@@ -8,12 +8,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.FilePlayMain;
 
@@ -26,8 +28,8 @@ public abstract class BaseScreen implements Screen {
   protected final OrthographicCamera camera;
   protected final FilePlayMain mainGame;
   protected final Stage stage;
-  protected final TextureAtlas buttonAtlas;
-  protected final Texture banner;
+  protected TextureAtlas buttonAtlas;
+  protected final Sprite banner;
   protected GlyphLayout bannerTextGlyphLayout;
   protected BitmapFont bannerText;
   protected Skin buttonSkin;
@@ -48,17 +50,17 @@ public abstract class BaseScreen implements Screen {
   BaseScreen(FilePlayMain mainGame) {
     this.mainGame = mainGame;
     spriteBatch = new SpriteBatch();
-    // Initializes the banner Texture.
-    banner = new Texture(Gdx.files.internal("banner - HSYB-Long.png"));
     // Creates new FreeTypeFontParameter to modify fonts.
     parameter = new FreeTypeFontParameter();
     // Creates BitmapFont for the text that is going to be in the center of the banner.
     bannerText = new BitmapFont();
-    bannerText = generateNewFont("VacationPostcardNF.ttf", 36, Color.BLACK);
+    bannerText = generateNewFont("BROADSolid.ttf", 36, Color.BLACK);
     // Creates an atlas object which can use all the textures within it. Each screen will have
     // access to the atlas in order to create button skins from it.
-    buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
+    buttonAtlas = new TextureAtlas(Gdx.files.internal("buttonAtlas.pack"));
     buttonSkin = new Skin();
+    // Initializes the banner Sprite.
+    banner = buttonAtlas.createSprite("banner - plain");
     // Adds all the regions from the atlas so that it can getDrawable using the name of each
     // texture.
     buttonSkin.addRegions(buttonAtlas);
@@ -81,9 +83,11 @@ public abstract class BaseScreen implements Screen {
   public void render(float delta) {
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    // This is equivalent to updating actors that are added to the stage.
-    stage.act();
-    stage.draw();
+    spriteBatch.setProjectionMatrix(camera.combined);
+    spriteBatch.begin();
+    // Draw the banner at the top of the screen.
+    spriteBatch.draw(banner, 0, 720);
+    spriteBatch.end();
   }
 
   /**
@@ -135,6 +139,29 @@ public abstract class BaseScreen implements Screen {
     parameter.color = color;
     generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/" + fontPath));
     return generator.generateFont(parameter);
+  }
+
+  /**
+   * This method returns the x value of 'offset' from the right end of 'button'.
+   *
+   * @param button the button to calculate the offset from
+   * @param offset the offset from the right end that is desired.
+   * @return the x coordinate 'offset' pixels from the right end of 'button'
+   */
+  protected float getButtonXOffset(TextButton button, float offset){
+    return button.getX() + button.getWidth() + offset;
+  }
+
+  /**
+   * This method returns the y value of 'offset' from the bottom end of 'button' using an offset of
+   * -('button' height + offset) from the bottom end of 'button'
+   *
+   * @param button the button to calculate the offset from
+   * @param offset the offset from the bottom end that is desired.
+   * @return the y coordinate 'offset' pixels from the bottom end of 'button'
+   */
+  protected float getButtonYOffset(TextButton button, float offset){
+    return button.getY() - (button.getHeight() + offset);
   }
 
   protected abstract void addAllActors();

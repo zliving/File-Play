@@ -1,11 +1,8 @@
 package Scenes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -22,7 +19,6 @@ import UIElements.ButtonActor;
 public class Leaderboards extends BaseScreen {
   // This is for the back button on the banner to go back a screen.
   private ButtonActor backButton;
-  private final Texture leaderboardsMockUp;
   private final int glyphCenterX;
 
 
@@ -37,7 +33,6 @@ public class Leaderboards extends BaseScreen {
     bannerTextGlyphLayout = new GlyphLayout(bannerText, "Leaderboards");
     // Calculate the center in terms of x for the GlyphLayout.
     glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
-    leaderboardsMockUp = new Texture(Gdx.files.internal("leaderboards_mockup.png"));
     createButtons();
     addAllListeners();
     addAllActors();
@@ -46,15 +41,11 @@ public class Leaderboards extends BaseScreen {
   @Override
   public void render(float delta) {
     super.render(delta);
-    spriteBatch.setProjectionMatrix(camera.combined);
+    stage.act(delta);
+    stage.draw();
     spriteBatch.begin();
-    // Draws the banner as a texture located at the top.
-    spriteBatch.draw(new Sprite(banner), 0, 720);
     // Draws the text "Leaderboards" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
-    // Draws a sprite using the leaderboardsMockUp texture located at (65, 300) of the native
-    // resolution 480 by 800.
-    spriteBatch.draw(new Sprite(leaderboardsMockUp), 65, 300);
     spriteBatch.end();
   }
 
@@ -63,7 +54,7 @@ public class Leaderboards extends BaseScreen {
    */
   @Override
   protected void createButtons() {
-    backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 400, 735);
+    backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 0, 735);
   }
 
   /**
