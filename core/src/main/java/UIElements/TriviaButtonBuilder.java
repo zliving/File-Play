@@ -2,8 +2,9 @@ package UIElements;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -35,17 +36,14 @@ public class TriviaButtonBuilder extends Game {
   private Stage stage;
   // TextButton is the standard actor we will use to display any text on the buttons.
   // These buttons have a their own listeners and states
-  TextButton button;
+  protected Skin buttonSkin;
   // TextButtonStyle allows us to change the look of the button based on its state
   private TextButton.TextButtonStyle textButtonStyle;
   // Allows us to place a created font on the buttons
-  private BitmapFont font;
   // The Skin allows us to dynamically change how the buttons look.
-  private Skin skin;
   // This is how we will use textures as they will be in one file and we use
   // The atlas to get regions of the texture pack to place as single textures
   TextureAtlas buttonAtlas;
-  String question;
   protected static final float WORLD_WIDTH = 480;
   protected static final float WORLD_HEIGHT = 800;
   private static final float xButtonPosition = 50;
@@ -60,8 +58,8 @@ public class TriviaButtonBuilder extends Game {
   public Array<TriviaQuestion> newTriviaGame;
   public Array<TextButton> questionSetButtons;
   private Array<TextButton> shuffleButtonBlock;
-  private boolean timerIsOn = false;
-  private int timing =0;
+  private FreeTypeFontGenerator fontGenerator;
+  private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
   public long startTime =0;
   public long timePassed;
   private TriviaScoreManager newGameScore;
@@ -81,27 +79,32 @@ public class TriviaButtonBuilder extends Game {
   }
 
   private Array<TextButton> generateButtons(TriviaQuestion currentQuestion) {
-    font = new BitmapFont();
-    skin = new Skin();
-    //buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/buttons.pack"));
-    //skin.addRegions(buttonAtlas);
+    fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    fontParameter.size = 30;
+    fontParameter.color = Color.BLACK;
+    fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Rampung.ttf"));
+    fontGenerator.generateFont(fontParameter);
+    buttonSkin = new Skin();
+    buttonAtlas = new TextureAtlas(Gdx.files.internal("buttonAtlas.pack"));
+    buttonSkin.addRegions(buttonAtlas);
     textButtonStyle = new TextButton.TextButtonStyle();
-    textButtonStyle.font = font;
-    //textButtonStyle.up = skin.getDrawable("up-button");
-    //textButtonStyle.down = skin.getDrawable("down-button");
-    //textButtonStyle.checked = skin.getDrawable("checked-button");
-    //button = new TextButton("Button1", textButtonStyle);
+    textButtonStyle.font = fontGenerator.generateFont(fontParameter);;
+    textButtonStyle.up = buttonSkin.getDrawable("nano yellow");
+
 
     // Generate new array of TextButtons for each question.
     // Build static buttons for the correct answer and question.
     newQuestionBlock = new Array<TextButton>();
     questionButton = new TextButton(currentQuestion.question, textButtonStyle);
     questionButton.setPosition(xButtonPosition, yButtonPosition);
+      questionButton.setHeight(200);
+      questionButton.setWidth(300);
       questionButton.getLabelCell().width(300);
-      questionButton.getLabelCell().left();
+      questionButton.getLabelCell().height(200);
+      questionButton.getLabelCell().center();
       questionButton.getLabel().setWrap(true);
       questionButton.invalidate();
-    yButtonPosition -= questionButton.getHeight()+50;
+    yButtonPosition -= questionButton.getHeight()/3;
     correctAnswerButton = new TextButton(currentQuestion.correctAnswer, textButtonStyle);
     //correctAnswerButton.setPosition(xButtonPosition, yButtonPosition);
    // yButtonPosition -= questionButton.getHeight();
@@ -189,7 +192,6 @@ public class TriviaButtonBuilder extends Game {
   public void render() {
     // Count the time between each question that is presented.
     timePassed = (System.currentTimeMillis() - startTime) / 1000;
-    //System.out.println("Time elapsed in seconds = " + timePassed);
     if(timePassed > 15 ) {
       startTime = System.currentTimeMillis();
       updateTriviaButtons();
