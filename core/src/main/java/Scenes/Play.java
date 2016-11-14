@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.mygdx.game.FilePlayMain;
 
 import UIElements.ButtonActor;
+import UIElements.TriviaButtonBuilder;
 
 /**
  * The play screen will be where two users answer trivia questions retrieved from the database and
@@ -19,6 +20,7 @@ public class Play extends BaseScreen {
   private final Texture playMockUp;
   private ButtonActor backButton;
   private final int glyphCenterX;
+  private TriviaButtonBuilder newTriviaGame;
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Play should operate in the same way
@@ -31,6 +33,7 @@ public class Play extends BaseScreen {
     // Calculate the center in terms of x for the glyph.
     glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
     playMockUp = new Texture(Gdx.files.internal("play_mockup.png"));
+    newTriviaGame = new TriviaButtonBuilder();
     createButtons();
     addAllListeners();
     addAllActors();
@@ -47,7 +50,8 @@ public class Play extends BaseScreen {
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     // Draws a sprite using the playMockUp texture  located at (65, 300) of the native
     // resolution 480 by 800.
-    spriteBatch.draw(new Sprite(playMockUp), 65, 300);
+    //spriteBatch.draw(new Sprite(playMockUp), 65, 300);
+    newTriviaGame.render();
     spriteBatch.end();
   }
 
