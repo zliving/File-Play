@@ -1,0 +1,210 @@
+
+buttonAtlas.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+banner - back button
+  rotate: false
+  xy: 1, 927
+  size: 480, 80
+  orig: 480, 80
+  offset: 0, 0
+  index: -1
+banner - plain - blue
+  rotate: false
+  xy: 1, 845
+  size: 480, 80
+  orig: 480, 80
+  offset: 0, 0
+  index: -1
+banner - plain - cyan
+  rotate: false
+  xy: 1, 763
+  size: 480, 80
+  orig: 480, 80
+  offset: 0, 0
+  index: -1
+banner - plain - green
+  rotate: false
+  xy: 1, 681
+  size: 480, 80
+  orig: 480, 80
+  offset: 0, 0
+  index: -1
+banner - plain - indigo
+  rotate: false
+  xy: 1, 599
+  size: 480, 80
+  orig: 480, 80
+  offset: 0, 0
+  index: -1
+banner - plain - orange
+  rotate: false
+  xy: 1, 517
+  size: 480, 80
+  orig: 480, 80
+  offset: 0, 0
+  index: -1
+banner - plain - pink
+  rotate: false
+  xy: 1, 435
+  size: 480, 80
+  orig: 480, 80
+  offset: 0, 0
+  index: -1
+banner - plain - red
+  rotate: false
+  xy: 1, 353
+  size: 480, 80
+  orig: 480, 80
+  offset: 0, 0
+  index: -1
+banner - plain
+  rotate: false
+  xy: 1, 271
+  size: 480, 80
+  orig: 480, 80
+  offset: 0, 0
+  index: -1
+ring BR
+  rotate: false
+  xy: 1, 1
+  size: 275, 268
+  orig: 275, 268
+  offset: 0, 0
+  index: -1
+black back button
+  rotate: false
+  xy: 278, 221
+  size: 61, 48
+  orig: 61, 48
+  offset: 0, 0
+  index: -1
+nano blue pressed
+  rotate: false
+  xy: 483, 981
+  size: 26, 26
+  split: 13, 12, 13, 12
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano blue
+  rotate: false
+  xy: 278, 193
+  size: 26, 26
+  split: 13, 12, 12, 13
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano cyan pressed
+  rotate: false
+  xy: 341, 243
+  size: 26, 26
+  split: 13, 12, 13, 12
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano cyan
+  rotate: false
+  xy: 483, 953
+  size: 26, 26
+  split: 12, 13, 11, 14
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano green pressed
+  rotate: false
+  xy: 278, 165
+  size: 26, 26
+  split: 13, 12, 13, 12
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano green
+  rotate: false
+  xy: 306, 193
+  size: 26, 26
+  split: 12, 13, 12, 13
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano indigo pressed
+  rotate: false
+  xy: 369, 243
+  size: 26, 26
+  split: 13, 12, 13, 12
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano indigo
+  rotate: false
+  xy: 483, 925
+  size: 26, 26
+  split: 12, 13, 12, 13
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano orange pressed
+  rotate: false
+  xy: 278, 137
+  size: 26, 26
+  split: 13, 12, 13, 12
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano orange
+  rotate: false
+  xy: 306, 165
+  size: 26, 26
+  split: 13, 12, 12, 13
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano pink pressed
+  rotate: false
+  xy: 397, 243
+  size: 26, 26
+  split: 13, 12, 13, 12
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano pink
+  rotate: false
+  xy: 483, 897
+  size: 26, 26
+  split: 12, 13, 12, 13
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano red pressed
+  rotate: false
+  xy: 278, 109
+  size: 26, 26
+  split: 13, 12, 13, 12
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano red
+  rotate: false
+  xy: 306, 137
+  size: 26, 26
+  split: 13, 12, 12, 13
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano yellow pressed
+  rotate: false
+  xy: 425, 243
+  size: 26, 26
+  split: 13, 12, 13, 12
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+nano yellow
+  rotate: false
+  xy: 483, 869
+  size: 26, 26
+  split: 12, 13, 12, 13
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
