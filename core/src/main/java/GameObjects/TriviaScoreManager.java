@@ -7,14 +7,14 @@ package GameObjects;
  */
 
 public class TriviaScoreManager {
-  private float playerScore;
+  private int playerScore;
 
 
-  public void setPlayerScore(float addedScore) {
+  public void setPlayerScore(int addedScore) {
     playerScore += addedScore;
   }
 
-  public float getPlayerScore() {
+  public int getPlayerScore() {
     return playerScore;
   }
 
