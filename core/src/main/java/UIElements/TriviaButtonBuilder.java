@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 
 import GameObjects.TriviaQuestion;
 import GameObjects.TriviaQuestionBuilder;
+import GameObjects.TriviaScoreManager;
 import InputListeners.TriviaButtonListener;
 
 
@@ -53,8 +54,10 @@ public class TriviaButtonBuilder extends Game {
   public Array<TextButton> questionSet;
   private Array<TextButton> shuffleButtonBlock;
   private boolean timerIsOn = false;
-  int timing =0;
-  private long startTime =0;
+  private int timing =0;
+  public long startTime =0;
+  public long timePassed;
+  private TriviaScoreManager newGameScore;
 
   public TriviaButtonBuilder() {
     startTime = System.currentTimeMillis();
@@ -65,7 +68,7 @@ public class TriviaButtonBuilder extends Game {
 
     // Get an array of questions from the database.
     TriviaQuestionBuilder newTriviaGame = new TriviaQuestionBuilder();
-    url = "https://www.opentdb.com/api.php?amount=10&type=multiple";
+    url = "https://www.opentdb.com/api.php?amount=3&type=multiple";
 
     return newTriviaGame.getTriviaQuestions(url);
   }
@@ -133,25 +136,30 @@ public class TriviaButtonBuilder extends Game {
   private void addListener () {
     // Add the custom buttonListener to each button.
     for (int i = 1; i < shuffleButtonBlock.size; i++) {
-      buttonListener = new TriviaButtonListener(this, questionNumber, i);
+      buttonListener = new TriviaButtonListener(this, questionNumber, i, newGameScore);
       shuffleButtonBlock.get(i).addListener(buttonListener);
     }
   }
 
   private void updateTriviaButtons() {
-    ++questionNumber;
-    stage.clear();
-    questionSet = generateButtons(newTriviaGame.get(questionNumber));
-    addListener();
-    for (int i = 0; i < questionSet.size; i++) {
-      stage.addActor(questionSet.get(i));
+    if(questionNumber < newTriviaGame.size-1) {
+      ++questionNumber;
+      stage.clear();
+      questionSet = generateButtons(newTriviaGame.get(questionNumber));
+      addListener();
+      for (int i = 0; i < questionSet.size; i++) {
+        stage.addActor(questionSet.get(i));
+      }
+      Gdx.input.setInputProcessor(stage);
+    } else {
+      System.out.println("Games is over! Your score is: " + newGameScore.getPlayerScore());
     }
-    Gdx.input.setInputProcessor(stage);
 
   }
 
   @Override
   public void create() {
+    newGameScore = new TriviaScoreManager();
     stage = new Stage();
     // On the creation of the class build the trivia buttons and add them to the stage.
     newTriviaGame = generateTriviaData("");
@@ -173,7 +181,7 @@ public class TriviaButtonBuilder extends Game {
   @Override
   public void render() {
     // Count the time between each question that is presented.
-    long timePassed = (System.currentTimeMillis() - startTime) / 1000;
+    timePassed = (System.currentTimeMillis() - startTime) / 1000;
     //System.out.println("Time elapsed in seconds = " + timePassed);
     if(timePassed > 15 ) {
       startTime = System.currentTimeMillis();

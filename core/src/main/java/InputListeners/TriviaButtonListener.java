@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
 
 import GameObjects.TriviaQuestion;
+import GameObjects.TriviaScoreManager;
 import UIElements.TriviaButtonBuilder;
 
 /**
@@ -21,13 +22,16 @@ public class TriviaButtonListener extends InputListener {
   public Array<TextButton> questionSet;
   private int index;
   private int buttonNumber;
+  private TriviaScoreManager scoreManager;
 
-  public TriviaButtonListener(TriviaButtonBuilder builderClass, int index, int buttonNumber) {
+  public TriviaButtonListener(TriviaButtonBuilder builderClass, int index, int buttonNumber,
+                              TriviaScoreManager scoreManager) {
     this.builderClass = builderClass;
     this.newTriviaGame= builderClass.newTriviaGame;
     this.questionSet = builderClass.questionSet;
     this.index = index;
     this.buttonNumber = buttonNumber;
+    this.scoreManager = scoreManager;
   }
 
   public void disableButtons() {
@@ -40,9 +44,10 @@ public class TriviaButtonListener extends InputListener {
   public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
     String correctAnswer = newTriviaGame.get(index).correctAnswer;
     String selectedAnswer = questionSet.get(buttonNumber).getText().toString();
-    // Check if the answer is correct and there hasn't been a click registered yet. 
+    // Check if the answer is correct and there hasn't been a click registered yet.
     if(selectedAnswer.compareTo(correctAnswer) == 0 && !questionSet.get(buttonNumber).isDisabled()) {
-      System.out.println("The answer is correct");
+      scoreManager.setPlayerScore(10*(15-builderClass.timePassed));
+      System.out.println("The answer is correct, current score is: " + scoreManager.getPlayerScore());
       disableButtons();
     } else if(!questionSet.get(buttonNumber).isDisabled()) {
       System.out.println("The answer is incorrect.");
