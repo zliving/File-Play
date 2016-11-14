@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 
 import Scenes.BaseScreen;
+import Scenes.GameOverLobby;
 import Scenes.Leaderboards;
 import Scenes.Lobby;
 import Scenes.MainMenu;
@@ -25,7 +26,8 @@ public class FilePlayMain extends ApplicationAdapter {
     PLAY,
     LOBBY,
     LEADERBOARDS,
-    TEST
+    TEST,
+    GAMEOVERLOBBY
   }
 
   @Override
@@ -80,6 +82,8 @@ public class FilePlayMain extends ApplicationAdapter {
       case TEST:
         currentScreen = new Test(this);
         break;
+      case GAMEOVERLOBBY:
+        currentScreen = new GameOverLobby(this);
       default:
         currentScreen = new MainMenu(this);
         break;
