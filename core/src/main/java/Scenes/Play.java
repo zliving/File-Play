@@ -29,7 +29,6 @@ public class Play extends BaseScreen {
     bannerTextGlyphLayout = new GlyphLayout(bannerText, "Play");
     // Calculate the center in terms of x for the glyph.
     glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
-    playMockUp = new Texture(Gdx.files.internal("play_mockup.png"));
     newTriviaGame = new TriviaButtonBuilder();
     createButtons();
     addAllListeners();
