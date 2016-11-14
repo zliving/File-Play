@@ -114,11 +114,7 @@ public class Test extends BaseScreen implements Screen, GestureDetector.GestureL
   @Override
   public void pinchStop() {
   }
-
-  @Override
-  public void createButtons() {
-
-  }
+  
 
 
 }
