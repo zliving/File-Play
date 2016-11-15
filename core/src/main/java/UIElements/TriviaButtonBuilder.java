@@ -46,7 +46,7 @@ public class TriviaButtonBuilder extends Game {
   TextureAtlas buttonAtlas;
   protected static final float WORLD_WIDTH = 480;
   protected static final float WORLD_HEIGHT = 800;
-  private static final float xButtonPosition = 50;
+  private static final float xButtonPosition = (480-300)/2;
   private float yButtonPosition = 400;
   private int questionNumber = 0;
   private TriviaButtonListener buttonListener;
@@ -73,7 +73,7 @@ public class TriviaButtonBuilder extends Game {
 
     // Get an array of questions from the database.
     TriviaQuestionBuilder newTriviaGame = new TriviaQuestionBuilder();
-    url = "https://www.opentdb.com/api.php?amount=3&type=multiple";
+    url = "https://www.opentdb.com/api.php?amount=5&type=multiple";
 
     return newTriviaGame.getTriviaQuestions(url);
   }
@@ -85,7 +85,7 @@ public class TriviaButtonBuilder extends Game {
     fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Rampung.ttf"));
     fontGenerator.generateFont(fontParameter);
     buttonSkin = new Skin();
-    buttonAtlas = new TextureAtlas(Gdx.files.internal("buttonAtlas.pack"));
+    buttonAtlas = new TextureAtlas(Gdx.files.internal("final atlas 5.pack"));
     buttonSkin.addRegions(buttonAtlas);
     textButtonStyle = new TextButton.TextButtonStyle();
     textButtonStyle.font = fontGenerator.generateFont(fontParameter);;
@@ -106,6 +106,11 @@ public class TriviaButtonBuilder extends Game {
       questionButton.invalidate();
     yButtonPosition -= questionButton.getHeight()/3;
     correctAnswerButton = new TextButton(currentQuestion.correctAnswer, textButtonStyle);
+    correctAnswerButton.getLabelCell().width(300);
+    correctAnswerButton.setWidth(300);
+    correctAnswerButton.getLabelCell().center();
+    correctAnswerButton.getLabel().setWrap(true);
+    correctAnswerButton.invalidate();
     //correctAnswerButton.setPosition(xButtonPosition, yButtonPosition);
    // yButtonPosition -= questionButton.getHeight();
 
@@ -117,6 +122,11 @@ public class TriviaButtonBuilder extends Game {
     incorrectButtons = new Array<TextButton>();
     for (int i = 0; i < currentQuestion.incorrectAnswers.length; i++) {
       incorrectAnswerButton = new TextButton(currentQuestion.incorrectAnswers[i], textButtonStyle);
+      incorrectAnswerButton.getLabelCell().width(300);
+      incorrectAnswerButton.setWidth(300);
+      incorrectAnswerButton.getLabelCell().center();
+      incorrectAnswerButton.getLabel().setWrap(true);
+      incorrectAnswerButton.invalidate();
       //incorrectAnswerButton.setPosition(xButtonPosition, yButtonPosition);
       //yButtonPosition -= incorrectAnswerButton.getHeight();
       newQuestionBlock.add(incorrectAnswerButton);
