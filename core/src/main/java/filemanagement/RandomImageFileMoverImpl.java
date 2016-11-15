@@ -50,7 +50,7 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
       do {
         int sourceFileIndex = randomNumberGenerator.nextInt(galleryFiles.length);
         sourceFile = galleryFiles[sourceFileIndex];
-      } while (sourceFile.getFilePath().equals(hiddenFolder.getFilePath()));
+      } while (sourceFile.isDirectory());
       // Get the file pathname for the destination, and get a FileWrapper for that pathname.
       String destinationPath = hiddenFolder.getFilePath() + "/" + sourceFile.getFileName();
 
@@ -98,5 +98,24 @@ public class RandomImageFileMoverImpl implements RandomImageFileMover {
       // The RNG returned a number other than the magic 'moveNumber', so just return here.
       return false;
     }
+  }
+
+  @Override
+  public boolean restoreAll() {
+    FileWrapper imageGallery = fileFactory.getGalleryFile();
+    FileWrapper hiddenFolder =
+        fileFactory.createFile(imageGallery.getFilePath() + "/" + hiddenFolderName);
+
+    FileWrapper[] hiddenFiles = hiddenFolder.getFileList();
+
+    for (FileWrapper file : hiddenFiles) {
+      String destinationPath = imageGallery.getFilePath() + "/" + file.getFileName();
+
+      FileWrapper destinationFile = fileFactory.createFile(destinationPath);
+
+      file.move(destinationFile);
+    }
+
+    return hiddenFiles.length != 0;
   }
 }

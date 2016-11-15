@@ -10,7 +10,3 @@ sourceSets.test.java.srcDirs = ["src/test/java/"]
 eclipse.project {
     name = appName + "-core"
 }
-
-dependencies {
-    compile 'com.mobidevelop.robovm:robovm-rt:2.2.0'
-}

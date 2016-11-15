@@ -16,4 +16,10 @@ interface RandomImageFileMover {
    * Moves a random file from the hidden folder to the image gallery.
    */
   boolean restoreRandom();
+
+  /*
+   * Returns true if all hidden files are restored, returns false otherwise.
+   * Moves all files in the hidden folder to the image gallery.
+   */
+  boolean restoreAll();
 }

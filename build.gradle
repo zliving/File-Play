@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:2.2.2'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.2.0'
         classpath "com.neenbedankt.gradle.plugins:android-apt:1.8"
     }
@@ -42,6 +42,9 @@ project(":desktop") {
         compile project(":core")
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+
+        // FreeTypeFont dependency
+        compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
     }
 }
 
@@ -62,6 +65,14 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
+
+        // FreeTypeFont dependency
+        compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi-v7a"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
     }
 }
 
@@ -91,6 +102,10 @@ project(":core") {
         // Test dependencies.
         testCompile "junit:junit:4.11"
         testCompile "org.mockito:mockito-core:2.0.57-beta"
+
+        //FreeTypeFont dependencies
+        compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+
     }
 }
 

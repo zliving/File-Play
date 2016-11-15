@@ -1,76 +1,41 @@
 package Scenes;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.mygdx.game.FilePlayMain;
 
-import UIElements.Button;
+
+import UIElements.ButtonActor;
 
 /**
- * TODO(Chris): Refactor world width, height, batch, and ratios into Game class.
- * TODO(Chris): Include relative offsets and spacing.
- * MainMenu will display the main menu screen of the game with buttons that transition them into
+ * MainMenu displays the main menu screen of the game with buttons that transition them into
  * appropriate screens from the main menu.
  */
-class MainMenu implements Screen, GestureDetector.GestureListener {
-  private final Button playButton;
-  private final Button leaderBoardsButton;
-  private final Button settingsButton;
-  private final SpriteBatch spriteBatch;
-  private final OrthographicCamera camera;
-  private final GestureDetector gestureDetector;
-  private final BitmapFont mainMenuText;
-  private final ScreenManager screenManager;
-  private final Viewport viewport;
-  // This is the native screen size that will be the reference for everything placed on the screen.
-  private static final float WORLD_WIDTH = 480;
-  private static final float WORLD_HEIGHT = 800;
-  // Ratio of world units and pixels of a screen.
-  private float HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
-  private float WidthWorldPixelRatio = WORLD_WIDTH / Gdx.graphics.getWidth();
+public class MainMenu extends BaseScreen {
+  private TextButton playButton;
+  private TextButton leaderboardsButton;
+  private TextButton settingsButton;
+  private final int BUTTON_HEIGHT = 50;
+  private final int BUTTON_WIDTH = 250;
 
   /**
-   * MainMenu takes a ScreenManager so that it may use it to change states.
+   * MainMenu takes in mainGame so that it may use it to change states.
    *
-   * @param screenManager a reference to a ScreenManager in order to change screens.
+   * @param mainGame a reference to the main game in order to change screens.
    */
-  public MainMenu(ScreenManager screenManager) {
-    this.screenManager = screenManager;
-    // Creates a button using the given texture at (120, 400) of the native resolution 480
-    // by 800.
-    playButton = new Button(new Texture(Gdx.files.internal("play_button.png")), 120, 400);
-    // Creates a button using the given texture at (120, 300) of the native resolution
-    // 480 by 800.
-    leaderBoardsButton = new Button(new Texture(Gdx.files.internal("leaderboards_button.png")),
-            120, 300);
-    // Creates a button using the given texture at (120, 200) of the native resolution 480
-    // by 800.
-    settingsButton = new Button(new Texture(Gdx.files.internal("options_button.png")), 120, 200);
-    spriteBatch = new SpriteBatch();
-    mainMenuText = new BitmapFont();
-    mainMenuText.setColor(Color.YELLOW);
-    camera = new OrthographicCamera();
-    // This creates a viewport of the screen using the camera.
-    viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-    viewport.apply();
-    // This centers the camera at the center of the viewport.
-    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-    // Set up listener for events happening on the screen.
-    gestureDetector = new GestureDetector(this);
-    Gdx.input.setInputProcessor(gestureDetector);
-  }
-
-  @Override
-  public void show() {
+  public MainMenu(FilePlayMain mainGame) {
+    super(mainGame);
+    // Creates GlyphLayout to get width for centering text in the banner.
+    bannerTextGlyphLayout = new GlyphLayout(bannerText, "Main Menu");
+    // Calculate the center for the text to be drawn in the banner.
+    glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
+    createButtons();
+    addAllListeners();
+    addAllActors();
   }
 
   /**
@@ -81,117 +46,81 @@ class MainMenu implements Screen, GestureDetector.GestureListener {
    */
   @Override
   public void render(float delta) {
-    camera.update();
-    Gdx.gl.glClearColor(0, 0, 0, 1);
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    // This tells LibGDX's 3D engine how to render in 2D.
-    spriteBatch.setProjectionMatrix(camera.combined);
+    super.render(delta);
+    stage.act();
+    stage.draw();
     spriteBatch.begin();
-    spriteBatch.draw(playButton.getSprite(), playButton.getX(), playButton.getY());
-    spriteBatch.draw(leaderBoardsButton.getSprite(), leaderBoardsButton.getX(),
-            leaderBoardsButton.getY());
-    spriteBatch.draw(settingsButton.getSprite(), settingsButton.getX(), settingsButton.getY());
-    // Draws the text "Main Menu" at the location (20, 750) of the native screen resolution 480 by
-    // 800.
-    mainMenuText.draw(spriteBatch, "Main Menu", 20, 750);
+    // Draws the text "Main Menu" in the center of the banner.
+    bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     spriteBatch.end();
   }
 
   /**
-   * The resize method updates the viewport and camera in the case that the window is resized.
-   *
-   * @param width width that window is resized to
-   * @param height height that window is resized to
+   * Creates all of the buttons that will be drawn to the screen.
    */
   @Override
-  public void resize(int width, int height) {
-    viewport.update(width, height);
-    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+  protected void createButtons() {
+    TextButtonStyle style = new TextButtonStyle();
+    // Sets the skin for when the button is not pressed and when it is. The argument that is passed
+    // is searched for in the atlas within the buttonSkin object.
+    style.up = buttonSkin.getDrawable("nano yellow");
+    style.down = buttonSkin.getDrawable("nano yellow");
+    style.font = generateNewFont("Rampung.ttf", 30, Color.BLACK);
+    // Creates the three buttons using the style specified above.
+    playButton = new TextButton("Play", style);
+    leaderboardsButton = new TextButton("Leaderboards", style);
+    settingsButton = new TextButton("Settings", style);
+    // Sets the location and height for each of the buttons.
+    playButton.setPosition(120, 400);
+    playButton.setHeight(BUTTON_HEIGHT);
+    playButton.setWidth(BUTTON_WIDTH);
+    leaderboardsButton.setPosition(120, 300);
+    leaderboardsButton.setHeight(BUTTON_HEIGHT);
+    leaderboardsButton.setWidth(BUTTON_WIDTH);
+    settingsButton.setPosition(120, 200);
+    settingsButton.setHeight(BUTTON_HEIGHT);
+    settingsButton.setWidth(BUTTON_WIDTH);
   }
-
-  @Override
-  public void pause() {
-  }
-
-  @Override
-  public void resume() {
-  }
-
-  @Override
-  public void hide() {
-  }
-
-  @Override
-  public void dispose() {
-    spriteBatch.dispose();
-    mainMenuText.dispose();
-  }
-
-  @Override
-  public boolean touchDown(float x, float y, int pointer, int button) {
-    return false;
-  }
-
 
   /**
-   * Tap is part of the GestureListener interface and gives the x and y pixel coordinates
-   * corresponding to a user's touch. Note that the coordinate system for tap refers to the upper
-   * left hand corner as the origin.
+   * This adds listeners to each of the buttons along with what to do upon being touched. A new
+   * InputListener is added inline overriding the touchDown method to determine what to do when
+   * touched.
    */
   @Override
-  public boolean tap(float x, float y, int count, int button) {
-    HeightWorldPixelRatio = WORLD_HEIGHT / (float) Gdx.graphics.getHeight();
-    WidthWorldPixelRatio = WORLD_WIDTH / (float) Gdx.graphics.getWidth();
-    float worldX = x * WidthWorldPixelRatio;
-    // Tap takes the upper left hand corner to be the origin (0, 0) therefore some correction
-    // must be made in order to pass into the isClicked method.
-    float correctedY = Gdx.graphics.getHeight() - y;
-    // Convert to world units.
-    float worldY = correctedY * HeightWorldPixelRatio;
-    if (playButton.isClicked(worldX, worldY)) {
-      System.out.println("Go to lobby");
-      screenManager.setState(ScreenManager.Screens.LOBBY);
-    } else if (leaderBoardsButton.isClicked(worldX, worldY)) {
-      System.out.println("Go to leaderboards");
-      screenManager.setState(ScreenManager.Screens.LEADERBOARDS);
-    } else if (settingsButton.isClicked(worldX, worldY)) {
-      System.out.println("Go to settings");
-      screenManager.setState(ScreenManager.Screens.SETTINGS);
-    }
-    return false;
+  protected void addAllListeners() {
+    playButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change to lobby screen.
+        mainGame.setScreen(FilePlayMain.ScreenType.LOBBY);
+        return true;
+      }
+    });
+    leaderboardsButton.addListener(new InputListener() {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change to leaderboards screen.
+        mainGame.setScreen(FilePlayMain.ScreenType.LEADERBOARDS);
+        return true;
+      }
+    });
+    settingsButton.addListener(new InputListener() {
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change to the settings screen.
+        mainGame.setScreen(FilePlayMain.ScreenType.SETTINGS);
+        return true;
+      }
+    });
   }
 
+  /**
+   * Adds all of the buttons to the stage so that they are drawn to the screen.
+   */
   @Override
-  public boolean longPress(float x, float y) {
-    return false;
-  }
-
-  @Override
-  public boolean fling(float velocityX, float velocityY, int button) {
-    return false;
-  }
-
-  @Override
-  public boolean pan(float x, float y, float deltaX, float deltaY) {
-    return false;
-  }
-
-  @Override
-  public boolean panStop(float x, float y, int pointer, int button) {
-    return false;
-  }
-
-  @Override
-  public boolean zoom(float initialDistance, float distance) {
-    return false;
-  }
-
-  @Override
-  public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-    return false;
-  }
-
-  @Override
-  public void pinchStop() {
+  protected void addAllActors() {
+    stage.addActor(playButton);
+    stage.addActor(leaderboardsButton);
+    stage.addActor(settingsButton);
   }
 }

@@ -37,6 +37,11 @@ public class AndroidFileWrapper implements FileWrapper {
     return returnList;
   }
 
+  @Override
+  public boolean isDirectory() {
+    return wrappedFile.isDirectory();
+  }
+
   /*
    * Uses the renameTo() method, which has to effect of moving a file when the paths point to files
    * in different directories.
