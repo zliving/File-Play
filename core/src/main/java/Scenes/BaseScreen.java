@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.FilePlayMain;
 
 /**
@@ -35,6 +36,7 @@ public abstract class BaseScreen implements Screen {
   protected Skin buttonSkin;
   private FreeTypeFontGenerator generator;
   private FreeTypeFontParameter parameter;
+  //public Music music;
 
   // This is the native screen size that will be the reference for everything placed on the screen.
   protected static final float WORLD_WIDTH = 480;
@@ -82,7 +84,7 @@ public abstract class BaseScreen implements Screen {
   @Override
   public void render(float delta) {
     // Sets the background to a medium dark shade of grey.
-    Gdx.gl.glClearColor(100/225.0f, 100/225.0f, 100/225.0f, 1);
+    Gdx.gl.glClearColor(64/225.0f, 64/225.0f, 64/225.0f, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
