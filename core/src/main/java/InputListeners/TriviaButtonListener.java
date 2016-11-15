@@ -49,6 +49,7 @@ public class TriviaButtonListener extends InputListener {
     // Check if the answer is correct and there hasn't been a click registered yet.
     if(selectedAnswer.compareTo(correctAnswer) == 0 && !questionSetButtons.get(buttonNumber).isDisabled()) {
       scoreManager.setPlayerScore(10*(int)(15-triviaButtonBuilder.timePassed));
+      scoreManager.correctlyAnswered = scoreManager.correctlyAnswered++;
       System.out.println("The answer is correct, current score is: " + scoreManager.getPlayerScore());
       questionSetButtons.get(buttonNumber).setColor(Color.GREEN);
       disableButtons();

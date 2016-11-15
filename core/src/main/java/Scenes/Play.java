@@ -9,6 +9,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.FilePlayMain;
 
+import GameObjects.TriviaScoreManager;
 import UIElements.ButtonActor;
 import UIElements.TriviaButtonBuilder;
 
@@ -45,6 +46,11 @@ public class Play extends BaseScreen {
     // Plays the song and loops it.
     music.play();
     music.setLooping(true);
+  }
+
+  public void goToEndGameScreen(TriviaScoreManager gameScore) {
+
+    mainGame.setScreen(FilePlayMain.ScreenType.GAMEOVERLOBBY);
   }
 
   @Override
