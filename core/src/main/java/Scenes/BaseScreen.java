@@ -142,6 +142,7 @@ public abstract class BaseScreen implements Screen {
     parameter.color = color;
     generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/" + fontPath));
     BitmapFont smoothFont = generator.generateFont(parameter);
+    // Linearly filter the text to prevent pixelation. 
     smoothFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     return smoothFont;
   }
