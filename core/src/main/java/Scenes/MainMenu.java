@@ -8,9 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.mygdx.game.FilePlayMain;
 
-
-import UIElements.ButtonActor;
-
 /**
  * MainMenu displays the main menu screen of the game with buttons that transition them into
  * appropriate screens from the main menu.

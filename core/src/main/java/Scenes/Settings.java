@@ -17,8 +17,8 @@ public class Settings extends BaseScreen {
   private ButtonActor backButton;
 
   /**
-   * Refer to MainMenu.java for comments regarding each section. Settings should operate in the same
-   * way with changes to the textures/sprites that must be drawn to the screen.
+   * Refer to MainMenu.java for comments regarding each section. Settings should operate in the
+   * same way with changes to the textures/sprites that must be drawn to the screen.
    */
   public Settings(FilePlayMain mainGame) {
     super(mainGame);

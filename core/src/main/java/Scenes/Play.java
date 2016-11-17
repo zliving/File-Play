@@ -20,8 +20,8 @@ public class Play extends BaseScreen {
   private TriviaButtonBuilder newTriviaGame;
 
   /**
-   * Refer to MainMenu.java for comments regarding each section. Play should operate in the same way
-   * with changes to the textures/sprites that must be drawn to the screen.
+   * Refer to MainMenu.java for comments regarding each section. Play should operate in the same
+   * way with changes to the textures/sprites that must be drawn to the screen.
    */
   public Play(FilePlayMain mainGame) {
     super(mainGame);

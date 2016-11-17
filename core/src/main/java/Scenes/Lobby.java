@@ -103,18 +103,18 @@ public class Lobby extends BaseScreen {
     style = setStyle("nano red", "nano red pressed");
     sportsButton = new TextButton("Sports", style);
     sportsButton.setPosition(getButtonXOffset(filmButton, OFFSET),
-            generalButton.getY());
+                             generalButton.getY());
     style = setStyle("nano orange", "nano orange pressed");
     televisionButton = new TextButton("Television", style);
     televisionButton.setPosition(generalButton.getX(), getButtonYOffset(generalButton, OFFSET));
     style = setStyle("nano pink", "nano pink pressed");
     videoGamesButton = new TextButton("Video Games", style);
     videoGamesButton.setPosition(getButtonXOffset(televisionButton, OFFSET),
-            getButtonYOffset(generalButton, OFFSET));
+                                 getButtonYOffset(generalButton, OFFSET));
     style = setStyle("nano indigo", "nano indigo pressed");
     musicButton = new TextButton("Music", style);
     musicButton.setPosition(getButtonXOffset(videoGamesButton, OFFSET),
-            getButtonYOffset(generalButton, OFFSET));
+                            getButtonYOffset(generalButton, OFFSET));
     style = setStyle("nano green", "nano green pressed");
     easyButton = new TextButton("Easy", style);
     easyButton.setPosition(generalButton.getX(), 380);
