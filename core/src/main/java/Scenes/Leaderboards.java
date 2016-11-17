@@ -67,7 +67,7 @@ public class Leaderboards extends BaseScreen {
     backButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        mainGame.setScreen(FilePlayMain.ScreenType.MAINMENU);
+        mainGame.setScreen(new MainMenu(mainGame));
         return true;
       }
     });

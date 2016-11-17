@@ -145,7 +145,7 @@ public class Lobby extends BaseScreen {
     backButton.addListener(new InputListener() {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         // Change back to main menu.
-        mainGame.setScreen(FilePlayMain.ScreenType.MAINMENU);
+        mainGame.setScreen(new MainMenu(mainGame));
         return true;
       }
     });
@@ -155,7 +155,7 @@ public class Lobby extends BaseScreen {
         if (pressedCategory == null || pressedDifficulty == null || pressedLength == null) {
           System.out.println("One of the preferences has not been selected");
         } else {
-          mainGame.setScreen(FilePlayMain.ScreenType.PLAY);
+          mainGame.setScreen(new Play(mainGame));
         }
         return true;
       }

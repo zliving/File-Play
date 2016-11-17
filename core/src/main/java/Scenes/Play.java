@@ -70,7 +70,7 @@ public class Play extends BaseScreen {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         // Change to lobby screen.
-        mainGame.setScreen(FilePlayMain.ScreenType.LOBBY);
+        mainGame.setScreen(new Lobby(mainGame));
         return true;
       }
     });
