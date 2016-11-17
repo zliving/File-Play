@@ -141,7 +141,9 @@ public abstract class BaseScreen implements Screen {
     parameter.size = size;
     parameter.color = color;
     generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/" + fontPath));
-    return generator.generateFont(parameter);
+    BitmapFont smoothFont = generator.generateFont(parameter);
+    smoothFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+    return smoothFont;
   }
 
   /**
