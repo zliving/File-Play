@@ -103,18 +103,18 @@ public class Lobby extends BaseScreen {
     style = setStyle("nano red", "nano red pressed");
     sportsButton = new TextButton("Sports", style);
     sportsButton.setPosition(getButtonXOffset(filmButton, OFFSET),
-            generalButton.getY());
+                             generalButton.getY());
     style = setStyle("nano orange", "nano orange pressed");
     televisionButton = new TextButton("Television", style);
     televisionButton.setPosition(generalButton.getX(), getButtonYOffset(generalButton, OFFSET));
     style = setStyle("nano pink", "nano pink pressed");
     videoGamesButton = new TextButton("Video Games", style);
     videoGamesButton.setPosition(getButtonXOffset(televisionButton, OFFSET),
-            getButtonYOffset(generalButton, OFFSET));
+                                 getButtonYOffset(generalButton, OFFSET));
     style = setStyle("nano indigo", "nano indigo pressed");
     musicButton = new TextButton("Music", style);
     musicButton.setPosition(getButtonXOffset(videoGamesButton, OFFSET),
-            getButtonYOffset(generalButton, OFFSET));
+                            getButtonYOffset(generalButton, OFFSET));
     style = setStyle("nano green", "nano green pressed");
     easyButton = new TextButton("Easy", style);
     easyButton.setPosition(generalButton.getX(), 380);
@@ -145,7 +145,7 @@ public class Lobby extends BaseScreen {
     backButton.addListener(new InputListener() {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         // Change back to main menu.
-        mainGame.setScreen(FilePlayMain.ScreenType.MAINMENU);
+        mainGame.setScreen(new MainMenu(mainGame));
         return true;
       }
     });
@@ -155,7 +155,7 @@ public class Lobby extends BaseScreen {
         if (pressedCategory == null || pressedDifficulty == null || pressedLength == null) {
           System.out.println("One of the preferences has not been selected");
         } else {
-          mainGame.setScreen(FilePlayMain.ScreenType.PLAY);
+          mainGame.setScreen(new Play(mainGame));
         }
         return true;
       }

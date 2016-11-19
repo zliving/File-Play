@@ -8,9 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.mygdx.game.FilePlayMain;
 
-
-import UIElements.ButtonActor;
-
 /**
  * MainMenu displays the main menu screen of the game with buttons that transition them into
  * appropriate screens from the main menu.
@@ -93,7 +90,7 @@ public class MainMenu extends BaseScreen {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         // Change to lobby screen.
-        mainGame.setScreen(FilePlayMain.ScreenType.LOBBY);
+        mainGame.setScreen(new Lobby(mainGame));
         return true;
       }
     });
@@ -101,14 +98,14 @@ public class MainMenu extends BaseScreen {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         // Change to leaderboards screen.
-        mainGame.setScreen(FilePlayMain.ScreenType.LEADERBOARDS);
+        mainGame.setScreen(new Leaderboards(mainGame));
         return true;
       }
     });
     settingsButton.addListener(new InputListener() {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         // Change to the settings screen.
-        mainGame.setScreen(FilePlayMain.ScreenType.SETTINGS);
+        mainGame.setScreen(new Settings(mainGame));
         return true;
       }
     });

@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -81,7 +80,7 @@ public abstract class BaseScreen implements Screen {
    */
   @Override
   public void render(float delta) {
-    Gdx.gl.glClearColor(86/255f, 86/255f, 86/255f, 1);
+    Gdx.gl.glClearColor(86 / 255f, 86 / 255f, 86 / 255f, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
@@ -148,7 +147,7 @@ public abstract class BaseScreen implements Screen {
    * @param offset the offset from the right end that is desired.
    * @return the x coordinate 'offset' pixels from the right end of 'button'
    */
-  protected float getButtonXOffset(TextButton button, float offset){
+  protected float getButtonXOffset(TextButton button, float offset) {
     return button.getX() + button.getWidth() + offset;
   }
 
@@ -160,7 +159,7 @@ public abstract class BaseScreen implements Screen {
    * @param offset the offset from the bottom end that is desired.
    * @return the y coordinate 'offset' pixels from the bottom end of 'button'
    */
-  protected float getButtonYOffset(TextButton button, float offset){
+  protected float getButtonYOffset(TextButton button, float offset) {
     return button.getY() - (button.getHeight() + offset);
   }
 
