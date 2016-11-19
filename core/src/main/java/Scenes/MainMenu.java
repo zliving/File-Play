@@ -16,8 +16,8 @@ public class MainMenu extends BaseScreen {
   private TextButton playButton;
   private TextButton leaderboardsButton;
   private TextButton settingsButton;
-  private final int BUTTON_HEIGHT = 50;
-  private final int BUTTON_WIDTH = 250;
+  private static final int BUTTON_HEIGHT = 50;
+  private static final int BUTTON_WIDTH = 250;
 
   /**
    * MainMenu takes in mainGame so that it may use it to change states.
@@ -89,7 +89,6 @@ public class MainMenu extends BaseScreen {
     playButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        // Change to lobby screen.
         mainGame.setScreen(new Lobby(mainGame));
         return true;
       }
@@ -97,14 +96,12 @@ public class MainMenu extends BaseScreen {
     leaderboardsButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        // Change to leaderboards screen.
         mainGame.setScreen(new Leaderboards(mainGame));
         return true;
       }
     });
     settingsButton.addListener(new InputListener() {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        // Change to the settings screen.
         mainGame.setScreen(new Settings(mainGame));
         return true;
       }
