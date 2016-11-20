@@ -19,15 +19,15 @@ public class GameSettings {
   }
 
   public String getCategoryValue() {
-    if (category.compareTo(Lobby.GENERAL_TEXT) == 0) {
+    if (category.equals(Lobby.GENERAL_TEXT)) {
       return "9";
-    } else if (category.compareTo(Lobby.GEOGRAPHY_TEXT) == 0) {
+    } else if (category.equals(Lobby.GEOGRAPHY_TEXT)) {
       return "22";
-    } else if (category.compareTo(Lobby.MUSIC_TEXT) == 0) {
+    } else if (category.equals(Lobby.MUSIC_TEXT)) {
       return "12";
-    } else if (category.compareTo(Lobby.VIDEOGAMES_TEXT) == 0) {
+    } else if (category.equals(Lobby.VIDEOGAMES_TEXT)) {
       return "15";
-    } else if (category.compareTo(Lobby.SCIENCE_NATURE_TEXT) == 0) {
+    } else if (category.equals(Lobby.SCIENCE_NATURE_TEXT)) {
       return "17";
     } else {
       return "23";
@@ -35,9 +35,9 @@ public class GameSettings {
   }
 
   public String getDifficultyValue() {
-    if (difficulty.compareTo(Lobby.EASY_TEXT) == 0) {
+    if (difficulty.equals(Lobby.EASY_TEXT)) {
       return "easy";
-    } else if (difficulty.compareTo(Lobby.NORMAL_TEXT) == 0) {
+    } else if (difficulty.equals(Lobby.NORMAL_TEXT)) {
       return "medium";
     } else {
       return "hard";
@@ -45,9 +45,9 @@ public class GameSettings {
   }
 
   public String getAmountValue() {
-    if (amount.compareTo("Short (5)") == 0) {
+    if (amount.equals(Lobby.SHORT_TEXT)) {
       return "5";
-    } else if (amount.compareTo("Medium (7)") == 0) {
+    } else if (amount.equals(Lobby.MEDIUM_TEXT)) {
       return "7";
     } else {
       return "9";
