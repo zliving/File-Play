@@ -25,11 +25,11 @@ public class UrlBuilderImpTest {
   /**
    * Test when general category is used with 9 questions and easy difficulty.
    */
-  public void longGeneralEasy(){
+  public void buildUrl_longGeneralEasy(){
     when(settingsMock.getCategoryValue()).thenReturn("9");
     when(settingsMock.getAmountValue()).thenReturn("9");
     when(settingsMock.getDifficultyValue()).thenReturn("easy");
-    assertEquals(urlBuilder.buildUrl(),
+    assertEquals(urlBuilder.buildUrl(settingsMock),
             "https://www.opentdb.com/api.php?amount=9&category=9&difficulty=easy&type=multiple");
   }
 
@@ -37,11 +37,11 @@ public class UrlBuilderImpTest {
   /**
    * Test for geography category, short game, normal difficulty.
    */
-  public void shortGeographyMedium(){
+  public void buildUrl_shortGeographyMedium(){
     when(settingsMock.getCategoryValue()).thenReturn("22");
     when(settingsMock.getAmountValue()).thenReturn("5");
     when(settingsMock.getDifficultyValue()).thenReturn("medium");
-    assertEquals(urlBuilder.buildUrl(),
+    assertEquals(urlBuilder.buildUrl(settingsMock),
             "https://www.opentdb.com/api.php?amount=5&category=22&difficulty=medium&type=multiple");
   }
 
@@ -49,47 +49,11 @@ public class UrlBuilderImpTest {
   /**
    * Test for music category, medium game, hard difficulty.
    */
-  public void mediumMusicHard(){
+  public void buildUrl_mediumMusicHard(){
     when(settingsMock.getCategoryValue()).thenReturn("12");
     when(settingsMock.getAmountValue()).thenReturn("7");
     when(settingsMock.getDifficultyValue()).thenReturn("hard");
-    assertEquals(urlBuilder.buildUrl(),
+    assertEquals(urlBuilder.buildUrl(settingsMock),
             "https://www.opentdb.com/api.php?amount=7&category=12&difficulty=hard&type=multiple");
-  }
-
-  @Test
-  /**
-   * Test for video games category, short game, easy difficulty.
-   */
-  public void shortVideoGamesEasy(){
-    when(settingsMock.getCategoryValue()).thenReturn("15");
-    when(settingsMock.getAmountValue()).thenReturn("5");
-    when(settingsMock.getDifficultyValue()).thenReturn("easy");
-    assertEquals(urlBuilder.buildUrl(),
-            "https://www.opentdb.com/api.php?amount=5&category=15&difficulty=easy&type=multiple");
-  }
-
-  @Test
-  /**
-   * Test for science and nature category, long game, normal difficulty.
-   */
-  public void longScienceNatureNormal(){
-    when(settingsMock.getCategoryValue()).thenReturn("17");
-    when(settingsMock.getAmountValue()).thenReturn("9");
-    when(settingsMock.getDifficultyValue()).thenReturn("medium");
-    assertEquals(urlBuilder.buildUrl(),
-            "https://www.opentdb.com/api.php?amount=9&category=17&difficulty=medium&type=multiple");
-  }
-
-  @Test
-  /**
-   * Test for history category, medium game, hard difficulty.
-   */
-  public void mediumHistoryHard(){
-    when(settingsMock.getCategoryValue()).thenReturn("23");
-    when(settingsMock.getAmountValue()).thenReturn("7");
-    when(settingsMock.getDifficultyValue()).thenReturn("hard");
-    assertEquals(urlBuilder.buildUrl(),
-            "https://www.opentdb.com/api.php?amount=7&category=23&difficulty=hard&type=multiple");
   }
 }

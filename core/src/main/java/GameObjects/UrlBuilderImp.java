@@ -12,14 +12,12 @@ public final class UrlBuilderImp implements UrlBuilder {
   private static final String CATEGORY = "category=";
   private static final String AMOUNT = "amount=";
   private static final String MULTIPLE_CHOICE_QUERY = "type=multiple";
-  private static GameSettings settings;
-  
-  public UrlBuilderImp(GameSettings settings) {
-    this.settings = settings;
+
+  public UrlBuilderImp() {
   }
 
   @Override
-  public String buildUrl() {
+  public String buildUrl(GameSettings settings) {
     return BASE + "?" + AMOUNT + settings.getAmountValue() + "&" + CATEGORY +
            settings.getCategoryValue() + "&" + DIFFICULTY + settings.getDifficultyValue() + "&" +
            MULTIPLE_CHOICE_QUERY;
