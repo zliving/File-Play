@@ -27,7 +27,7 @@ public final class UrlBuilderImp implements UrlBuilder {
     if (category.compareTo(Lobby.GENERALTEXT) == 0) {
       return "9";
     } else if (category.compareTo(Lobby.GEOGRAPHYTEXT) == 0) {
-      return "11";
+      return "22";
     } else if (category.compareTo(Lobby.MUSICTEXT) == 0) {
       return "12";
     } else if (category.compareTo(Lobby.VIDEOGAMESTEXT) == 0) {

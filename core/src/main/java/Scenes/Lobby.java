@@ -46,7 +46,7 @@ public class Lobby extends BaseScreen {
   private TextButton pressedCategory;
   private TextButton pressedDifficulty;
   private TextButton pressedLength;
-  // Text should be accessible to UrlBuilder in order to generate enums.
+  // Text should be accessible in UrlBuilderImp to convert the strings to proper values.
   public static final String GENERALTEXT = "General";
   public static final String GEOGRAPHYTEXT = "Geography";
   public static final String MUSICTEXT = "Music";
@@ -118,13 +118,13 @@ public class Lobby extends BaseScreen {
     historyButton.setPosition(getButtonXOffset(scienceNatureButton, OFFSET),
                               scienceNatureButton.getY());
 
-
     musicButton = new TextButton(MUSICTEXT, createStyle("nano orange", "nano orange pressed"));
     musicButton.setPosition(generalButton.getX(), getButtonYOffset(scienceNatureButton, OFFSET));
 
-    geographyButton = new TextButton(GEOGRAPHYTEXT, createStyle("nano green", "nano green pressed"));
+    geographyButton = new TextButton(GEOGRAPHYTEXT,
+                                     createStyle("nano green", "nano green pressed"));
     geographyButton.setPosition(getButtonXOffset(musicButton, OFFSET), musicButton.getY());
-    
+
     easyButton = new TextButton(EASYTEXT, createStyle("nano green", "nano green pressed"));
     easyButton.setPosition(generalButton.getX(), 380);
 
