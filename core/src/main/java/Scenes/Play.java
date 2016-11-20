@@ -2,10 +2,11 @@ package Scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.FilePlayMain;
 
@@ -18,6 +19,9 @@ import UIElements.ButtonActor;
 public class Play extends BaseScreen {
   private ButtonActor backButton;
   private final int glyphCenterX;
+  private TextureAtlas ringsAtlas;
+  private Animation animation;
+  private float elapsedTime = 0.0f;
   public Music music;
 
   /**
@@ -42,6 +46,8 @@ public class Play extends BaseScreen {
     // Plays the song and loops it.
     music.play();
     music.setLooping(true);
+    ringsAtlas = new TextureAtlas(Gdx.files.internal("ring spritesheet.atlas"));
+    animation = new Animation(1/15f, ringsAtlas.getRegions());
   }
 
   @Override
@@ -52,6 +58,10 @@ public class Play extends BaseScreen {
     spriteBatch.begin();
     // Draws the text "Play" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
+    // Keeps count of the time for the animation to use.
+    elapsedTime += Gdx.graphics.getDeltaTime();
+    // Draws and cycles each sprite in the atlas at the center-ish of the screen.
+    spriteBatch.draw(animation.getKeyFrame(elapsedTime, true), 140, WORLD_HEIGHT / 2);
     spriteBatch.end();
   }
 
@@ -94,5 +104,6 @@ public class Play extends BaseScreen {
   @Override
   public void dispose(){
     music.dispose();
+    ringsAtlas.dispose();
   }
 }
