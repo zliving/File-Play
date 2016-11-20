@@ -79,6 +79,11 @@ public class Lobby extends BaseScreen {
     spriteBatch.end();
   }
 
+  @Override
+  public void dispose(){
+    labelFont.dispose();
+  }
+
   /**
    * Creates all of the buttons that will be drawn to the screen.
    */
