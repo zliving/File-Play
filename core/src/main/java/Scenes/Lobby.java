@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.mygdx.game.FilePlayMain;
 
+import GameObjects.GameSettings;
 import UIElements.ButtonActor;
 
 /**
@@ -46,7 +47,7 @@ public class Lobby extends BaseScreen {
   private TextButton pressedCategory;
   private TextButton pressedDifficulty;
   private TextButton pressedLength;
-  // Text should be accessible in UrlBuilderImp to convert the strings to proper values.
+  // Text for each of the buttons.
   public static final String GENERALTEXT = "General";
   public static final String GEOGRAPHYTEXT = "Geography";
   public static final String MUSICTEXT = "Music";
@@ -59,6 +60,8 @@ public class Lobby extends BaseScreen {
   public static final String SHORTTEXT = "Short (5)";
   public static final String MEDIUMLENGTHTEXT = "Medium (7)";
   public static final String LONGTEXT = "Long (9)";
+  // This will store the preferences so that the Url can be built properly.
+  private GameSettings settings;
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Lobby should operate in the same
@@ -166,6 +169,9 @@ public class Lobby extends BaseScreen {
         if (pressedCategory == null || pressedDifficulty == null || pressedLength == null) {
           System.out.println("One of the preferences has not been selected");
         } else {
+          settings = new GameSettings(pressedLength.getText().toString(),
+                                      pressedCategory.getText().toString(),
+                                      pressedDifficulty.getText().toString());
           mainGame.setScreen(new Play(mainGame));
         }
         return true;

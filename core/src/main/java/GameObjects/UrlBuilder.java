@@ -5,5 +5,5 @@ package GameObjects;
  */
 
 public interface UrlBuilder {
-  String buildUrl(String amount, String category, String difficulty);
+  String buildUrl(GameSettings settings);
 }

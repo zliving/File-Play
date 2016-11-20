@@ -17,45 +17,9 @@ public final class UrlBuilderImp implements UrlBuilder {
   }
 
   @Override
-  public String buildUrl(String amount, String category, String difficulty) {
-    return BASE + "?" + AMOUNT + getAmountValue(amount) + "&" + CATEGORY +
-           getCategoryValue(category) + "&" + DIFFICULTY + getDifficultyValue(difficulty) + "&" +
+  public String buildUrl(GameSettings settings) {
+    return BASE + "?" + AMOUNT + settings.getAmountValue() + "&" + CATEGORY +
+           settings.getCategoryValue() + "&" + DIFFICULTY + settings.getDifficultyValue() + "&" +
            MULTIPLE_CHOICE_QUERY;
-  }
-
-  private String getCategoryValue(String category) {
-    if (category.compareTo(Lobby.GENERALTEXT) == 0) {
-      return "9";
-    } else if (category.compareTo(Lobby.GEOGRAPHYTEXT) == 0) {
-      return "22";
-    } else if (category.compareTo(Lobby.MUSICTEXT) == 0) {
-      return "12";
-    } else if (category.compareTo(Lobby.VIDEOGAMESTEXT) == 0) {
-      return "15";
-    } else if (category.compareTo(Lobby.SCIENCENATURETEXT) == 0) {
-      return "17";
-    } else {
-      return "23";
-    }
-  }
-
-  private String getDifficultyValue(String difficulty) {
-    if (difficulty.compareTo(Lobby.EASYTEXT) == 0) {
-      return "easy";
-    } else if (difficulty.compareTo(Lobby.MEDIUMTEXT) == 0) {
-      return "medium";
-    } else {
-      return "hard";
-    }
-  }
-
-  private String getAmountValue(String amount) {
-    if (amount.compareTo("Short (5)") == 0) {
-      return "5";
-    } else if (amount.compareTo("Medium (7)") == 0) {
-      return "7";
-    } else {
-      return "9";
-    }
   }
 }
