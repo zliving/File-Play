@@ -47,7 +47,8 @@ public class Play extends BaseScreen {
     music.play();
     music.setLooping(true);
     ringsAtlas = new TextureAtlas(Gdx.files.internal("ring spritesheet.atlas"));
-    animation = new Animation(1/15f, ringsAtlas.getRegions());
+    // Creates an animation object and sets the time duration of each frame at a fourth of a second.
+    animation = new Animation(1/4f, ringsAtlas.getRegions());
   }
 
   @Override
