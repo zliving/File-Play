@@ -42,24 +42,24 @@ public class Lobby extends BaseScreen {
   private BitmapFont labelFont;
   // Spacing and offsets to draw with respect to text and buttons.
   private static final int OFFSET = 10;
-  private static final int LABELX = 20;
+  private static final int LABEL_X = 20;
   // References to the buttons that are currently pressed.
   private TextButton pressedCategory;
   private TextButton pressedDifficulty;
   private TextButton pressedLength;
   // Text for each of the buttons.
-  public static final String GENERALTEXT = "General";
-  public static final String GEOGRAPHYTEXT = "Geography";
-  public static final String MUSICTEXT = "Music";
-  public static final String VIDEOGAMESTEXT = "Video Games";
-  public static final String SCIENCENATURETEXT = "Science and Nature";
-  public static final String HISTORYTEXT = "History";
-  public static final String EASYTEXT = "Easy";
-  public static final String MEDIUMTEXT = "Medium";
-  public static final String HARDTEXT = "Hard";
-  public static final String SHORTTEXT = "Short (5)";
-  public static final String MEDIUMLENGTHTEXT = "Medium (7)";
-  public static final String LONGTEXT = "Long (9)";
+  public static final String GENERAL_TEXT = "General";
+  public static final String GEOGRAPHY_TEXT = "Geography";
+  public static final String MUSIC_TEXT = "Music";
+  public static final String VIDEOGAMES_TEXT = "Video Games";
+  public static final String SCIENCE_NATURE_TEXT = "Science and Nature";
+  public static final String HISTORY_TEXT = "History";
+  public static final String EASY_TEXT = "Easy";
+  public static final String NORMAL_TEXT = "Normal";
+  public static final String HARD_TEXT = "Hard";
+  public static final String SHORT_TEXT = "Short (5)";
+  public static final String MEDIUM_TEXT = "Medium (7)";
+  public static final String LONG_TEXT = "Long (9)";
   // This will store the preferences so that the Url can be built properly.
   private GameSettings settings;
 
@@ -88,9 +88,9 @@ public class Lobby extends BaseScreen {
     // Draws the text "Lobby" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     // Draws all the labels for each section.
-    labelFont.draw(spriteBatch, "Categories", LABELX, 690);
-    labelFont.draw(spriteBatch, "Difficulty", LABELX, 470);
-    labelFont.draw(spriteBatch, "Game Length", LABELX, 300);
+    labelFont.draw(spriteBatch, "Categories", LABEL_X, 690);
+    labelFont.draw(spriteBatch, "Difficulty", LABEL_X, 470);
+    labelFont.draw(spriteBatch, "Game Length", LABEL_X, 300);
     spriteBatch.end();
   }
 
@@ -106,46 +106,46 @@ public class Lobby extends BaseScreen {
     playButton.setHeight(50);
     playButton.setWidth(250);
 
-    generalButton = new TextButton(GENERALTEXT, createStyle("nano blue", "nano blue pressed"));
+    generalButton = new TextButton(GENERAL_TEXT, createStyle("nano blue", "nano blue pressed"));
     generalButton.setPosition(20, 600);
 
-    videoGamesButton = new TextButton(VIDEOGAMESTEXT,
+    videoGamesButton = new TextButton(VIDEOGAMES_TEXT,
                                       createStyle("nano pink", "nano pink pressed"));
     videoGamesButton.setPosition(getButtonXOffset(generalButton, OFFSET), generalButton.getY());
 
-    scienceNatureButton = new TextButton(SCIENCENATURETEXT,
+    scienceNatureButton = new TextButton(SCIENCE_NATURE_TEXT,
                                          createStyle("nano indigo", "nano indigo pressed"));
     scienceNatureButton.setPosition(generalButton.getX(), getButtonYOffset(generalButton, OFFSET));
 
-    historyButton = new TextButton(HISTORYTEXT, createStyle("nano cyan", "nano cyan pressed"));
+    historyButton = new TextButton(HISTORY_TEXT, createStyle("nano cyan", "nano cyan pressed"));
     historyButton.setPosition(getButtonXOffset(scienceNatureButton, OFFSET),
                               scienceNatureButton.getY());
 
-    musicButton = new TextButton(MUSICTEXT, createStyle("nano orange", "nano orange pressed"));
+    musicButton = new TextButton(MUSIC_TEXT, createStyle("nano orange", "nano orange pressed"));
     musicButton.setPosition(generalButton.getX(), getButtonYOffset(scienceNatureButton, OFFSET));
 
-    geographyButton = new TextButton(GEOGRAPHYTEXT,
+    geographyButton = new TextButton(GEOGRAPHY_TEXT,
                                      createStyle("nano green", "nano green pressed"));
     geographyButton.setPosition(getButtonXOffset(musicButton, OFFSET), musicButton.getY());
 
-    easyButton = new TextButton(EASYTEXT, createStyle("nano green", "nano green pressed"));
+    easyButton = new TextButton(EASY_TEXT, createStyle("nano green", "nano green pressed"));
     easyButton.setPosition(generalButton.getX(), 380);
 
-    mediumDifficultyButton = new TextButton(MEDIUMTEXT,
+    mediumDifficultyButton = new TextButton(NORMAL_TEXT,
                                             createStyle("nano yellow", "nano yellow pressed"));
     mediumDifficultyButton.setPosition(getButtonXOffset(easyButton, OFFSET), easyButton.getY());
 
-    hardButton = new TextButton(HARDTEXT, createStyle("nano red", "nano red pressed"));
+    hardButton = new TextButton(HARD_TEXT, createStyle("nano red", "nano red pressed"));
     hardButton.setPosition(getButtonXOffset(mediumDifficultyButton, OFFSET), easyButton.getY());
 
-    shortButton = new TextButton(SHORTTEXT, createStyle("nano cyan", "nano cyan pressed"));
+    shortButton = new TextButton(SHORT_TEXT, createStyle("nano cyan", "nano cyan pressed"));
     shortButton.setPosition(generalButton.getX(), 210);
 
-    mediumLengthButton = new TextButton(MEDIUMLENGTHTEXT,
+    mediumLengthButton = new TextButton(MEDIUM_TEXT,
                                         createStyle("nano indigo", "nano indigo pressed"));
     mediumLengthButton.setPosition(getButtonXOffset(shortButton, OFFSET), shortButton.getY());
 
-    longButton = new TextButton(LONGTEXT, createStyle("nano orange", "nano orange pressed"));
+    longButton = new TextButton(LONG_TEXT, createStyle("nano orange", "nano orange pressed"));
     longButton.setPosition(getButtonXOffset(mediumLengthButton, OFFSET), shortButton.getY());
   }
 
