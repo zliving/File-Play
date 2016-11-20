@@ -24,12 +24,11 @@ public class Lobby extends BaseScreen {
   private TextButton playButton;
   // Buttons for each of the categories.
   private TextButton generalButton;
-  private TextButton booksButton;
-  private TextButton filmButton;
+  private TextButton geographyButton;
   private TextButton musicButton;
-  private TextButton televisionButton;
   private TextButton videoGamesButton;
-  private TextButton sportsButton;
+  private TextButton scienceNatureButton;
+  private TextButton historyButton;
   // Buttons for each of the difficulties.
   private TextButton easyButton;
   private TextButton mediumDifficultyButton;
@@ -47,6 +46,19 @@ public class Lobby extends BaseScreen {
   private TextButton pressedCategory;
   private TextButton pressedDifficulty;
   private TextButton pressedLength;
+  // Text should be accessible to UrlBuilder in order to generate enums.
+  public static final String GENERALTEXT = "General";
+  public static final String GEOGRAPHYTEXT = "Geography";
+  public static final String MUSICTEXT = "Music";
+  public static final String VIDEOGAMESTEXT = "Video Games";
+  public static final String SCIENCENATURETEXT = "Science and Nature";
+  public static final String HISTORYTEXT = "History";
+  public static final String EASYTEXT = "Easy";
+  public static final String MEDIUMTEXT = "Medium";
+  public static final String HARDTEXT = "Hard";
+  public static final String SHORTTEXT = "Short (5)";
+  public static final String MEDIUMLENGTHTEXT = "Medium (7)";
+  public static final String LONGTEXT = "Long (9)";
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Lobby should operate in the same
@@ -91,44 +103,46 @@ public class Lobby extends BaseScreen {
     playButton.setHeight(50);
     playButton.setWidth(250);
 
-    generalButton = new TextButton("General", createStyle("nano blue", "nano blue pressed"));
+    generalButton = new TextButton(GENERALTEXT, createStyle("nano blue", "nano blue pressed"));
     generalButton.setPosition(20, 600);
 
-    booksButton = new TextButton("Books", createStyle("nano cyan", "nano cyan pressed"));
-    booksButton.setPosition(getButtonXOffset(generalButton, OFFSET), generalButton.getY());
+    videoGamesButton = new TextButton(VIDEOGAMESTEXT,
+                                      createStyle("nano pink", "nano pink pressed"));
+    videoGamesButton.setPosition(getButtonXOffset(generalButton, OFFSET), generalButton.getY());
 
-    filmButton = new TextButton("Film", createStyle("nano green", "nano green pressed"));
-    filmButton.setPosition(getButtonXOffset(booksButton, OFFSET), generalButton.getY());
+    scienceNatureButton = new TextButton(SCIENCENATURETEXT,
+                                         createStyle("nano indigo", "nano indigo pressed"));
+    scienceNatureButton.setPosition(generalButton.getX(), getButtonYOffset(generalButton, OFFSET));
 
-    sportsButton = new TextButton("Sports", createStyle("nano red", "nano red pressed"));
-    sportsButton.setPosition(getButtonXOffset(filmButton, OFFSET),
-                             generalButton.getY());
-    televisionButton = new TextButton("Television", createStyle("nano orange", "nano orange pressed"));
-    televisionButton.setPosition(generalButton.getX(), getButtonYOffset(generalButton, OFFSET));
+    historyButton = new TextButton(HISTORYTEXT, createStyle("nano cyan", "nano cyan pressed"));
+    historyButton.setPosition(getButtonXOffset(scienceNatureButton, OFFSET),
+                              scienceNatureButton.getY());
 
-    videoGamesButton = new TextButton("Video Games", createStyle("nano pink", "nano pink pressed"));
-    videoGamesButton.setPosition(getButtonXOffset(televisionButton, OFFSET),
-                                 getButtonYOffset(generalButton, OFFSET));
-    musicButton = new TextButton("Music", createStyle("nano indigo", "nano indigo pressed"));
-    musicButton.setPosition(getButtonXOffset(videoGamesButton, OFFSET),
-                            getButtonYOffset(generalButton, OFFSET));
 
-    easyButton = new TextButton("Easy", createStyle("nano green", "nano green pressed"));
+    musicButton = new TextButton(MUSICTEXT, createStyle("nano orange", "nano orange pressed"));
+    musicButton.setPosition(generalButton.getX(), getButtonYOffset(scienceNatureButton, OFFSET));
+
+    geographyButton = new TextButton(GEOGRAPHYTEXT, createStyle("nano green", "nano green pressed"));
+    geographyButton.setPosition(getButtonXOffset(musicButton, OFFSET), musicButton.getY());
+    
+    easyButton = new TextButton(EASYTEXT, createStyle("nano green", "nano green pressed"));
     easyButton.setPosition(generalButton.getX(), 380);
 
-    mediumDifficultyButton = new TextButton("Medium", createStyle("nano yellow", "nano yellow pressed"));
+    mediumDifficultyButton = new TextButton(MEDIUMTEXT,
+                                            createStyle("nano yellow", "nano yellow pressed"));
     mediumDifficultyButton.setPosition(getButtonXOffset(easyButton, OFFSET), easyButton.getY());
 
-    hardButton = new TextButton("Hard", createStyle("nano red", "nano red pressed"));
+    hardButton = new TextButton(HARDTEXT, createStyle("nano red", "nano red pressed"));
     hardButton.setPosition(getButtonXOffset(mediumDifficultyButton, OFFSET), easyButton.getY());
 
-    shortButton = new TextButton("Short (5)", createStyle("nano cyan", "nano cyan pressed"));
+    shortButton = new TextButton(SHORTTEXT, createStyle("nano cyan", "nano cyan pressed"));
     shortButton.setPosition(generalButton.getX(), 210);
 
-    mediumLengthButton = new TextButton("Medium (7)", createStyle("nano indigo", "nano indigo pressed"));
+    mediumLengthButton = new TextButton(MEDIUMLENGTHTEXT,
+                                        createStyle("nano indigo", "nano indigo pressed"));
     mediumLengthButton.setPosition(getButtonXOffset(shortButton, OFFSET), shortButton.getY());
 
-    longButton = new TextButton("Long (9)", createStyle("nano orange", "nano orange pressed"));
+    longButton = new TextButton(LONGTEXT, createStyle("nano orange", "nano orange pressed"));
     longButton.setPosition(getButtonXOffset(mediumLengthButton, OFFSET), shortButton.getY());
   }
 
@@ -169,50 +183,38 @@ public class Lobby extends BaseScreen {
         return true;
       }
     });
-    booksButton.addListener(new InputListener() {
+    historyButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedCategory == null) {
-          pressedCategory = booksButton;
+          pressedCategory = historyButton;
         } else {
           pressedCategory.setChecked(false);
-          pressedCategory = booksButton;
+          pressedCategory = historyButton;
         }
         return true;
       }
     });
-    filmButton.addListener(new InputListener() {
+    scienceNatureButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedCategory == null) {
-          pressedCategory = filmButton;
+          pressedCategory = scienceNatureButton;
         } else {
           pressedCategory.setChecked(false);
-          pressedCategory = filmButton;
+          pressedCategory = scienceNatureButton;
         }
         return true;
       }
     });
-    sportsButton.addListener(new InputListener() {
+    geographyButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedCategory == null) {
-          pressedCategory = sportsButton;
+          pressedCategory = geographyButton;
         } else {
           pressedCategory.setChecked(false);
-          pressedCategory = sportsButton;
-        }
-        return true;
-      }
-    });
-    televisionButton.addListener(new InputListener() {
-      @Override
-      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        if (pressedCategory == null) {
-          pressedCategory = televisionButton;
-        } else {
-          pressedCategory.setChecked(false);
-          pressedCategory = televisionButton;
+          pressedCategory = geographyButton;
         }
         return true;
       }
@@ -323,12 +325,11 @@ public class Lobby extends BaseScreen {
     stage.addActor(backButton);
     stage.addActor(playButton);
     stage.addActor(generalButton);
-    stage.addActor(booksButton);
-    stage.addActor(filmButton);
+    stage.addActor(geographyButton);
+    stage.addActor(historyButton);
+    stage.addActor(scienceNatureButton);
     stage.addActor(musicButton);
-    stage.addActor(televisionButton);
     stage.addActor(videoGamesButton);
-    stage.addActor(sportsButton);
     stage.addActor(easyButton);
     stage.addActor(mediumDifficultyButton);
     stage.addActor(hardButton);
