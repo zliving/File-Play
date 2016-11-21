@@ -29,8 +29,11 @@ public class GameSettings {
       return "15";
     } else if (category.equals(Lobby.SCIENCE_NATURE_TEXT)) {
       return "17";
-    } else {
+    } else if (category.equals(Lobby.HISTORY_TEXT)){
       return "23";
+    } else {
+      // Default to General category.
+      return "9";
     }
   }
 
@@ -39,8 +42,11 @@ public class GameSettings {
       return "easy";
     } else if (difficulty.equals(Lobby.NORMAL_TEXT)) {
       return "medium";
-    } else {
+    } else if (difficulty.equals(Lobby.HARD_TEXT)){
       return "hard";
+    } else {
+      // Default to medium difficulty.
+      return "medium";
     }
   }
 
@@ -49,8 +55,11 @@ public class GameSettings {
       return "5";
     } else if (amount.equals(Lobby.MEDIUM_TEXT)) {
       return "7";
-    } else {
+    } else if (amount.equals(Lobby.LONG_TEXT)){
       return "9";
+    } else {
+      // Default to 7 question game.
+      return "7";
     }
   }
 }

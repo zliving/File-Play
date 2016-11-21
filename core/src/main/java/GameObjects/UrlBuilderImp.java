@@ -18,6 +18,11 @@ public final class UrlBuilderImp implements UrlBuilder {
 
   @Override
   public String buildUrl(GameSettings settings) {
+    if(settings.getAmountValue() == null || settings.getCategoryValue() == null ||
+       settings.getDifficultyValue() == null){
+      throw new IllegalArgumentException();
+    }
+
     return BASE + "?" + AMOUNT + settings.getAmountValue() + "&" + CATEGORY +
            settings.getCategoryValue() + "&" + DIFFICULTY + settings.getDifficultyValue() + "&" +
            MULTIPLE_CHOICE_QUERY;

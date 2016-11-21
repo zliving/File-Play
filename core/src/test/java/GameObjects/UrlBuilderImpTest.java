@@ -56,4 +56,27 @@ public class UrlBuilderImpTest {
     assertEquals(urlBuilder.buildUrl(settingsMock),
             "https://www.opentdb.com/api.php?amount=7&category=12&difficulty=hard&type=multiple");
   }
+
+  @Test
+  /**
+   * Test for unexpected category.
+   */
+  public void buildUrl_unexpectedCategory(){
+    when(settingsMock.getCategoryValue()).thenReturn("foo");
+    when(settingsMock.getAmountValue()).thenReturn("7");
+    when(settingsMock.getDifficultyValue()).thenReturn("easy");
+    assertEquals(urlBuilder.buildUrl(settingsMock),
+            "https://www.opentdb.com/api.php?amount=7&category=foo&difficulty=easy&type=multiple");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  /**
+   * Test for no input.
+   */
+  public void buildUrl_null(){
+    when(settingsMock.getCategoryValue()).thenReturn(null);
+    when(settingsMock.getAmountValue()).thenReturn(null);
+    when(settingsMock.getDifficultyValue()).thenReturn(null);
+    urlBuilder.buildUrl(settingsMock);
+  }
 }
