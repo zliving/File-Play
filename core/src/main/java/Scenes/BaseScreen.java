@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -147,7 +148,7 @@ public abstract class BaseScreen implements Screen {
    * @param offset the offset from the right end that is desired.
    * @return the x coordinate 'offset' pixels from the right end of 'button'
    */
-  protected float getButtonXOffset(TextButton button, float offset) {
+  protected float getButtonXOffset(Button button, float offset) {
     return button.getX() + button.getWidth() + offset;
   }
 
@@ -159,7 +160,7 @@ public abstract class BaseScreen implements Screen {
    * @param offset the offset from the bottom end that is desired.
    * @return the y coordinate 'offset' pixels from the bottom end of 'button'
    */
-  protected float getButtonYOffset(TextButton button, float offset) {
+  protected float getButtonYOffset(Button button, float offset) {
     return button.getY() - (button.getHeight() + offset);
   }
 
