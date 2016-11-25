@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.FilePlayMain;
 
+import java.util.Random;
+
 import UIElements.ButtonActor;
 
 /**
@@ -34,8 +36,12 @@ public class Roulette extends BaseScreen {
   private Sprite rouletteArrow;
   private Animation rouletteWheel;
   private float elapsedTime = 0.0f;
-  private float stopTimeSkull = 6.00f;
+  private float stopTime = 5.00f;
   private float skullStopFrame = 0.0f;
+  private Random rand;
+  private float safeStopFrame;
+  private float minRange = .07f;
+  private float maxRange = .33f;
 
   private static float BUTTON_HEIGHT = 87.0f;
   private static float BUTTON_WIDTH = 180.0f;
@@ -50,6 +56,9 @@ public class Roulette extends BaseScreen {
     ringsAtlas = new TextureAtlas(Gdx.files.internal("ring spritesheet.atlas"));
     rouletteWheel = new Animation(1 / 15f, ringsAtlas.getRegions());
     rouletteArrow = new Sprite(buttonAtlas.findRegion("roulette arrow"));
+    rand = new Random();
+    // Generates random number between minRange and maxRange to ensure the first frame is not used.
+    safeStopFrame = minRange + (maxRange - minRange) * rand.nextFloat();
     createButtons();
     addAllListeners();
     addAllActors();
@@ -66,7 +75,6 @@ public class Roulette extends BaseScreen {
     // Draws the text "Roulette" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     animateWheel(spriteBatch, delta);
-
     spriteBatch.draw(rouletteArrow, 195, 580);
     spriteBatch.end();
   }
@@ -100,7 +108,7 @@ public class Roulette extends BaseScreen {
           skullButton.setChecked(true);
           skullButton.setDisabled(true);
           safeButton.setDisabled(true);
-          // Add file removal code here
+          // TODO (James): Add file removal code here
         } else {
           skullButton.setChecked(false);
         }
@@ -148,15 +156,20 @@ public class Roulette extends BaseScreen {
     skullButton.setPosition(getButtonXOffset(safeButton, BUTTON_OFFSET), safeButton.getY());
   }
 
-  private void animateWheel(SpriteBatch spriteBatch, float delta){
-    if(skullButton.isChecked()){
-      if (elapsedTime <= stopTimeSkull) {
+  private void animateWheel(SpriteBatch spriteBatch, float delta) {
+    if (skullButton.isChecked() || safeButton.isChecked()) {
+      if (elapsedTime <= stopTime) {
         elapsedTime += delta;
-        // Draws and cycles each sprite in the atlas at the center-ish of the screen.
+        // Draws and cycles each sprite in the atlas.
         spriteBatch.draw(rouletteWheel.getKeyFrame(elapsedTime, true), 140, WORLD_HEIGHT / 2);
       } else {
-        // Stops on red section after time is up.
-        spriteBatch.draw(rouletteWheel.getKeyFrame(skullStopFrame, false), 140, WORLD_HEIGHT / 2);
+        if (skullButton.isChecked()) {
+          // Stops on red section after time is up.
+          spriteBatch.draw(rouletteWheel.getKeyFrame(skullStopFrame, false), 140, WORLD_HEIGHT / 2);
+        } else {
+          // Stops on a blue section after time is up.
+          spriteBatch.draw(rouletteWheel.getKeyFrame(safeStopFrame, false), 140, WORLD_HEIGHT / 2);
+        }
       }
     } else {
       spriteBatch.draw(rouletteWheel.getKeyFrame(0, false), 140, WORLD_HEIGHT / 2);
