@@ -36,12 +36,12 @@ public class Roulette extends BaseScreen {
   private Sprite rouletteArrow;
   private Animation rouletteWheel;
   private float elapsedTime = 0.0f;
-  private float stopTime = 5.00f;
+  private float stopTime = 3.00f;
   private float skullStopFrame = 0.0f;
   private Random rand;
   private float safeStopFrame;
-  private float minRange = .07f;
-  private float maxRange = .33f;
+  private float minRange = .034f;
+  private float maxRange = .17f;
 
   private static float BUTTON_HEIGHT = 87.0f;
   private static float BUTTON_WIDTH = 180.0f;
@@ -54,7 +54,7 @@ public class Roulette extends BaseScreen {
     glyphCenterX = ((int) WORLD_WIDTH - (int) bannerTextGlyphLayout.width) / 2;
     // Generate a new rouletteWheel for the roulette wheel and import the ring atlas.
     ringsAtlas = new TextureAtlas(Gdx.files.internal("ring spritesheet.atlas"));
-    rouletteWheel = new Animation(1 / 15f, ringsAtlas.getRegions());
+    rouletteWheel = new Animation(1 / 30f, ringsAtlas.getRegions());
     rouletteArrow = new Sprite(buttonAtlas.findRegion("roulette arrow"));
     rand = new Random();
     // Generates random number between minRange and maxRange to ensure the first frame is not used.
@@ -69,8 +69,6 @@ public class Roulette extends BaseScreen {
     super.render(delta);
     stage.act(delta);
     stage.draw();
-    // Keeps count of the time for the rouletteWheel to use.
-    elapsedTime += delta;
     spriteBatch.begin();
     // Draws the text "Roulette" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);

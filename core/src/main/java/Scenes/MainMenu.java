@@ -16,6 +16,7 @@ public class MainMenu extends BaseScreen {
   private TextButton playButton;
   private TextButton leaderboardsButton;
   private TextButton settingsButton;
+  private TextButton rouletteButton;
   private final int BUTTON_HEIGHT = 50;
   private final int BUTTON_WIDTH = 250;
 
@@ -67,16 +68,21 @@ public class MainMenu extends BaseScreen {
     playButton = new TextButton("Play", style);
     leaderboardsButton = new TextButton("Leaderboards", style);
     settingsButton = new TextButton("Settings", style);
+    rouletteButton = new TextButton("Roulette", style);
     // Sets the location and height for each of the buttons.
-    playButton.setPosition(120, 400);
+    playButton.setPosition(120, 450);
     playButton.setHeight(BUTTON_HEIGHT);
     playButton.setWidth(BUTTON_WIDTH);
-    leaderboardsButton.setPosition(120, 300);
+    leaderboardsButton.setPosition(120, 350);
     leaderboardsButton.setHeight(BUTTON_HEIGHT);
     leaderboardsButton.setWidth(BUTTON_WIDTH);
-    settingsButton.setPosition(120, 200);
+    settingsButton.setPosition(120, 250);
     settingsButton.setHeight(BUTTON_HEIGHT);
     settingsButton.setWidth(BUTTON_WIDTH);
+    rouletteButton.setPosition(120, 150);
+    rouletteButton.setHeight(BUTTON_HEIGHT);
+    rouletteButton.setWidth(BUTTON_WIDTH);
+
   }
 
   /**
@@ -109,6 +115,13 @@ public class MainMenu extends BaseScreen {
         return true;
       }
     });
+    rouletteButton.addListener(new InputListener() {
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        // Change to the settings screen.
+        mainGame.setScreen(new Roulette(mainGame));
+        return true;
+      }
+    });
   }
 
   /**
@@ -119,5 +132,6 @@ public class MainMenu extends BaseScreen {
     stage.addActor(playButton);
     stage.addActor(leaderboardsButton);
     stage.addActor(settingsButton);
+    stage.addActor(rouletteButton);
   }
 }
