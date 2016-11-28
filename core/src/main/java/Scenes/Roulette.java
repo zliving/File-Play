@@ -39,13 +39,13 @@ public class Roulette extends BaseScreen {
   private float stopTime = 3.00f;
   private float skullStopFrame = 0.0f;
   private Random rand;
-  private float safeStopFrame;
-  private float minRange = .034f;
-  private float maxRange = .17f;
+  private final float safeStopFrame;
+  private final float minRange = .034f;
+  private final float maxRange = .17f;
 
-  private static float BUTTON_HEIGHT = 87.0f;
-  private static float BUTTON_WIDTH = 180.0f;
-  private static float BUTTON_OFFSET = 50.0f;
+  private final float BUTTON_HEIGHT = 87.0f;
+  private final float BUTTON_WIDTH = 180.0f;
+  private final float BUTTON_OFFSET = 50.0f;
 
   public Roulette(FilePlayMain mainGame) {
     super(mainGame);
