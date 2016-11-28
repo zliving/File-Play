@@ -131,6 +131,7 @@ public class Roulette extends BaseScreen {
   @Override
   protected void createButtons() {
     backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 0, 735);
+
     // Creates style for the safe button
     safeButtonStyle = new TextButtonStyle();
     safeButtonStyle.up = buttonSkin.getDrawable("nano green");
@@ -141,24 +142,32 @@ public class Roulette extends BaseScreen {
     safeButton.setWidth(BUTTON_WIDTH);
     safeButton.setHeight(BUTTON_HEIGHT);
     safeButton.setPosition(50, 250);
+
     // Create a drawable from the skull image.
     skullDrawable = new TextureRegionDrawable(buttonAtlas.findRegion("skull"));
     // Create a style for when the image button is pressed and not pressed.
     imageButtonStyle = new ImageButtonStyle(buttonSkin.getDrawable("nano red"),
-            buttonSkin.getDrawable("nano red pressed"),
-            buttonSkin.getDrawable("nano red pressed"),
-            skullDrawable, skullDrawable, skullDrawable);
+                                            buttonSkin.getDrawable("nano red pressed"),
+                                            buttonSkin.getDrawable("nano red pressed"),
+                                            skullDrawable, skullDrawable, skullDrawable);
     skullButton = new ImageButton(imageButtonStyle);
     skullButton.setWidth(BUTTON_WIDTH);
     skullButton.setHeight(BUTTON_HEIGHT);
     skullButton.setPosition(getButtonXOffset(safeButton, BUTTON_OFFSET), safeButton.getY());
   }
 
+  /**
+   * Handles the logic for when the wheel should be stopped depending on whether the skull button
+   * is clicked or the safe button is clicked.
+   *
+   * @param spriteBatch the sprite batch to draw to.
+   * @param delta the change in time that has occurred since the last call to the render method.
+   */
   private void animateWheel(SpriteBatch spriteBatch, float delta) {
     if (skullButton.isChecked() || safeButton.isChecked()) {
       if (elapsedTime <= stopTime) {
         elapsedTime += delta;
-        // Draws and cycles each sprite in the atlas.
+        // Draws and cycles through each sprite in the atlas.
         spriteBatch.draw(rouletteWheel.getKeyFrame(elapsedTime, true), 140, WORLD_HEIGHT / 2);
       } else {
         if (skullButton.isChecked()) {
@@ -170,6 +179,7 @@ public class Roulette extends BaseScreen {
         }
       }
     } else {
+      // Don't move from the starting position unless a button has been clicked.
       spriteBatch.draw(rouletteWheel.getKeyFrame(0, false), 140, WORLD_HEIGHT / 2);
     }
   }
