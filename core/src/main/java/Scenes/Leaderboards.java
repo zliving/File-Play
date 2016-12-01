@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.FilePlayMain;
 
 import UIElements.ButtonActor;
@@ -67,7 +66,7 @@ public class Leaderboards extends BaseScreen {
     backButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        mainGame.setScreen(FilePlayMain.ScreenType.MAINMENU);
+        mainGame.setScreen(new MainMenu(mainGame));
         return true;
       }
     });

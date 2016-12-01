@@ -24,8 +24,8 @@ public class Play extends BaseScreen {
   public Music music;
 
   /**
-   * Refer to MainMenu.java for comments regarding each section. Play should operate in the same way
-   * with changes to the textures/sprites that must be drawn to the screen.
+   * Refer to MainMenu.java for comments regarding each section. Play should operate in the same
+   * way with changes to the textures/sprites that must be drawn to the screen.
    */
   public Play(FilePlayMain mainGame) {
     super(mainGame);
@@ -88,7 +88,7 @@ public class Play extends BaseScreen {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         // Change to lobby screen.
-        mainGame.setScreen(FilePlayMain.ScreenType.LOBBY);
+        mainGame.setScreen(new Lobby(mainGame));
         return true;
       }
     });
