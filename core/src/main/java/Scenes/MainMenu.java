@@ -95,7 +95,6 @@ public class MainMenu extends BaseScreen {
     playButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        // Change to lobby screen.
         mainGame.setScreen(new Lobby(mainGame));
         return true;
       }
@@ -103,14 +102,12 @@ public class MainMenu extends BaseScreen {
     leaderboardsButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        // Change to leaderboards screen.
         mainGame.setScreen(new Leaderboards(mainGame));
         return true;
       }
     });
     settingsButton.addListener(new InputListener() {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        // Change to the settings screen.
         mainGame.setScreen(new Settings(mainGame));
         return true;
       }

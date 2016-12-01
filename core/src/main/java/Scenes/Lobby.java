@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.mygdx.game.FilePlayMain;
 
+import GameObjects.GameSettings;
 import UIElements.ButtonActor;
 
 /**
@@ -24,12 +25,11 @@ public class Lobby extends BaseScreen {
   private TextButton playButton;
   // Buttons for each of the categories.
   private TextButton generalButton;
-  private TextButton booksButton;
-  private TextButton filmButton;
+  private TextButton geographyButton;
   private TextButton musicButton;
-  private TextButton televisionButton;
   private TextButton videoGamesButton;
-  private TextButton sportsButton;
+  private TextButton scienceNatureButton;
+  private TextButton historyButton;
   // Buttons for each of the difficulties.
   private TextButton easyButton;
   private TextButton mediumDifficultyButton;
@@ -41,12 +41,27 @@ public class Lobby extends BaseScreen {
   // Font for the labels "Category", "Difficulty", and "Game Length"
   private BitmapFont labelFont;
   // Spacing and offsets to draw with respect to text and buttons.
-  private final int OFFSET = 10;
-  private final int LABELX = 20;
+  private static final int OFFSET = 10;
+  private static final int LABEL_X = 20;
   // References to the buttons that are currently pressed.
   private TextButton pressedCategory;
   private TextButton pressedDifficulty;
   private TextButton pressedLength;
+  // Text for each of the buttons.
+  public static final String GENERAL_TEXT = "General";
+  public static final String GEOGRAPHY_TEXT = "Geography";
+  public static final String MUSIC_TEXT = "Music";
+  public static final String VIDEOGAMES_TEXT = "Video Games";
+  public static final String SCIENCE_NATURE_TEXT = "Science and Nature";
+  public static final String HISTORY_TEXT = "History";
+  public static final String EASY_TEXT = "Easy";
+  public static final String NORMAL_TEXT = "Normal";
+  public static final String HARD_TEXT = "Hard";
+  public static final String SHORT_TEXT = "Short (5)";
+  public static final String MEDIUM_TEXT = "Medium (7)";
+  public static final String LONG_TEXT = "Long (9)";
+  // This will store the preferences so that the Url can be built properly.
+  private GameSettings settings;
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Lobby should operate in the same
@@ -73,9 +88,9 @@ public class Lobby extends BaseScreen {
     // Draws the text "Lobby" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
     // Draws all the labels for each section.
-    labelFont.draw(spriteBatch, "Categories", LABELX, 690);
-    labelFont.draw(spriteBatch, "Difficulty", LABELX, 470);
-    labelFont.draw(spriteBatch, "Game Length", LABELX, 300);
+    labelFont.draw(spriteBatch, "Categories", LABEL_X, 690);
+    labelFont.draw(spriteBatch, "Difficulty", LABEL_X, 470);
+    labelFont.draw(spriteBatch, "Game Length", LABEL_X, 300);
     spriteBatch.end();
   }
 
@@ -90,53 +105,52 @@ public class Lobby extends BaseScreen {
   @Override
   protected void createButtons() {
     backButton = new ButtonActor(new Texture(Gdx.files.internal("black-back-arrow.png")), 0, 735);
-    TextButtonStyle style;
-    style = setStyle("nano yellow", "nano yellow");
-    playButton = new TextButton("Play", style);
+
+    playButton = new TextButton("Play", createStyle("nano yellow", "nano yellow"));
     playButton.setPosition(220, 20);
     playButton.setHeight(50);
     playButton.setWidth(250);
-    style = setStyle("nano blue", "nano blue pressed");
-    generalButton = new TextButton("General", style);
+
+    generalButton = new TextButton(GENERAL_TEXT, createStyle("nano blue", "nano blue pressed"));
     generalButton.setPosition(20, 600);
-    style = setStyle("nano cyan", "nano cyan pressed");
-    booksButton = new TextButton("Books", style);
-    booksButton.setPosition(getButtonXOffset(generalButton, OFFSET), generalButton.getY());
-    style = setStyle("nano green", "nano green pressed");
-    filmButton = new TextButton("Film", style);
-    filmButton.setPosition(getButtonXOffset(booksButton, OFFSET), generalButton.getY());
-    style = setStyle("nano red", "nano red pressed");
-    sportsButton = new TextButton("Sports", style);
-    sportsButton.setPosition(getButtonXOffset(filmButton, OFFSET),
-                             generalButton.getY());
-    style = setStyle("nano orange", "nano orange pressed");
-    televisionButton = new TextButton("Television", style);
-    televisionButton.setPosition(generalButton.getX(), getButtonYOffset(generalButton, OFFSET));
-    style = setStyle("nano pink", "nano pink pressed");
-    videoGamesButton = new TextButton("Video Games", style);
-    videoGamesButton.setPosition(getButtonXOffset(televisionButton, OFFSET),
-                                 getButtonYOffset(generalButton, OFFSET));
-    style = setStyle("nano indigo", "nano indigo pressed");
-    musicButton = new TextButton("Music", style);
-    musicButton.setPosition(getButtonXOffset(videoGamesButton, OFFSET),
-                            getButtonYOffset(generalButton, OFFSET));
-    style = setStyle("nano green", "nano green pressed");
-    easyButton = new TextButton("Easy", style);
+
+    videoGamesButton = new TextButton(VIDEOGAMES_TEXT,
+                                      createStyle("nano pink", "nano pink pressed"));
+    videoGamesButton.setPosition(getButtonXOffset(generalButton, OFFSET), generalButton.getY());
+
+    scienceNatureButton = new TextButton(SCIENCE_NATURE_TEXT,
+                                         createStyle("nano indigo", "nano indigo pressed"));
+    scienceNatureButton.setPosition(generalButton.getX(), getButtonYOffset(generalButton, OFFSET));
+
+    historyButton = new TextButton(HISTORY_TEXT, createStyle("nano cyan", "nano cyan pressed"));
+    historyButton.setPosition(getButtonXOffset(scienceNatureButton, OFFSET),
+                              scienceNatureButton.getY());
+
+    musicButton = new TextButton(MUSIC_TEXT, createStyle("nano orange", "nano orange pressed"));
+    musicButton.setPosition(generalButton.getX(), getButtonYOffset(scienceNatureButton, OFFSET));
+
+    geographyButton = new TextButton(GEOGRAPHY_TEXT,
+                                     createStyle("nano green", "nano green pressed"));
+    geographyButton.setPosition(getButtonXOffset(musicButton, OFFSET), musicButton.getY());
+
+    easyButton = new TextButton(EASY_TEXT, createStyle("nano green", "nano green pressed"));
     easyButton.setPosition(generalButton.getX(), 380);
-    style = setStyle("nano yellow", "nano yellow pressed");
-    mediumDifficultyButton = new TextButton("Medium", style);
+
+    mediumDifficultyButton = new TextButton(NORMAL_TEXT,
+                                            createStyle("nano yellow", "nano yellow pressed"));
     mediumDifficultyButton.setPosition(getButtonXOffset(easyButton, OFFSET), easyButton.getY());
-    style = setStyle("nano red", "nano red pressed");
-    hardButton = new TextButton("Hard", style);
+
+    hardButton = new TextButton(HARD_TEXT, createStyle("nano red", "nano red pressed"));
     hardButton.setPosition(getButtonXOffset(mediumDifficultyButton, OFFSET), easyButton.getY());
-    style = setStyle("nano cyan", "nano cyan pressed");
-    shortButton = new TextButton("Short (5)", style);
+
+    shortButton = new TextButton(SHORT_TEXT, createStyle("nano cyan", "nano cyan pressed"));
     shortButton.setPosition(generalButton.getX(), 210);
-    style = setStyle("nano indigo", "nano indigo pressed");
-    mediumLengthButton = new TextButton("Medium (7)", style);
+
+    mediumLengthButton = new TextButton(MEDIUM_TEXT,
+                                        createStyle("nano indigo", "nano indigo pressed"));
     mediumLengthButton.setPosition(getButtonXOffset(shortButton, OFFSET), shortButton.getY());
-    style = setStyle("nano orange", "nano orange pressed");
-    longButton = new TextButton("Long (9)", style);
+
+    longButton = new TextButton(LONG_TEXT, createStyle("nano orange", "nano orange pressed"));
     longButton.setPosition(getButtonXOffset(mediumLengthButton, OFFSET), shortButton.getY());
   }
 
@@ -160,6 +174,9 @@ public class Lobby extends BaseScreen {
         if (pressedCategory == null || pressedDifficulty == null || pressedLength == null) {
           System.out.println("One of the preferences has not been selected");
         } else {
+          settings = new GameSettings(pressedLength.getText().toString(),
+                                      pressedCategory.getText().toString(),
+                                      pressedDifficulty.getText().toString());
           mainGame.setScreen(new Play(mainGame));
         }
         return true;
@@ -170,57 +187,45 @@ public class Lobby extends BaseScreen {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedCategory == null) {
           pressedCategory = generalButton;
-        } else if (pressedCategory != null) {
+        } else {
           pressedCategory.setChecked(false);
           pressedCategory = generalButton;
         }
         return true;
       }
     });
-    booksButton.addListener(new InputListener() {
+    historyButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedCategory == null) {
-          pressedCategory = booksButton;
-        } else if (pressedCategory != null) {
+          pressedCategory = historyButton;
+        } else {
           pressedCategory.setChecked(false);
-          pressedCategory = booksButton;
+          pressedCategory = historyButton;
         }
         return true;
       }
     });
-    filmButton.addListener(new InputListener() {
+    scienceNatureButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedCategory == null) {
-          pressedCategory = filmButton;
-        } else if (pressedCategory != null) {
+          pressedCategory = scienceNatureButton;
+        } else {
           pressedCategory.setChecked(false);
-          pressedCategory = filmButton;
+          pressedCategory = scienceNatureButton;
         }
         return true;
       }
     });
-    sportsButton.addListener(new InputListener() {
+    geographyButton.addListener(new InputListener() {
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedCategory == null) {
-          pressedCategory = sportsButton;
-        } else if (pressedCategory != null) {
+          pressedCategory = geographyButton;
+        } else {
           pressedCategory.setChecked(false);
-          pressedCategory = sportsButton;
-        }
-        return true;
-      }
-    });
-    televisionButton.addListener(new InputListener() {
-      @Override
-      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        if (pressedCategory == null) {
-          pressedCategory = televisionButton;
-        } else if (pressedCategory != null) {
-          pressedCategory.setChecked(false);
-          pressedCategory = televisionButton;
+          pressedCategory = geographyButton;
         }
         return true;
       }
@@ -230,7 +235,7 @@ public class Lobby extends BaseScreen {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedCategory == null) {
           pressedCategory = videoGamesButton;
-        } else if (pressedCategory != null) {
+        } else {
           pressedCategory.setChecked(false);
           pressedCategory = videoGamesButton;
         }
@@ -242,7 +247,7 @@ public class Lobby extends BaseScreen {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedCategory == null) {
           pressedCategory = musicButton;
-        } else if (pressedCategory != null) {
+        } else {
           pressedCategory.setChecked(false);
           pressedCategory = musicButton;
         }
@@ -254,7 +259,7 @@ public class Lobby extends BaseScreen {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedDifficulty == null) {
           pressedDifficulty = easyButton;
-        } else if (pressedDifficulty != null) {
+        } else {
           pressedDifficulty.setChecked(false);
           pressedDifficulty = easyButton;
         }
@@ -266,7 +271,7 @@ public class Lobby extends BaseScreen {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedDifficulty == null) {
           pressedDifficulty = mediumDifficultyButton;
-        } else if (pressedDifficulty != null) {
+        } else {
           pressedDifficulty.setChecked(false);
           pressedDifficulty = mediumDifficultyButton;
         }
@@ -278,7 +283,7 @@ public class Lobby extends BaseScreen {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedDifficulty == null) {
           pressedDifficulty = hardButton;
-        } else if (pressedDifficulty != null) {
+        } else {
           pressedDifficulty.setChecked(false);
           pressedDifficulty = hardButton;
         }
@@ -290,7 +295,7 @@ public class Lobby extends BaseScreen {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedLength == null) {
           pressedLength = shortButton;
-        } else if (pressedLength != null) {
+        } else {
           pressedLength.setChecked(false);
           pressedLength = shortButton;
         }
@@ -302,7 +307,7 @@ public class Lobby extends BaseScreen {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedLength == null) {
           pressedLength = mediumLengthButton;
-        } else if (pressedLength != null) {
+        } else {
           pressedLength.setChecked(false);
           pressedLength = mediumLengthButton;
         }
@@ -314,15 +319,13 @@ public class Lobby extends BaseScreen {
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         if (pressedLength == null) {
           pressedLength = longButton;
-        } else if (pressedLength != null) {
+        } else {
           pressedLength.setChecked(false);
           pressedLength = longButton;
         }
         return true;
       }
     });
-
-
   }
 
   /**
@@ -333,12 +336,11 @@ public class Lobby extends BaseScreen {
     stage.addActor(backButton);
     stage.addActor(playButton);
     stage.addActor(generalButton);
-    stage.addActor(booksButton);
-    stage.addActor(filmButton);
+    stage.addActor(geographyButton);
+    stage.addActor(historyButton);
+    stage.addActor(scienceNatureButton);
     stage.addActor(musicButton);
-    stage.addActor(televisionButton);
     stage.addActor(videoGamesButton);
-    stage.addActor(sportsButton);
     stage.addActor(easyButton);
     stage.addActor(mediumDifficultyButton);
     stage.addActor(hardButton);
@@ -358,7 +360,7 @@ public class Lobby extends BaseScreen {
    * @return a style with the corresponding 'up' and 'down' textures used for the button and the
    * font that is set within the method.
    */
-  private TextButtonStyle setStyle(String up, String down) {
+  private TextButtonStyle createStyle(String up, String down) {
     TextButtonStyle style = new TextButtonStyle();
     // Sets the skin for when the button is not pressed and when it is. The argument that is passed
     // is searched for in the atlas within the buttonSkin object.

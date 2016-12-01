@@ -55,7 +55,6 @@ public abstract class BaseScreen implements Screen {
     // Creates new FreeTypeFontParameter to modify fonts.
     parameter = new FreeTypeFontParameter();
     // Creates BitmapFont for the text that is going to be in the center of the banner.
-    bannerText = new BitmapFont();
     bannerText = generateNewFont("BROADSolid.ttf", 36, Color.BLACK);
     // Creates an atlas object which can use all the textures within it. Each screen will have
     // access to the atlas in order to create button skins from it.
@@ -160,7 +159,7 @@ public abstract class BaseScreen implements Screen {
 
   /**
    * This method returns the y value of 'offset' from the bottom end of 'button' using an offset of
-   * -('button' height + offset) from the bottom end of 'button'
+   * -('button' height + offset) from the bottom end of 'button'.
    *
    * @param button the button to calculate the offset from
    * @param offset the offset from the bottom end that is desired.
