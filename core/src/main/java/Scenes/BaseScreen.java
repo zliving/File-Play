@@ -83,7 +83,8 @@ public abstract class BaseScreen implements Screen {
    */
   @Override
   public void render(float delta) {
-    Gdx.gl.glClearColor(86 / 255f, 86 / 255f, 86 / 255f, 1);
+    // Sets the background to a medium dark shade of grey.
+    Gdx.gl.glClearColor(64/225.0f, 64/225.0f, 64/225.0f, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     spriteBatch.setProjectionMatrix(camera.combined);
     spriteBatch.begin();
