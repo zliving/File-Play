@@ -10,7 +10,7 @@ import com.mygdx.game.FilePlayMain;
 
 public class GameOverLobby extends BaseScreen {
 
-  public GameOverLobby(FilePlayMain mainGame) {
+  public GameOverLobby(FilePlayMain mainGame, int score) {
     super(mainGame);
     // Creates GlyphLayout to get width for centering text in the banner.
     bannerTextGlyphLayout = new GlyphLayout(bannerText, "Game Over");

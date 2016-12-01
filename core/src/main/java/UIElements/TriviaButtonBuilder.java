@@ -63,6 +63,7 @@ public class TriviaButtonBuilder extends Game {
   public long startTime =0;
   public long timePassed;
   private TriviaScoreManager newGameScore;
+  public boolean isEndGame = false;
 
   public TriviaButtonBuilder() {
     startTime = System.currentTimeMillis();
@@ -73,7 +74,7 @@ public class TriviaButtonBuilder extends Game {
 
     // Get an array of questions from the database.
     TriviaQuestionBuilder newTriviaGame = new TriviaQuestionBuilder();
-    url = "https://www.opentdb.com/api.php?amount=5&type=multiple";
+    url = "https://www.opentdb.com/api.php?amount=5&category=15&difficulty=easy&type=multiple";
 
     return newTriviaGame.getTriviaQuestions(url);
   }
@@ -173,10 +174,14 @@ public class TriviaButtonBuilder extends Game {
       Gdx.input.setInputProcessor(stage);
     } else {
       System.out.println("Games is over! Your score is: " + newGameScore.getPlayerScore());
+      isEndGame = true;
     }
 
   }
 
+  public int getGameScore() {
+    return newGameScore.getPlayerScore();
+  }
   @Override
   public void create() {
     newGameScore = new TriviaScoreManager();

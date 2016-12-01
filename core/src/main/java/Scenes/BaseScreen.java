@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -58,7 +59,7 @@ public abstract class BaseScreen implements Screen {
     bannerText = generateNewFont("BROADSolid.ttf", 36, Color.BLACK);
     // Creates an atlas object which can use all the textures within it. Each screen will have
     // access to the atlas in order to create button skins from it.
-    buttonAtlas = new TextureAtlas(Gdx.files.internal("final atlas 4.pack"));
+    buttonAtlas = new TextureAtlas(Gdx.files.internal("final atlas 8.pack"));
     buttonSkin = new Skin();
     // Initializes the banner Sprite.
     banner = buttonAtlas.createSprite("banner - plain");
@@ -141,7 +142,7 @@ public abstract class BaseScreen implements Screen {
     parameter.color = color;
     generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/" + fontPath));
     BitmapFont smoothFont = generator.generateFont(parameter);
-    // Linearly filter the text to prevent pixelation. 
+    // Linearly filter the text to prevent pixelation.
     smoothFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     return smoothFont;
   }

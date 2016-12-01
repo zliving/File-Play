@@ -25,6 +25,7 @@ public class Play extends BaseScreen {
   private Animation animation;
   private float elapsedTime = 0.0f;
   public Music music;
+  private TriviaButtonBuilder newTriviaGame;
 
   /**
    * Refer to MainMenu.java for comments regarding each section. Play should operate in the same
@@ -54,9 +55,9 @@ public class Play extends BaseScreen {
     animation = new Animation(1/4f, ringsAtlas.getRegions());
   }
 
-  public void goToEndGameScreen(TriviaScoreManager gameScore) {
+  public void goToEndGameScreen(int score) {
 
-    mainGame.setScreen(FilePlayMain.ScreenType.GAMEOVERLOBBY);
+    mainGame.setScreen(new Roulette(mainGame));
   }
 
   @Override
@@ -67,6 +68,10 @@ public class Play extends BaseScreen {
     spriteBatch.begin();
     // Draws the text "Play" in the center of the banner.
     bannerText.draw(spriteBatch, bannerTextGlyphLayout, glyphCenterX, 770);
+    newTriviaGame.render();
+    if(newTriviaGame.isEndGame) {
+      goToEndGameScreen(newTriviaGame.getGameScore());
+    }
     // Keeps count of the time for the animation to use.
     elapsedTime += Gdx.graphics.getDeltaTime();
     // Draws and cycles each sprite in the atlas at the center-ish of the screen.

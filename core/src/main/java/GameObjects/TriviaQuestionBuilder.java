@@ -61,7 +61,7 @@ public class TriviaQuestionBuilder {
           for (JsonValue resultsJson : resultJson.iterator()) {
             TriviaQuestion newQuestion = new TriviaQuestion();
             newQuestion.question = StringEscapeUtils.unescapeHtml4(resultsJson.getString("question"));
-            newQuestion.correctAnswer = (resultsJson.getString("correct_answer"));
+            newQuestion.correctAnswer = StringEscapeUtils.unescapeHtml4(resultsJson.getString("correct_answer"));
             newQuestion.incorrectAnswers = (resultsJson.get("incorrect_answers").asStringArray());
             questions.add(newQuestion);
           }
