@@ -8,6 +8,7 @@ package GameObjects;
 
 public class TriviaScoreManager {
   private int playerScore;
+  public int correctlyAnswered = 0;
 
 
   public void setPlayerScore(int addedScore) {

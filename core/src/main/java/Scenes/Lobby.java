@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.mygdx.game.FilePlayMain;
 
 import GameObjects.GameSettings;
+import GameObjects.UrlBuilder;
 import UIElements.ButtonActor;
 
 /**
@@ -92,6 +93,11 @@ public class Lobby extends BaseScreen {
     labelFont.draw(spriteBatch, "Difficulty", LABEL_X, 470);
     labelFont.draw(spriteBatch, "Game Length", LABEL_X, 300);
     spriteBatch.end();
+  }
+
+  @Override
+  public void dispose(){
+    labelFont.dispose();
   }
 
   /**

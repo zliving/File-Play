@@ -1,0 +1,47 @@
+
+ring spritesheet.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+ring 1
+  rotate: false
+  xy: 1, 203
+  size: 206, 200
+  orig: 206, 200
+  offset: 0, 0
+  index: -1
+ring 2
+  rotate: false
+  xy: 1, 1
+  size: 206, 200
+  orig: 206, 200
+  offset: 0, 0
+  index: -1
+ring 3
+  rotate: false
+  xy: 209, 203
+  size: 206, 200
+  orig: 206, 200
+  offset: 0, 0
+  index: -1
+ring 4
+  rotate: false
+  xy: 209, 1
+  size: 206, 200
+  orig: 206, 200
+  offset: 0, 0
+  index: -1
+ring 5
+  rotate: false
+  xy: 417, 203
+  size: 206, 200
+  orig: 206, 200
+  offset: 0, 0
+  index: -1
+ring 6
+  rotate: false
+  xy: 417, 1
+  size: 206, 200
+  orig: 206, 200
+  offset: 0, 0
+  index: -1
